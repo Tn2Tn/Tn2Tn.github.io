@@ -15,6 +15,7 @@ const podcastData = [
     podcastPath: "",
   },
   */
+
   {
     posterUrl: "assets/images/episode01.png",
     title: "Sound waves",
@@ -30,6 +31,14 @@ const podcastData = [
     episode: "2",
     summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     podcastPath: "assets/podcasts/file_example_MP3_700KB.mp3",
+  },
+    {
+    posterUrl: "assets/images/episode03.png",
+    title: "podcast trial",
+    guest: "Lipa",
+    episode: "4",
+    summary: "This is a test i will take it down soon.",
+    podcastPath: "assets/podcasts/Lipa Schmeltzer - Abaye Ve'ruva (Official Music Video).mp3",
   },
 ];
 
