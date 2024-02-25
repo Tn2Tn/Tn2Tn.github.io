@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- 
+    - primary meta tags
+  -->
+    <title>Tn 2 Tn Podcast</title>
+    <meta name="title" content="Tn 2 Tn Podcast" />
+    <meta name="description" content="Tn 2 Tn Podcast web player" />
+
+    <!-- 
+    - favicon
+  -->
+    <link rel="shortcut icon" href="favicon.png" type="image/png" />
+
+    <!-- 
+    - google font link
+  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+
+    <!-- 
+    - material icon font
+  -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,-25"
+    />
+
+    <!-- 
+    - custom css link
+  -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body style="background-image: url(images/episode.png)">
+    <!-- 
+    - #TOP APP BAR
+  -->
+
+    <div class="top-bar wrapper">
+      <div class="logo wrapper">
+        <a href=""><span class="material-symbols-rounded" style="vertical-align: bottom">home</span></a>
+
+        <h1 class="title-lg">Tn 2 Tn</h1>
+      </div>
+    </div>
+
+    <main class="backdrop">
+      <div style="align-content: center">
+        <h2>
+          <span>Welcome to Tn 2 Tn</span>
+          <span style="padding-top: 20px" id="message"></span>
+        </h2>
+      </div>
+      <div class="player">
+        <div class="container">
+          <a href="podcast"
+            ><figure class="podcast-banner">
+              <img src="images/Podcast.svg" alt="Tn2Tn Podcast" class="img-cover" />
+            </figure>
+          </a>
+          <a href="video"
+            ><figure class="podcast-banner">
+              <img src="images/Video.svg" alt="Tn2Tn Video" class="img-cover" />
+            </figure>
+          </a>
+        </div>
+      </div>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
