@@ -32,14 +32,6 @@ const podcastData = [
     summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     podcastPath: "assets/podcasts/file_example_MP3_700KB.mp3",
   },
-    {
-    posterUrl: "",
-    title: "",
-    guest: "",
-    episode: "",
-    summary: "",
-    podcastPath: "",
-  },
 ];
 
 /**
