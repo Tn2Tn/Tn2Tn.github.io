@@ -19,7 +19,7 @@ const podcastData = [
     posterUrl: "assets/images/episode01.png",
     title: "Sound waves",
     guest: "Beep",
-    episode: "1",
+    episode: "3",
     summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     podcastPath: "assets/podcasts/file_example_MP3_700KB.mp3",
   },
