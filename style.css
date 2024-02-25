@@ -177,7 +177,7 @@ body:hover::-webkit-scrollbar-thumb {
 h2 {
   text-align: center;
   font-size: 3rem;
-  padding-top: 5vh;
+  padding-top: 3vh;
 }
 /*-----------------------------------*\
   #REUSED STYLE
@@ -293,7 +293,7 @@ h2 {
 
 .player {
   display: flex;
-  padding-top: 20vh;
+  padding-top: 10vh;
 }
 .player .container {
   width: 100%;
