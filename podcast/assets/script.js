@@ -1,43 +1,5 @@
 "use strict";
 
-// //comming soon-start
-// // Remove background image from the body
-// document.body.style.backgroundImage = "none";
-
-// // Create a div element for the "Coming Soon" banner
-// var comingSoonDiv = document.createElement("div");
-// comingSoonDiv.innerHTML = "<h1 style='color: red;'>Coming Soon</h1>"; // Set color to red
-// comingSoonDiv.style.cssText = "position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #fff; padding: 20px; border: 1px solid #ccc; text-align: center; z-index: 9999;"; // Added text-align: center;
-
-// // Create a button to go home
-// var goHomeButton = document.createElement("button");
-// goHomeButton.style.cssText = "padding: 10px 20px; background-color: #007bff; color: #fff; border: none; cursor: pointer; display: flex; align-items: center;";
-
-// // Create a home icon inside the button
-// var homeIcon = document.createElement("img");
-// homeIcon.src = "data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='20' height='20'%3E%3Cpath d='M12 3L2 12h3v8h6v-6h4v6h6v-8h3L12 3zm8 7h-4V5.83l-7 7-7-7V10H4v10h4v-6h6v6h4V10h4v4z'/%3E%3C/svg%3E";
-// homeIcon.style.cssText = "width: 20px; height: 20px; margin-right: 5px;";
-
-// // Add the home icon to the button
-// goHomeButton.appendChild(homeIcon);
-
-// // Add the "Go Home" text to the button
-// var goHomeText = document.createTextNode("Go Home");
-// goHomeButton.appendChild(goHomeText);
-
-// // Add event listener to the button to navigate to the home page
-// goHomeButton.addEventListener("click", function() {
-//     window.location.href = "../"; // Redirect to the parent directory
-// });
-
-// // Append the button to the "Coming Soon" div
-// comingSoonDiv.appendChild(goHomeButton);
-
-// // Replace all content of the body with the "Coming Soon" banner
-// document.body.innerHTML = "";
-// document.body.appendChild(comingSoonDiv);
-// //comming soon-end
-
 /**
  * all podcast information
  */

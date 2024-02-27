@@ -42,6 +42,43 @@
   </head>
 
   <body style="background-image: url(images/episode.png)">
+        
+<!-- Coming Soon Overlay -->
+<div id="comingSoonOverlay" style="display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: hsl(204, 9%, 11%); z-index: 9999;">
+  <!-- Content -->
+  <div style="color: white; font-size: 24px; text-align: center; display: flex; flex-direction: column; align-items: center;">
+      <div style="margin-bottom: 20px;">
+          <img src="favicon.png" alt="Coming Soon Image" style="width: 200px; height: auto;">
+      </div>
+      <h1>Coming Soon</h1>
+      <p>Our website is under construction. Stay tuned for updates!</p>
+      <!-- Password Input Field -->
+      <div style="display: flex; align-items: center; justify-content: center;">
+          <input type="password" id="passwordInput" placeholder="Enter password" style="color: white;padding: 10px; border-radius: 5px; width: 200px;">
+      </div>
+  </div>
+</div>
+<script>
+  // Get references to the elements
+  const customOverlay = document.getElementById('comingSoonOverlay'); // Changed name to customOverlay
+  const passwordInput = document.getElementById('passwordInput');
+
+  // Function to check if the password is correct
+  function checkPassword() {
+      const password = 'allow'; // Replace 'your_password_here' with the actual password
+      if (passwordInput.value === password) {
+          customOverlay.style.display = 'none'; // Hide the overlay if password is correct
+      }
+  }
+
+  // Listen for keyup event on the password input field
+  passwordInput.addEventListener('keyup', function(event) {
+      checkPassword(); // Call the checkPassword function whenever a key is pressed
+  });
+</script>
+<!-- End Coming Soon Overlay -->
+
+
     <!-- 
     - #TOP APP BAR
   -->
