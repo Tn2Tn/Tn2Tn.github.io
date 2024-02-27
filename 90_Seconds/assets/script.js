@@ -162,12 +162,12 @@ const changePlayerInfo = function () {
   playerBanner.src = videoData[currentMusic].videoPath;
   playerBanner.setAttribute("alt", `${videoData[currentMusic].title} Album Poster`);
   document.body.style.backgroundImage = `url(${videoData[currentMusic].posterUrl})`;
-  setBackground();
   playerTitle.textContent = videoData[currentMusic].title;
   playerYear.textContent = "Episode: " + videoData[currentMusic].episode;
   playerArtist.textContent = videoData[currentMusic].summary;
 
   audioSource.src = videoData[currentMusic].videoPath;
+  setBackground();
 
   // audioSource.addEventListener("loadeddata", updateDuration);
   // playMusic();
