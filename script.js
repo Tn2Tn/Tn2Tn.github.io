@@ -1,5 +1,18 @@
 "use strict";
 
+// Check if the user agent contains "iPhone", "iPad", or "iPod"
+const isAppleDevice = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+// Function to set background image to none if on an Apple device
+function setBackground() {
+  if (isAppleDevice) {
+    document.body.style.backgroundImage = "none";
+  }
+}
+
+// Call the function when the page loads
+window.onload = setBackground;
+
 // Function to pick a random comment
 function pickRandomComment(comments) {
   return comments[Math.floor(Math.random() * comments.length)];
