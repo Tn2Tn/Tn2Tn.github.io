@@ -1,72 +1,42 @@
 "use strict";
 
 /**
- * all podcast information
+ * add event Listener on all elements that are passed
  */
-
-const podcastData = [
-  /** empty data entry
-  {
-    posterUrl: "",
-    title: "",
-    guest: "",
-    episode: "",
-    summary: "",
-    podcastPath: "",
-  },
-  */
-
-  {
-    posterUrl: "assets/images/episode01.png",
-    title: "Sound waves",
-    guest: "Beep",
-    episode: "1",
-    summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    podcastPath: "assets/podcasts/file_example_MP3_700KB.mp3",
-  },
-  {
-    posterUrl: "assets/images/episode02.png",
-    title: "Beep",
-    guest: "Sound waves",
-    episode: "2",
-    summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    podcastPath: "assets/podcasts/file_example_MP3_700KB.mp3",
-  },
-];
-
-/**
- * add event Listnere on all elements that are passed
- */
-
 const addEventOnElements = function (elements, eventType, callback) {
   for (let i = 0, len = elements.length; i < len; i++) {
     elements[i].addEventListener(eventType, callback);
   }
 };
 
-/**
- * PLAYLIST
- *
- * add all podcast in playlist, from 'podcastData'
- */
+// Fetch podcast data from external JSON file
+fetch('assets/podcastData.json')
+  .then(response => response.json())
+  .then(data => {
+    // Once data is fetched, proceed with the rest of the script
+    const podcastData = data;
 
-const playlist = document.querySelector("[data-podcast-list]");
+    /**
+     * PLAYLIST
+     *
+     * add all podcast in playlist, from 'podcastData'
+     */
+    const playlist = document.querySelector("[data-podcast-list]");
 
-for (let i = 0, len = podcastData.length; i < len; i++) {
-  playlist.innerHTML += `
-  <li>
-    <button class="podcast-item ${i === 0 ? "playing" : ""}" data-playlist-toggler data-playlist-item="${i}">
-      <img src="${podcastData[i].posterUrl}" width="800" height="800" alt="${podcastData[i].title} Album Poster"
-        class="img-cover">
+    for (let i = 0, len = podcastData.length; i < len; i++) {
+      playlist.innerHTML += `
+      <li>
+        <button class="podcast-item ${i === 0 ? "playing" : ""}" data-playlist-toggler data-playlist-item="${i}">
+          <img src="${podcastData[i].posterUrl}" width="800" height="800" alt="${podcastData[i].title} Album Poster"
+            class="img-cover">
 
-      <div class="item-icon">
-        <span class="material-symbols-rounded">equalizer</span>
-      </div>
-    </button>
-  </li>
-  `;
-}
-
+          <div class="item-icon">
+            <span class="material-symbols-rounded">equalizer</span>
+          </div>
+        </button>
+      </li>
+      `;
+    }
 /**
  * PLAYLIST MODAL SIDEBAR TOGGLE
  *
@@ -358,3 +328,5 @@ const muteVolume = function () {
 };
 
 playerVolumeBtn.addEventListener("click", muteVolume);
+})
+.catch(error => console.error('Error fetching podcast data:', error));
