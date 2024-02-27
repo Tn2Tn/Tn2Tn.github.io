@@ -1,42 +1,68 @@
 "use strict";
 
 /**
- * add event Listener on all elements that are passed
+ * all podcast information
  */
+
+const videoData = [
+  /** empty data entry
+  {
+    posterUrl: "",
+    title: "",
+    episode: "",
+    summary: "",
+    videoPath: "",
+  },
+  */
+    {
+     "posterUrl": "assets/images/episode01.png",
+     "title": "Sound waves",
+     "episode": "1",
+     "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "videoPath": "assets/Videos/file_example_MP4_480_1_5MG.mp4"
+   },
+   {
+     "posterUrl": "assets/images/episode02.png",
+     "title": "video file",
+     "episode": "2",
+     "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "videoPath": "assets/Videos/file_example_MP4_480_1_5MG.mp4"
+   }
+ ];
+
+/**
+ * add event Listnere on all elements that are passed
+ */
+
 const addEventOnElements = function (elements, eventType, callback) {
   for (let i = 0, len = elements.length; i < len; i++) {
     elements[i].addEventListener(eventType, callback);
   }
 };
 
-// Fetch podcast data from external JSON file
-fetch('assets/videoData.json?v=2')
-  .then(response => response.json())
-  .then(data => {
-    // Once data is fetched, proceed with the rest of the script
-    const podcastData = data;
+/**
+ * PLAYLIST
+ *
+ * add all podcast in playlist, from 'videoData'
+ */
 
-    /**
-     * PLAYLIST
-     *
-     * add all podcast in playlist, from 'podcastData'
-     */
-    const playlist = document.querySelector("[data-podcast-list]");
+const playlist = document.querySelector("[data-podcast-list]");
 
-    for (let i = 0, len = podcastData.length; i < len; i++) {
-      playlist.innerHTML += `
-      <li>
-        <button class="podcast-item ${i === 0 ? "playing" : ""}" data-playlist-toggler data-playlist-item="${i}">
-          <img src="${podcastData[i].posterUrl}" width="800" height="800" alt="${podcastData[i].title} Album Poster"
-            class="img-cover">
+for (let i = 0, len = videoData.length; i < len; i++) {
+  playlist.innerHTML += `
+  <li>
+    <button class="podcast-item ${i === 0 ? "playing" : ""}" data-playlist-toggler data-playlist-item="${i}">
+      <img src="${videoData[i].posterUrl}" width="800" height="800" alt="${videoData[i].title} Album Poster"
+        class="img-cover">
 
-          <div class="item-icon">
-            <span class="material-symbols-rounded">equalizer</span>
-          </div>
-        </button>
-      </li>
-      `;
-    }
+      <div class="item-icon">
+        <span class="material-symbols-rounded">equalizer</span>
+      </div>
+    </button>
+  </li>
+  `;
+}
+
 /**
  * PLAYLIST MODAL SIDEBAR TOGGLE
  *
@@ -90,17 +116,17 @@ const playerTitle = document.querySelector("[data-title]");
 const playerYear = document.querySelector("[data-episode]");
 const playerArtist = document.querySelector("[data-summary]");
 
-const audioSource = new Audio(podcastData[currentMusic].videoPath);
+const audioSource = new Audio(videoData[currentMusic].videoPath);
 
 const changePlayerInfo = function () {
-  playerBanner.src = podcastData[currentMusic].videoPath;
-  playerBanner.setAttribute("alt", `${podcastData[currentMusic].title} Album Poster`);
-  document.body.style.backgroundImage = `url(${podcastData[currentMusic].posterUrl})`;
-  playerTitle.textContent = podcastData[currentMusic].title;
-  playerYear.textContent = "Episode: " + podcastData[currentMusic].episode;
-  playerArtist.textContent = podcastData[currentMusic].summary;
+  playerBanner.src = videoData[currentMusic].videoPath;
+  playerBanner.setAttribute("alt", `${videoData[currentMusic].title} Album Poster`);
+  document.body.style.backgroundImage = `url(${videoData[currentMusic].posterUrl})`;
+  playerTitle.textContent = videoData[currentMusic].title;
+  playerYear.textContent = "Episode: " + videoData[currentMusic].episode;
+  playerArtist.textContent = videoData[currentMusic].summary;
 
-  audioSource.src = podcastData[currentMusic].videoPath;
+  audioSource.src = videoData[currentMusic].videoPath;
 
   // audioSource.addEventListener("loadeddata", updateDuration);
   // playMusic();
@@ -220,7 +246,7 @@ const skipNext = function () {
   if (isShuffled) {
     shuffleMusic();
   } else {
-    currentMusic >= podcastData.length - 1 ? (currentMusic = 0) : currentMusic++;
+    currentMusic >= videoData.length - 1 ? (currentMusic = 0) : currentMusic++;
   }
 
   changePlayerInfo();
@@ -241,7 +267,7 @@ const skipPrev = function () {
   if (isShuffled) {
     shuffleMusic();
   } else {
-    currentMusic <= 0 ? (currentMusic = podcastData.length - 1) : currentMusic--;
+    currentMusic <= 0 ? (currentMusic = videoData.length - 1) : currentMusic--;
   }
 
   changePlayerInfo();
@@ -255,7 +281,7 @@ playerSkipPrevBtn.addEventListener("click", skipPrev);
  */
 
 /** get random number for shuffle */
-const getRandomMusic = () => Math.floor(Math.random() * podcastData.length);
+const getRandomMusic = () => Math.floor(Math.random() * videoData.length);
 
 const shuffleMusic = () => (currentMusic = getRandomMusic());
 
@@ -326,5 +352,3 @@ const shuffle = function () {
 // };
 
 // playerVolumeBtn.addEventListener("click", muteVolume);
-})
-.catch(error => console.error('Error fetching podcast data:', error));
