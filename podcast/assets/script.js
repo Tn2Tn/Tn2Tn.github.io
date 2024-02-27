@@ -158,7 +158,7 @@ const changePlayerInfo = function () {
   playerBanner.src = podcastData[currentMusic].posterUrl;
   playerBanner.setAttribute("alt", `${podcastData[currentMusic].title} Album Poster`);
   document.body.style.backgroundImage = `url(${podcastData[currentMusic].posterUrl})`;
-  setBackground;
+  setBackground();
   playerTitle.textContent = podcastData[currentMusic].title;
   playerAlbum.textContent = podcastData[currentMusic].guest;
   playerYear.textContent = "Episode: " + podcastData[currentMusic].episode;
