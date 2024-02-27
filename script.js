@@ -1,11 +1,12 @@
 "use strict";
 
-// Check if the user agent contains "iPhone", "iPad", or "iPod"
-const isAppleDevice = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+// Check if the user is using an iOS device or a Mac with touch support
+let isIOS = /iPad|iPhone|iPod/.test(navigator.platform) ||
+            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
 // Function to set background image to none if on an Apple device
 function setBackground() {
-  if (isAppleDevice) {
+  if (isIOS) {
     document.body.style.backgroundImage = "none";
   }
 }
