@@ -65,6 +65,13 @@ const videoData = [
      "episode": "2",
      "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
      "videoPath": "assets/Videos/file_example_MP4_480_1_5MG.mp4"
+   },
+   {
+     "posterUrl": "assets/images/episode02.png",
+     "title": "epic video",
+     "episode": "3",
+     "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "videoPath": "assets/Videos/file_example_MP4_480_1_5MG.mp4"
    }
  ];
 
