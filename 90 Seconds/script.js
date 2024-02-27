@@ -10,7 +10,7 @@ const addEventOnElements = function (elements, eventType, callback) {
 };
 
 // Fetch podcast data from external JSON file
-fetch('assets/videoData.json')
+fetch('assets/videoData.json?v=1')
   .then(response => response.json())
   .then(data => {
     // Once data is fetched, proceed with the rest of the script
