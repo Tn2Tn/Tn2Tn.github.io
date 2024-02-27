@@ -1,5 +1,29 @@
 "use strict";
 
+//comming soon start
+// Create a div element for the "Coming Soon" banner
+var comingSoonDiv = document.createElement("div");
+comingSoonDiv.innerHTML = "<h1 style='color: red;'>Coming Soon</h1>"; // Set color to red
+comingSoonDiv.style.cssText = "position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #fff; padding: 20px; border: 1px solid #ccc; text-align: center; z-index: 9999;"; // Added text-align: center;
+
+// Create a button to go home
+var goHomeButton = document.createElement("button");
+goHomeButton.innerHTML = "Go Home";
+goHomeButton.style.cssText = "margin-top: 10px; padding: 10px 20px; background-color: #007bff; color: #fff; border: none; cursor: pointer;";
+
+// Add event listener to the button to navigate to the home page
+goHomeButton.addEventListener("click", function() {
+    window.location.href = "../"; // Replace "home.html" with the actual URL of your home page
+});
+
+// Append the button to the "Coming Soon" div
+comingSoonDiv.appendChild(goHomeButton);
+
+// Replace all content of the body with the "Coming Soon" banner
+document.body.innerHTML = "";
+document.body.appendChild(comingSoonDiv);
+//comming soon end 
+
 /**
  * all podcast information
  */
