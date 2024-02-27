@@ -1,6 +1,6 @@
 "use strict";
 
-//comming soon start
+//comming soon-start
 // Remove background image from the body
 document.body.style.backgroundImage = "none";
 
@@ -36,8 +36,7 @@ comingSoonDiv.appendChild(goHomeButton);
 // Replace all content of the body with the "Coming Soon" banner
 document.body.innerHTML = "";
 document.body.appendChild(comingSoonDiv);
-
-//comming soon end 
+//comming soon-end 
 
 /**
  * all podcast information
