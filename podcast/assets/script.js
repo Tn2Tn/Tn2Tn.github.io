@@ -29,7 +29,7 @@ const podcastData = [
      "guest": "Sound waves",
      "episode": "2",
      "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-     "podcastPath": "https://drive.google.com/file/d/1YbazwD81vF9TLaUx3UObhWPfNoti3wLb/view"
+     "podcastPath": "assets/audio/file_example_MP3_700KB.mp3"
    }
  ];
 
