@@ -17,20 +17,12 @@ const podcastData = [
   */
    {
      "posterUrl": "assets/images/episode01.png",
-     "title": "Sound waves",
-     "guest": "Beep",
+     "title": "Hidden Baal Musar",
+     "guest": "Eliezer Kahn",
      "episode": "1",
-     "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-     "podcastPath": "assets/audio/file_example_MP3_700KB.mp3"
+     "summary": "Listen to Eliezer give life musar to all listeners under 90 years young and list 16/21 nicknames  Thank you to MGS for make this episode come out late",
+     "podcastPath": "assets/audio/Eliezer Podcast.mp3"
    },
-   {
-     "posterUrl": "assets/images/episode02.png",
-     "title": "Beep",
-     "guest": "Sound waves",
-     "episode": "2",
-     "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-     "podcastPath": "assets/audio/file_example_MP3_700KB.mp3"
-   }
  ];
 
  // Check if the user is using an iOS device
