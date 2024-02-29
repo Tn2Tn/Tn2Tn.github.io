@@ -374,8 +374,8 @@ body:hover::-webkit-scrollbar-thumb {
 
 /*speed control*/
 #speed-input {
-  width: 54px;
-  height: 54px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-circle);
   transition: background-color; /* Smooth transition */
   display: flex; /* Use flexbox */
@@ -384,7 +384,7 @@ body:hover::-webkit-scrollbar-thumb {
   cursor: pointer; /* Set cursor to pointer */
   user-select: none; /* Prevent text selection */
   color: var(--on-surface-variant);
-  font-size: 1.8rem;
+  font-size: 1.3rem;
   font-weight:bold
 }
 
@@ -568,11 +568,16 @@ body:hover::-webkit-scrollbar-thumb {
   /**
    * REUSED STYLE
    */
+   #speed-input {
+    width: 54px;
+    height: 54px;
+    font-size: 1.8rem;}
 
   .btn-icon {
     width: 54px;
     height: 54px;
   }
+  
 
   .btn-icon .material-symbols-rounded {
     font-size: 2.8rem;
