@@ -20,7 +20,7 @@ const podcastData = [
      "title": "Baal Musar",
      "guest": "Eliezer Kahn",
      "episode": "1",
-     "summary": "Listen to Eliezer give life musar to all listeners under 90 years young and list 16/21 nicknames  Thank you to MGS for make this episode come out late",
+     "summary": "Listen to Eliezer give life musar to all listeners under 90 years young and list 16/21 nicknames  Thank you to MGS for making this episode come out late",
      "podcastPath": "assets/audio/Eliezer Podcast.mp3"
    },
  ];
