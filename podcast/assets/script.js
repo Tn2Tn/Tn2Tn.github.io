@@ -132,6 +132,8 @@ addEventOnElements(playlistItems, "click", function () {
   changePlaylistItem();
 });
 
+
+
 /**
  * PLAYER
  *
@@ -330,19 +332,19 @@ let isShuffled = false;
  * REPEAT MUSIC
  */
 
-// const playerRepeatBtn = document.querySelector("[data-repeat]");
+const playerRepeatBtn = document.querySelector("[data-repeat]");
 
-// const repeat = function () {
-//   if (!audioSource.loop) {
-//     audioSource.loop = true;
-//     this.classList.add("active");
-//   } else {
-//     audioSource.loop = false;
-//     this.classList.remove("active");
-//   }
-// };
+const repeat = function () {
+  if (!audioSource.loop) {
+    audioSource.loop = true;
+    this.classList.add("active");
+  } else {
+    audioSource.loop = false;
+    this.classList.remove("active");
+  }
+};
 
-// playerRepeatBtn.addEventListener("click", repeat);
+playerRepeatBtn.addEventListener("click", repeat);
 
 /**
  * MUSIC VOLUME
@@ -382,3 +384,25 @@ const muteVolume = function () {
 };
 
 playerVolumeBtn.addEventListener("click", muteVolume);
+
+/**
+ * Music Speed
+ */ 
+
+const speedInput = document.getElementById('speed-input');
+const speeds = [1, 1.25, 1.5, 1.75, 2];
+let currentSpeedIndex = 0;
+
+speedInput.addEventListener('click', function() {
+  currentSpeedIndex = (currentSpeedIndex + 1) % speeds.length;
+  const selectedSpeed = speeds[currentSpeedIndex];
+  audioSource.playbackRate = selectedSpeed;
+  this.textContent = selectedSpeed + 'x';
+  
+  // Change color based on selected speed
+  if (selectedSpeed === 1) {
+    this.style.color = 'var(--on-surface-variant)';
+  } else {
+    this.style.color = 'var(--primary)';
+  }
+});

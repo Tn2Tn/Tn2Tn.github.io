@@ -372,6 +372,28 @@ body:hover::-webkit-scrollbar-thumb {
   margin-block-start: 12px;
 }
 
+/*speed control*/
+#speed-input {
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-circle);
+  transition: background-color; /* Smooth transition */
+  display: flex; /* Use flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  cursor: pointer; /* Set cursor to pointer */
+  user-select: none; /* Prevent text selection */
+  color: var(--on-surface-variant);
+  font-size: 1.8rem;
+  font-weight:bold
+}
+
+/* Circle appearance on hover */
+#speed-input:hover {
+  background-color: hsla(203, 9%, 28%, 0.5); /* Circle color with 50% opacity on hover */
+}
+
+
 .player-control {
   justify-content: space-evenly;
 }
