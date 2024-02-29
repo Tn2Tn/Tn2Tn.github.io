@@ -17,7 +17,7 @@ const podcastData = [
   */
    {
      "posterUrl": "assets/images/episode01.png",
-     "title": "Hidden Baal Musar",
+     "title": "Baal Musar",
      "guest": "Eliezer Kahn",
      "episode": "1",
      "summary": "Listen to Eliezer give life musar to all listeners under 90 years young and list 16/21 nicknames  Thank you to MGS for make this episode come out late",
