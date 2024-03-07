@@ -173,7 +173,11 @@ const changePlayerInfo = function () {
   // playMusic();
 };
 
+
 addEventOnElements(playlistItems, "click", changePlayerInfo);
+
+// Set player info on load
+changePlayerInfo()
 
 /** update player duration */
 // const playerDuration = document.querySelector("[data-duration]");

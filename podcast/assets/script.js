@@ -15,6 +15,14 @@ const podcastData = [
     podcastPath: "",
   },
   */
+  // {
+  //   "posterUrl": "assets/images/episode02.png",
+  //   "title": "Crazy person",
+  //   "guest": "Bloom",
+  //   "episode": "2",
+  //   "summary": "A short summary",
+  //   "podcastPath": "assets/audio/Eliezer Podcast.mp3"
+  // },
    {
      "posterUrl": "assets/images/episode01.png",
      "title": "Baal Musar",
@@ -165,6 +173,21 @@ const changePlayerInfo = function () {
 };
 
 addEventOnElements(playlistItems, "click", changePlayerInfo);
+
+// Set player info on load
+const setPlayerInfo = function () {
+  playerBanner.src = podcastData[currentMusic].posterUrl;
+  playerBanner.setAttribute("alt", `${podcastData[currentMusic].title} Album Poster`);
+  document.body.style.backgroundImage = `url(${podcastData[currentMusic].posterUrl})`;
+  playerTitle.textContent = podcastData[currentMusic].title;
+  playerAlbum.textContent = podcastData[currentMusic].guest;
+  playerYear.textContent = "Episode: " + podcastData[currentMusic].episode;
+  playerArtist.textContent = podcastData[currentMusic].summary;
+
+  audioSource.src = podcastData[currentMusic].podcastPath;
+  setBackground();
+};
+setPlayerInfo();
 
 /** update player duration */
 const playerDuration = document.querySelector("[data-duration]");
@@ -332,19 +355,19 @@ let isShuffled = false;
  * REPEAT MUSIC
  */
 
-const playerRepeatBtn = document.querySelector("[data-repeat]");
+// const playerRepeatBtn = document.querySelector("[data-repeat]");
 
-const repeat = function () {
-  if (!audioSource.loop) {
-    audioSource.loop = true;
-    this.classList.add("active");
-  } else {
-    audioSource.loop = false;
-    this.classList.remove("active");
-  }
-};
+// const repeat = function () {
+//   if (!audioSource.loop) {
+//     audioSource.loop = true;
+//     this.classList.add("active");
+//   } else {
+//     audioSource.loop = false;
+//     this.classList.remove("active");
+//   }
+// };
 
-playerRepeatBtn.addEventListener("click", repeat);
+// playerRepeatBtn.addEventListener("click", repeat);
 
 /**
  * MUSIC VOLUME
@@ -406,3 +429,23 @@ speedInput.addEventListener('click', function() {
     this.style.color = 'var(--primary)';
   }
 });
+
+// Get the download button element
+const downloadBtn = document.getElementById("download-btn");
+
+// Add event listener for the download button
+downloadBtn.addEventListener("click", function() {
+  // Get the current podcast's audio file URL
+  const currentPodcast = podcastData[currentMusic];
+  const podcastUrl = currentPodcast.podcastPath;
+  
+  // Create a temporary anchor element to trigger the download
+  const anchor = document.createElement("a");
+  anchor.href = podcastUrl;
+  anchor.download = `Tn2Tn Podcast Episode ${currentPodcast.episode} - ${currentPodcast.guest}.mp3`; // Set the filename for download
+  anchor.click();
+
+  // Remove the anchor element from the DOM
+  anchor.remove();
+});
+
