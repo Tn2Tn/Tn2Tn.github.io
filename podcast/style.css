@@ -53,7 +53,7 @@
 
   --ff-inter: "Inter", sans-serif;
 
-  --headline-sm: 2.4rem;
+  --headline-sm: 4.2rem;
   --title-lg: 2.2rem;
   --label-lg: 1.4rem;
   --label-md: 1.2rem;
@@ -221,6 +221,10 @@ body:hover::-webkit-scrollbar-thumb {
 
 .headline-sm {
   font-size: var(--headline-sm);
+  font-weight: var(--fw-400);
+}
+.headline-gue {
+  font-size: 3rem;
   font-weight: var(--fw-400);
 }
 
@@ -549,6 +553,7 @@ body:hover::-webkit-scrollbar-thumb {
      */
 
     --headline-sm: 4.2rem;
+    --headline-gue: 4rem;
     --label-lg: 2.2rem;
   }
 
@@ -626,7 +631,7 @@ body:hover::-webkit-scrollbar-thumb {
     min-width: 100%;
   }
 
-  .podcast-content :is(.headline-sm, .label-lg, .label-md) {
+  .podcast-content :is(.headline-sm, .label-lg, .label-md,.headline-gue) {
     max-width: 85%;
   }
 

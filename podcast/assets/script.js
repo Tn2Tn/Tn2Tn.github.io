@@ -15,14 +15,14 @@ const podcastData = [
     podcastPath: "",
   },
   */
-  // {
-  //   "posterUrl": "assets/images/episode02.png",
-  //   "title": "Crazy person",
-  //   "guest": "Bloom",
-  //   "episode": "2",
-  //   "summary": "A short summary",
-  //   "podcastPath": "assets/audio/Eliezer Podcast.mp3"
-  // },
+  {
+    "posterUrl": "assets/images/episode02.png",
+    "title": "(07565954248)x∞",
+    "guest": "Shloimy Blun & Surprise Guest",
+    "episode": "2",
+    "summary": "An interview with Shloimy Blum discussing his daily Quote, many jokes, his revolution and controversial debates   P.S. NOT ALL RESPONSES ARE ENDORSED BY MECHANCHIM",
+    "podcastPath": "assets/audio/Sloimy Blun & surprise.mp3"
+  },
    {
      "posterUrl": "assets/images/episode01.png",
      "title": "Baal Musar",
