@@ -17,10 +17,10 @@ const podcastData = [
   */
   {
     "posterUrl": "assets/images/episode02.png",
-    "title": "(07565954248)x∞",
+    "title": "Daily Quota",
     "guest": "Shloimy Blun & Surprise Guest",
     "episode": "2",
-    "summary": "An interview with Shloimy Blum discussing his daily Quote, many jokes, his revolution and controversial debates   P.S. NOT ALL RESPONSES ARE ENDORSED BY MECHANCHIM",
+    "summary": "An interview with Shloimy Blum discussing his daily Quote, many jokes, his revolution and controversial debates. (07565954248)x∞  P.S. NOT ALL RESPONSES ARE ENDORSED BY MECHANCHIM",
     "podcastPath": "assets/audio/Sloimy Blun & surprise.mp3"
   },
    {
