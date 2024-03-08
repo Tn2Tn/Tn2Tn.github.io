@@ -15,11 +15,11 @@ const videoData = [
   },
   */
     {
-     "posterUrl": "90_Seconds/assets/images/favicon.png",
+     "posterUrl": "assets/images/favicon.png",
      "title": "90 seconds to תורה",
      "episode": "Parshas Vayakel",
      "summary": "",
-     "videoPath": "90_Seconds/assets/Videos/90s-Parshas-Vayakel.mp4"
+     "videoPath": "assets/Videos/90s_Parshas_Vayakel.mp4"
    },
  ];
 
@@ -149,7 +149,7 @@ const changePlayerInfo = function () {
   playerBanner.setAttribute("alt", `${videoData[currentMusic].title} Album Poster`);
   document.body.style.backgroundImage = `url(${videoData[currentMusic].posterUrl})`;
   playerTitle.textContent = videoData[currentMusic].title;
-  playerYear.textContent = "Episode: " + videoData[currentMusic].episode;
+  playerYear.textContent =  videoData[currentMusic].episode;
   playerArtist.textContent = videoData[currentMusic].summary;
 
   audioSource.src = videoData[currentMusic].videoPath;
