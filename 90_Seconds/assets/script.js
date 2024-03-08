@@ -19,7 +19,7 @@ const videoData = [
      "title": "90 seconds to תורה",
      "episode": "Parshas Vayakel",
      "summary": "",
-     "videoPath": "90_Seconds/assets/Videos/90s Parshas Vayakel.mp4"
+     "videoPath": "90_Seconds/assets/Videos/90s-Parshas-Vayakel.mp4"
    },
  ];
 
