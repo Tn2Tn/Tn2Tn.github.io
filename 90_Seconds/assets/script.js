@@ -15,26 +15,12 @@ const videoData = [
   },
   */
     {
-     "posterUrl": "assets/images/episode01.png",
-     "title": "Sound waves",
-     "episode": "1",
-     "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-     "videoPath": "assets/Videos/file_example_MP4_480_1_5MG.mp4"
+     "posterUrl": "90_Seconds/assets/images/favicon.png",
+     "title": "90 seconds to תורה",
+     "episode": "Parshas Vayakel",
+     "summary": "",
+     "videoPath": "90_Seconds/assets/Videos/90s Parshas Vayakel.mp4"
    },
-   {
-     "posterUrl": "assets/images/episode02.png",
-     "title": "video file",
-     "episode": "2",
-     "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-     "videoPath": "assets/Videos/file_example_MP4_480_1_5MG.mp4"
-   },
-   {
-     "posterUrl": "assets/images/episode02.png",
-     "title": "epic video",
-     "episode": "3",
-     "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-     "videoPath": "assets/Videos/file_example_MP4_480_1_5MG.mp4"
-   }
  ];
 
  // Check if the user is using an iOS device
