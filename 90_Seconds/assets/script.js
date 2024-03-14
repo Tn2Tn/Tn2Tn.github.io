@@ -218,6 +218,16 @@ const playMusic = function () {
   }
 };
 
+document.addEventListener("keydown", function(event) {
+  // Check if the pressed key is the spacebar
+  if (event.keyCode === 32) {
+    // Prevent default behavior of scrolling the page
+    event.preventDefault();
+    // Toggle play/pause of the audio
+    playMusic();
+  }
+});
+
 playBtn.addEventListener("click", playMusic);
 
 let vid = document.getElementById("90sec"); 
