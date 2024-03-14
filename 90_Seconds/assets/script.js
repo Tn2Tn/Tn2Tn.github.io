@@ -19,7 +19,14 @@ const videoData = [
      "title": "90 seconds to תורה",
      "episode": "Parshas Vayakel",
      "summary": "",
-     "videoPath": "assets/Videos/90s_Parshas_Vayakel.mp4"
+     "videoPath": "assets/Videos/90s_Parshas_Vayakel.mp3"
+   }, 
+   {
+     "posterUrl": "assets/images/favicon.png",
+     "title": "90 seconds to תורה",
+     "episode": "Parshas Pekudei",
+     "summary": "",
+     "videoPath": "assets/Videos/90s_Parshas_Pekudei.mp3"
    },
  ];
 
