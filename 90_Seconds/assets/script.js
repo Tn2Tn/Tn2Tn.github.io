@@ -4,31 +4,28 @@
  * all podcast information
  */
 
-const videoData = [
-  /** empty data entry
+const audioData = [
+ /** empty data entry
   {
     posterUrl: "",
     title: "",
     episode: "",
-    summary: "",
-    videoPath: "",
+    audioPath: "",
   },
   */
-     {
-     "posterUrl": "assets/images/favicon.png",
-     "title": "90 seconds to תורה",
-     "episode": "Parshas Pekudei",
-     "summary": "",
-     "videoPath": "assets/Videos/90s_Parshas_Pekudei.mp3"
-   },
-    {
-     "posterUrl": "assets/images/favicon.png",
-     "title": "90 seconds to תורה",
-     "episode": "Parshas Vayakel",
-     "summary": "",
-     "videoPath": "assets/Videos/90s_Parshas_Vayakel.mp3"
-   }, 
- ];
+  {
+    "posterUrl": "assets/images/Parshas Pekudei.png",
+    "title": "90 seconds to תורה",
+    "episode": "Parshas Pekudei",
+    "audioPath": "assets/audio/90s_Parshas_Pekudei.mp3"
+  },
+   {
+    "posterUrl": "assets/images/Parshas Vayakel.png",
+    "title": "90 seconds to תורה",
+    "episode": "Parshas Vayakel",
+    "audioPath": "assets/audio/90s_Parshas_Vayakel.mp3"
+  }, 
+];
 
  // Check if the user is using an iOS device
 let isIOS = (/iPad|iPhone|iPod/.test(navigator.platform)) ||
@@ -72,20 +69,19 @@ const addEventOnElements = function (elements, eventType, callback) {
   }
 };
 
-
 /**
  * PLAYLIST
  *
- * add all podcast in playlist, from 'videoData'
+ * add all podcast in playlist, from 'audioData'
  */
 
 const playlist = document.querySelector("[data-podcast-list]");
 
-for (let i = 0, len = videoData.length; i < len; i++) {
+for (let i = 0, len = audioData.length; i < len; i++) {
   playlist.innerHTML += `
   <li>
     <button class="podcast-item ${i === 0 ? "playing" : ""}" data-playlist-toggler data-playlist-item="${i}">
-      <img src="${videoData[i].posterUrl}" width="800" height="800" alt="${videoData[i].title} Album Poster"
+      <img src="${audioData[i].posterUrl}" width="800" height="800" alt="${audioData[i].title} Album Poster"
         class="img-cover">
 
       <div class="item-icon">
@@ -138,6 +134,8 @@ addEventOnElements(playlistItems, "click", function () {
   changePlaylistItem();
 });
 
+
+
 /**
  * PLAYER
  *
@@ -147,49 +145,54 @@ addEventOnElements(playlistItems, "click", function () {
 const playerBanner = document.querySelector("[data-player-banner]");
 const playerTitle = document.querySelector("[data-title]");
 const playerYear = document.querySelector("[data-episode]");
-const playerArtist = document.querySelector("[data-summary]");
 
-const audioSource = new Audio(videoData[currentMusic].videoPath);
+const audioSource = new Audio(audioData[currentMusic].audioPath);
 
 const changePlayerInfo = function () {
-  playerBanner.src = videoData[currentMusic].videoPath;
-  playerBanner.setAttribute("alt", `${videoData[currentMusic].title} Album Poster`);
-  document.body.style.backgroundImage = `url(${videoData[currentMusic].posterUrl})`;
-  playerTitle.textContent = videoData[currentMusic].title;
-  playerYear.textContent =  videoData[currentMusic].episode;
-  playerArtist.textContent = videoData[currentMusic].summary;
+  playerBanner.setAttribute("alt", `${audioData[currentMusic].title} Album Poster`);
+  document.body.style.backgroundImage = `url(${audioData[currentMusic].posterUrl})`;
+  playerTitle.textContent = audioData[currentMusic].title;
+  playerYear.textContent = audioData[currentMusic].episode;
 
-  audioSource.src = videoData[currentMusic].videoPath;
+  audioSource.src = audioData[currentMusic].audioPath;
+
+  audioSource.addEventListener("loadeddata", updateDuration);
+  playMusic();
   setBackground();
-
-  // audioSource.addEventListener("loadeddata", updateDuration);
-  // playMusic();
 };
-
 
 addEventOnElements(playlistItems, "click", changePlayerInfo);
 
 // Set player info on load
-changePlayerInfo()
+const setPlayerInfo = function () {
+  playerBanner.setAttribute("alt", `${audioData[currentMusic].title} Album Poster`);
+  document.body.style.backgroundImage = `url(${audioData[currentMusic].posterUrl})`;
+  playerTitle.textContent = audioData[currentMusic].title;
+  playerYear.textContent = audioData[currentMusic].episode;
+
+  audioSource.src = audioData[currentMusic].audioPath;
+  setBackground();
+};
+setPlayerInfo();
 
 /** update player duration */
-// const playerDuration = document.querySelector("[data-duration]");
-// const playerSeekRange = document.querySelector("[data-seek]");
+const playerDuration = document.querySelector("[data-duration]");
+const playerSeekRange = document.querySelector("[data-seek]");
 
 /** pass seconds and get timcode formate */
-// const getTimecode = function (duration) {
-//   const minutes = Math.floor(duration / 60);
-//   const seconds = Math.ceil(duration - minutes * 60);
-//   const timecode = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-//   return timecode;
-// };
+const getTimecode = function (duration) {
+  const minutes = Math.floor(duration / 60);
+  const seconds = Math.ceil(duration - minutes * 60);
+  const timecode = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  return timecode;
+};
 
-// const updateDuration = function () {
-//   playerSeekRange.max = Math.ceil(audioSource.duration);
-//   playerDuration.textContent = getTimecode(Number(playerSeekRange.max));
-// };
+const updateDuration = function () {
+  playerSeekRange.max = Math.ceil(audioSource.duration);
+  playerDuration.textContent = getTimecode(Number(playerSeekRange.max));
+};
 
-// audioSource.addEventListener("loadeddata", updateDuration);
+audioSource.addEventListener("loadeddata", updateDuration);
 
 /**
  * PLAY MUSIC
@@ -197,35 +200,47 @@ changePlayerInfo()
  * play and pause podcast when click on play button
  */
 
-// const playBtn = document.querySelector("[data-play-btn]");
+const playBtn = document.querySelector("[data-play-btn]");
 
-// let playInterval;
+let playInterval;
 
-// const playMusic = function () {
-//   if (audioSource.paused) {
-//     audioSource.play();
-//     playBtn.classList.add("active");
-//     playInterval = setInterval(updateRunningTime, 500);
-//   } else {
-//     audioSource.pause();
-//     playBtn.classList.remove("active");
-//     clearInterval(playInterval);
-//   }
-// };
+const playMusic = function () {
+  if (audioSource.paused) {
+    audioSource.play();
+    vid.play(); 
+    playBtn.classList.add("active");
+    playInterval = setInterval(updateRunningTime, 500);
+  } else {
+    audioSource.pause();
+    vid.pause(); 
+    playBtn.classList.remove("active");
+    clearInterval(playInterval);
+  }
+};
 
-// playBtn.addEventListener("click", playMusic);
+playBtn.addEventListener("click", playMusic);
 
-// /** update running time while playing podcast */
+let vid = document.getElementById("90sec"); 
 
-// const playerRunningTime = document.querySelector("[data-running-time");
+function playVid() { 
+  vid.play(); 
+} 
 
-// const updateRunningTime = function () {
-//   playerSeekRange.value = audioSource.currentTime;
-//   playerRunningTime.textContent = getTimecode(audioSource.currentTime);
+function pauseVid() { 
+  vid.pause(); 
+} 
 
-//   updateRangeFill();
-//   isMusicEnd();
-// };
+/** update running time while playing podcast */
+
+const playerRunningTime = document.querySelector("[data-running-time");
+
+const updateRunningTime = function () {
+  playerSeekRange.value = audioSource.currentTime;
+  playerRunningTime.textContent = getTimecode(audioSource.currentTime);
+
+  updateRangeFill();
+  isMusicEnd();
+};
 
 /**
  * RANGE FILL WIDTH
@@ -233,17 +248,17 @@ changePlayerInfo()
  * change 'rangeFill' width, while changing range value
  */
 
-// const ranges = document.querySelectorAll("[data-range]");
-// const rangeFill = document.querySelector("[data-range-fill]");
+const ranges = document.querySelectorAll("[data-range]");
+const rangeFill = document.querySelector("[data-range-fill]");
 
-// const updateRangeFill = function () {
-//   let element = this || ranges[0];
+const updateRangeFill = function () {
+  let element = this || ranges[0];
 
-//   const rangeValue = (element.value / element.max) * 100;
-//   element.nextElementSibling.style.width = `${rangeValue}%`;
-// };
+  const rangeValue = (element.value / element.max) * 100;
+  element.nextElementSibling.style.width = `${rangeValue}%`;
+};
 
-// addEventOnElements(ranges, "input", updateRangeFill);
+addEventOnElements(ranges, "input", updateRangeFill);
 
 /**
  * SEEK MUSIC
@@ -251,26 +266,26 @@ changePlayerInfo()
  * seek podcast while changing player seek range
  */
 
-// const seek = function () {
-//   audioSource.currentTime = playerSeekRange.value;
-//   playerRunningTime.textContent = getTimecode(playerSeekRange.value);
-// };
+const seek = function () {
+  audioSource.currentTime = playerSeekRange.value;
+  playerRunningTime.textContent = getTimecode(playerSeekRange.value);
+};
 
-// playerSeekRange.addEventListener("input", seek);
+playerSeekRange.addEventListener("input", seek);
 
 /**
  * END MUSIC
  */
 
-// const isMusicEnd = function () {
-//   if (audioSource.ended) {
-//     playBtn.classList.remove("active");
-//     audioSource.currentTime = 0;
-//     playerSeekRange.value = audioSource.currentTime;
-//     playerRunningTime.textContent = getTimecode(audioSource.currentTime);
-//     updateRangeFill();
-//   }
-// };
+const isMusicEnd = function () {
+  if (audioSource.ended) {
+    playBtn.classList.remove("active");
+    audioSource.currentTime = 0;
+    playerSeekRange.value = audioSource.currentTime;
+    playerRunningTime.textContent = getTimecode(audioSource.currentTime);
+    updateRangeFill();
+  }
+};
 
 /**
  * SKIP TO NEXT MUSIC
@@ -284,7 +299,7 @@ const skipNext = function () {
   if (isShuffled) {
     shuffleMusic();
   } else {
-    currentMusic >= videoData.length - 1 ? (currentMusic = 0) : currentMusic++;
+    currentMusic >= audioData.length - 1 ? (currentMusic = 0) : currentMusic++;
   }
 
   changePlayerInfo();
@@ -305,7 +320,7 @@ const skipPrev = function () {
   if (isShuffled) {
     shuffleMusic();
   } else {
-    currentMusic <= 0 ? (currentMusic = videoData.length - 1) : currentMusic--;
+    currentMusic <= 0 ? (currentMusic = audioData.length - 1) : currentMusic--;
   }
 
   changePlayerInfo();
@@ -319,18 +334,18 @@ playerSkipPrevBtn.addEventListener("click", skipPrev);
  */
 
 /** get random number for shuffle */
-const getRandomMusic = () => Math.floor(Math.random() * videoData.length);
+// const getRandomMusic = () => Math.floor(Math.random() * audioData.length);
 
-const shuffleMusic = () => (currentMusic = getRandomMusic());
+// const shuffleMusic = () => (currentMusic = getRandomMusic());
 
 const playerShuffleBtn = document.querySelector("[data-shuffle]");
 let isShuffled = false;
 
-const shuffle = function () {
-  playerShuffleBtn.classList.toggle("active");
+// const shuffle = function () {
+//   playerShuffleBtn.classList.toggle("active");
 
-  isShuffled = isShuffled ? false : true;
-};
+//   isShuffled = isShuffled ? false : true;
+// };
 
 // playerShuffleBtn.addEventListener("click", shuffle);
 
@@ -358,35 +373,77 @@ const shuffle = function () {
  * increase or decrease podcast volume when change the volume range
  */
 
-// const playerVolumeRange = document.querySelector("[data-volume]");
-// const playerVolumeBtn = document.querySelector("[data-volume-btn]");
+const playerVolumeRange = document.querySelector("[data-volume]");
+const playerVolumeBtn = document.querySelector("[data-volume-btn]");
 
-// const changeVolume = function () {
-//   audioSource.volume = playerVolumeRange.value;
-//   audioSource.muted = false;
+const changeVolume = function () {
+  audioSource.volume = playerVolumeRange.value;
+  audioSource.muted = false;
 
-//   if (audioSource.volume <= 0.1) {
-//     playerVolumeBtn.children[0].textContent = "volume_mute";
-//   } else if (audioSource.volume <= 0.5) {
-//     playerVolumeBtn.children[0].textContent = "volume_down";
-//   } else {
-//     playerVolumeBtn.children[0].textContent = "volume_up";
-//   }
-// };
+  if (audioSource.volume <= 0.1) {
+    playerVolumeBtn.children[0].textContent = "volume_mute";
+  } else if (audioSource.volume <= 0.5) {
+    playerVolumeBtn.children[0].textContent = "volume_down";
+  } else {
+    playerVolumeBtn.children[0].textContent = "volume_up";
+  }
+};
 
-// playerVolumeRange.addEventListener("input", changeVolume);
+playerVolumeRange.addEventListener("input", changeVolume);
 
 /**
  * MUTE MUSIC
  */
 
-// const muteVolume = function () {
-//   if (!audioSource.muted) {
-//     audioSource.muted = true;
-//     playerVolumeBtn.children[0].textContent = "volume_off";
-//   } else {
-//     changeVolume();
-//   }
-// };
+const muteVolume = function () {
+  if (!audioSource.muted) {
+    audioSource.muted = true;
+    playerVolumeBtn.children[0].textContent = "volume_off";
+  } else {
+    changeVolume();
+  }
+};
 
-// playerVolumeBtn.addEventListener("click", muteVolume);
+playerVolumeBtn.addEventListener("click", muteVolume);
+
+/**
+ * Music Speed
+ */ 
+
+const speedInput = document.getElementById('speed-input');
+const speeds = [1, 1.25, 1.5, 1.75, 2];
+let currentSpeedIndex = 0;
+
+speedInput.addEventListener('click', function() {
+  currentSpeedIndex = (currentSpeedIndex + 1) % speeds.length;
+  const selectedSpeed = speeds[currentSpeedIndex];
+  audioSource.playbackRate = selectedSpeed;
+  this.textContent = selectedSpeed + 'x';
+  
+  // Change color based on selected speed
+  if (selectedSpeed === 1) {
+    this.style.color = 'var(--on-surface-variant)';
+  } else {
+    this.style.color = 'var(--primary)';
+  }
+});
+
+// Get the download button element
+const downloadBtn = document.getElementById("download-btn");
+
+// Add event listener for the download button
+downloadBtn.addEventListener("click", function() {
+  // Get the current podcast's audio file URL
+  const currentPodcast = audioData[currentMusic];
+  const podcastUrl = currentPodcast.audioPath;
+  
+  // Create a temporary anchor element to trigger the download
+  const anchor = document.createElement("a");
+  anchor.href = podcastUrl;
+  anchor.download = `90 seconds to תורה - ${currentPodcast.episode}.mp3`; // Set the filename for download
+  anchor.click();
+
+  // Remove the anchor element from the DOM
+  anchor.remove();
+});
+

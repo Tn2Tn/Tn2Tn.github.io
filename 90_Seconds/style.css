@@ -17,10 +17,10 @@
 
   --eerie-black_a95: hsla(204, 9%, 11%, 0.95);
   --eerie-black_a50: hsla(204, 9%, 11%, 0.5);
-  --eerie-black: #1a1d1f;
-  --gainsboro: rgb(225, 226, 229);
+  --eerie-black: hsl(204, 9%, 11%);
+  --gainsboro: hsl(225, 7%, 89%);
   --charcoal: hsl(203, 9%, 28%);
-  --silver-sand: hsl(210, 13%, 78%);
+  --silver-sand: hsl(208, 12%, 78%);
   --light-sky-blue: hsl(200, 100%, 73%);
   --prussian-blue: hsl(196, 100%, 14%);
   --black: hsl(0, 0%, 0%);
@@ -53,7 +53,7 @@
 
   --ff-inter: "Inter", sans-serif;
 
-  --headline-sm: 2.4rem;
+  --headline-sm: 4.2rem;
   --title-lg: 2.2rem;
   --label-lg: 1.4rem;
   --label-md: 1.2rem;
@@ -223,6 +223,10 @@ body:hover::-webkit-scrollbar-thumb {
   font-size: var(--headline-sm);
   font-weight: var(--fw-400);
 }
+.headline-gue {
+  font-size: 3rem;
+  font-weight: var(--fw-400);
+}
 
 .label-lg,
 .label-md {
@@ -290,9 +294,9 @@ body:hover::-webkit-scrollbar-thumb {
 }
 
 .podcast-banner {
-  aspect-ratio: 16/9;
+  aspect-ratio: 1 / 1;
   background-color: var(--surface-variant);
-  /* max-width: 400px; */
+  max-width: 400px;
   margin-inline: auto;
   align-self: center;
   overflow: hidden;
@@ -371,6 +375,28 @@ body:hover::-webkit-scrollbar-thumb {
   justify-content: space-between;
   margin-block-start: 12px;
 }
+
+/*speed control*/
+#speed-input {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-circle);
+  transition: background-color; /* Smooth transition */
+  display: flex; /* Use flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  cursor: pointer; /* Set cursor to pointer */
+  user-select: none; /* Prevent text selection */
+  color: var(--on-surface-variant);
+  font-size: 1.3rem;
+  font-weight:bold
+}
+
+/* Circle appearance on hover */
+#speed-input:hover {
+  background-color: hsla(203, 9%, 28%, 0.5); /* Circle color with 50% opacity on hover */
+}
+
 
 .player-control {
   justify-content: space-evenly;
@@ -527,6 +553,7 @@ body:hover::-webkit-scrollbar-thumb {
      */
 
     --headline-sm: 4.2rem;
+    --headline-gue: 4rem;
     --label-lg: 2.2rem;
   }
 
@@ -546,11 +573,16 @@ body:hover::-webkit-scrollbar-thumb {
   /**
    * REUSED STYLE
    */
+   #speed-input {
+    width: 54px;
+    height: 54px;
+    font-size: 1.8rem;}
 
   .btn-icon {
     width: 54px;
     height: 54px;
   }
+  
 
   .btn-icon .material-symbols-rounded {
     font-size: 2.8rem;
@@ -575,36 +607,19 @@ body:hover::-webkit-scrollbar-thumb {
     align-items: center;
     backdrop-filter: blur(100px);
   }
-  /* fdsfds */
-  .video-container {
-    position: relative;
-  }
 
-  #custom-timeline {
-    width: 100%;
-    height: 5px;
-    background-color: #ccc;
-    cursor: pointer;
-  }
-
-  #progress {
-    height: 100%;
-    background-color: #00f;
-  }
-
-  /* fdfd */
   .player .container {
     max-width: 1200px;
-    grid-template-columns: 1fr 0.8fr;
+    grid-template-columns: 0.8fr 1fr;
     grid-template-rows: 1fr;
     gap: 48px;
-    max-height: 400px;
+    max-height: 500px;
     height: 100%;
   }
 
   .podcast-banner {
-    /* aspect-ratio: unset; */
-    /* max-width: max-content; */
+    aspect-ratio: unset;
+    max-width: max-content;
     width: 100%;
     height: 100%;
   }
@@ -616,7 +631,7 @@ body:hover::-webkit-scrollbar-thumb {
     min-width: 100%;
   }
 
-  .podcast-content :is(.headline-sm, .label-lg, .label-md) {
+  .podcast-content :is(.headline-sm, .label-lg, .label-md,.headline-gue) {
     max-width: 85%;
   }
 
@@ -655,7 +670,7 @@ body:hover::-webkit-scrollbar-thumb {
   .player-control {
     margin-inline-end: 174px;
     min-width: max-content;
-    gap: 10px;
+    gap: 8px;
   }
 
   /**
