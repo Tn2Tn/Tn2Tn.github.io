@@ -14,6 +14,13 @@ const videoData = [
     videoPath: "",
   },
   */
+     {
+     "posterUrl": "assets/images/favicon.png",
+     "title": "90 seconds to תורה",
+     "episode": "Parshas Pekudei",
+     "summary": "",
+     "videoPath": "assets/Videos/90s_Parshas_Pekudei.mp3"
+   },
     {
      "posterUrl": "assets/images/favicon.png",
      "title": "90 seconds to תורה",
@@ -21,13 +28,6 @@ const videoData = [
      "summary": "",
      "videoPath": "assets/Videos/90s_Parshas_Vayakel.mp3"
    }, 
-   {
-     "posterUrl": "assets/images/favicon.png",
-     "title": "90 seconds to תורה",
-     "episode": "Parshas Pekudei",
-     "summary": "",
-     "videoPath": "assets/Videos/90s_Parshas_Pekudei.mp3"
-   },
  ];
 
  // Check if the user is using an iOS device
