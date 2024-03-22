@@ -16,6 +16,13 @@ const podcastData = [
   },
   */
   {
+    "posterUrl": "assets/images/Purim24.png",
+    "title": "Special Purim Episode",
+    "guest": "Me, Myself & I",
+    "episode": "Bonus Purim 2024",
+    "summary": "bit.ly/tn2tnpurim24",
+    "podcastPath": "assets/audio/Purim24.mp3"
+  },  {
     "posterUrl": "assets/images/episode02.png",
     "title": "Daily Quota",
     "guest": "Shloimy Blun & Surprise Guest",
