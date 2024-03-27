@@ -13,6 +13,12 @@ const audioData = [
     audioPath: "",
   },
   */
+   {
+    "posterUrl": "assets/images/Parshas Vayikra.png",
+    "title": "90 seconds to תורה",
+    "episode": "Parshas Vayikra",
+    "audioPath": "assets/audio/90s_Parshas_Vayikra.mp3"
+  },
   {
     "posterUrl": "assets/images/Parshas Pekudei.png",
     "title": "90 seconds to תורה",
