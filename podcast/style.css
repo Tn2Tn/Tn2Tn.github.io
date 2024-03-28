@@ -38,7 +38,7 @@
   --on-surface-variant: var(--silver-sand);
   --on-surface-variant-hover: var(--light-sky-blue_a8);
   --on-surface-variant-focus: var(--light-sky-blue_a12);
-  --primary: var(--light-sky-blue);
+  --primary: rgb(224 81 57);
   --on-primary: var(--prussian-blue);
 
   /**
