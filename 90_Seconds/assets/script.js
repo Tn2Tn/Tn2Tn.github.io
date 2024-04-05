@@ -14,6 +14,12 @@ const audioData = [
   },
   */
    {
+    "posterUrl": "assets/images/Parshas Tzav.png",
+    "title": "90 seconds to תורה",
+    "episode": "Parshas Tzav",
+    "audioPath": "assets/audio/90s_Parshas_Tzav.mp3"
+  },
+ {
     "posterUrl": "assets/images/Parshas Vayikra.png",
     "title": "90 seconds to תורה",
     "episode": "Parshas Vayikra",
