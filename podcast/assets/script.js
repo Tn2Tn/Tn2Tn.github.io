@@ -16,6 +16,14 @@ const podcastData = [
   },
   */
   {
+    posterUrl: "assets/images/episode04.png",
+    title: "Jaaayson For The Naaation",
+    guest: "Binyomin Jayson & Yehuda Stone",
+    episode: "4",
+    summary: "Listen to Binyomin Jayson speak about politics and who knows what, sing (like a Chazon) and give shout outs to everyone who lives on earth well almost. Keep an ear out for Yehuda Stones short words every now and then.",
+    podcastPath: "assets/audio/Stone_&_Jayson.mp3",
+  },
+  {
     "posterUrl": "assets/images/episode03.png",
     "title": "Chassidish Wikipedia",
     "guest": "Ahron Cowen",
