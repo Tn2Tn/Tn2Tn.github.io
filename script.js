@@ -1,9 +1,5 @@
 "use strict";
 
-// Call the function when the page loads
-window.onload = setBackground;
-
-
 // Function to pick a random comment
 function pickRandomComment(comments) {
   return comments[Math.floor(Math.random() * comments.length)];
