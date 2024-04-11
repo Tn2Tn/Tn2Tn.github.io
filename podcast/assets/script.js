@@ -24,14 +24,6 @@ const podcastData = [
     "podcastPath": "assets/audio/Ahron Cowen.mp3"
   },
   {
-    "posterUrl": "assets/images/Purim24.png",
-    "title": "Special Purim Episode",
-    "guest": "Me, Myself & I",
-    "episode": "Bonus Purim 2024",
-    "summary": "Form link for MGS Staff Sayings & Doings bit.ly/tn2tnpurim24. To send me positive feedback email me at tn2tnpodcast@gmail.com or message me at 07708905440. BTW what was the worst joke of all.",
-    "podcastPath": "assets/audio/Purim24.mp3"
-  },
-  {
     "posterUrl": "assets/images/episode02.png",
     "title": "Daily Quota",
     "guest": "Shloimy Blun & Surprise Guest",
