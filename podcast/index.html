@@ -58,7 +58,7 @@
     <link rel="stylesheet" href="style.css?v=21" />
   </head>
 
-  <body> 
+  <body"> 
     <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQ5PV83V"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -81,7 +81,7 @@
       </div>
     </div>
   
-    <main>
+    <main >
       <article>
         <!-- 
           - #PLAYER
@@ -111,22 +111,23 @@
                 <span data-episode>Loading...</span>
               </p>
 
-              <p class="label-md artist" data-summary>
+              <p class="label-md artist"  data-summary >
                 Loading...
               </p>
 
-              <div class="seek-control">
+              <div class="seek-control " >
                 <div>
-                  <div class="range-wrapper">
+                  <div class="range-wrapper" id="live-hide">
                     <input type="range" step="1" max="60" value="0" class="range" data-range data-seek />
 
                     <div class="range-fill" data-range-fill></div>
                   </div>
-                
+
                   <div class="duration-label wrapper">
                     <span class="label-md" data-running-time>0:00</span>
 
-                    <span class="label-md" data-duration>0:01</span>
+                    <span class="label-md" id="live-hide" data-duration>0:01</span>
+                    <span class="label-md" id="live-show">Live</span>
                   </div>
                 </div>
                 <div class="volume">
@@ -152,7 +153,7 @@
   <span class="material-symbols-rounded">file_download</span>
 </button>
 
-                <button class="btn-icon" data-skip-prev>
+                <button class="btn-icon" id="live-hide" data-skip-prev>
                   <span class="material-symbols-rounded">skip_previous</span>
                 </button>
 
@@ -161,11 +162,11 @@
                   <span class="material-symbols-rounded active-icon">pause</span>
                 </button>
 
-                <button class="btn-icon" data-skip-next>
+                <button class="btn-icon" id="live-hide" data-skip-next>
                   <span class="material-symbols-rounded">skip_next</span>
                 </button>
 
-                <div class="speed-container">
+                <div class="speed-container" id="live-hide">
                   <div id="speed-input">1x</div>
                 </div>
 

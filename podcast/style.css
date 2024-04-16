@@ -542,7 +542,7 @@ body:hover::-webkit-scrollbar-thumb {
  * responsive for large than 992px screen
  */
 
-@media (min-width: 992px) {
+ @media (min-width: 992px) and (min-height: 760px) {
   /**
    * CUSTOM PROPERTY
    */
@@ -556,6 +556,7 @@ body:hover::-webkit-scrollbar-thumb {
     --headline-gue: 4rem;
     --label-lg: 2.2rem;
   }
+  
 
   /**
    * RESET
@@ -702,6 +703,8 @@ body:hover::-webkit-scrollbar-thumb {
   }
 }
 
+
+
 /**
  * responsive for large than 1200px screen
  */
@@ -720,3 +723,4 @@ body:hover::-webkit-scrollbar-thumb {
     gap: 28px;
   }
 }
+

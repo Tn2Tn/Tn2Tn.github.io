@@ -13,6 +13,7 @@ const podcastData = [
     episode: "",
     summary: "",
     podcastPath: "",
+    live:,
   },
   */
   {
@@ -22,30 +23,34 @@ const podcastData = [
     episode: "4",
     summary: "Listen to Binyomin Jayson speak about politics and who knows what, sing (like a Chazon) and give shout outs to everyone who lives on earth well almost. Keep an ear out for Yehuda Stones short words every now and then.",
     podcastPath: "assets/audio/Stone_&_Jayson.mp3",
+    live:false,
   },
   {
-    "posterUrl": "assets/images/episode03.png",
-    "title": "Chassidish Wikipedia",
-    "guest": "Ahron Cowen",
-    "episode": "3",
-    "summary": "Listen to Ahron Cowen speak about chassidim sharing a small percentage of his large knowledge about them. Litvaks Don't Have To Agree. Winners Of The Purim Survey Are: R Ross, Fler & Allan Davis",
-    "podcastPath": "assets/audio/Ahron Cowen.mp3"
+    posterUrl: "assets/images/episode03.png",
+    title: "Chassidish Wikipedia",
+    guest: "Ahron Cowen",
+    episode: "3",
+    summary: "Listen to Ahron Cowen speak about chassidim sharing a small percentage of his large knowledge about them. Litvaks Don't Have To Agree. Winners Of The Purim Survey Are: R Ross, Fler & Allan Davis",
+    podcastPath: "assets/audio/Ahron Cowen.mp3",
+    live:false,
   },
   {
-    "posterUrl": "assets/images/episode02.png",
-    "title": "Daily Quota",
-    "guest": "Shloimy Blun & Surprise Guest",
-    "episode": "2",
-    "summary": "An interview with Shloimy Blum discussing his daily Quote, many jokes, his revolution and controversial debates. (07565954248)x∞  P.S. NOT ALL RESPONSES ARE ENDORSED BY MECHANCHIM",
-    "podcastPath": "assets/audio/Sloimy Blun & surprise.mp3"
+    posterUrl: "assets/images/episode02.png",
+    title: "Daily Quota",
+    guest: "Shloimy Blun & Surprise Guest",
+    episode: "2",
+    summary: "An interview with Shloimy Blum discussing his daily Quote, many jokes, his revolution and controversial debates. (07565954248)x∞  P.S. NOT ALL RESPONSES ARE ENDORSED BY MECHANCHIM",
+    podcastPath: "assets/audio/Sloimy Blun & surprise.mp3",
+    live:false,
   },
    {
-     "posterUrl": "assets/images/episode01.png",
-     "title": "Baal Musar",
-     "guest": "Eliezer Kahn",
-     "episode": "1",
-     "summary": "Listen to Eliezer give life musar to all listeners under 90 years young and list 16/21 nicknames  Thank you to MGS for making this episode come out late",
-     "podcastPath": "assets/audio/Eliezer Podcast.mp3"
+     posterUrl: "assets/images/episode01.png",
+     title: "Baal Musar",
+     guest: "Eliezer Kahn",
+     episode: "1",
+     summary: "Listen to Eliezer give life musar to all listeners under 90 years young and list 16/21 nicknames  Thank you to MGS for making this episode come out late",
+     podcastPath: "assets/audio/Eliezer Podcast.mp3",
+     live:false,
    },
  ];
 
@@ -58,6 +63,7 @@ const addEventOnElements = function (elements, eventType, callback) {
     elements[i].addEventListener(eventType, callback);
   }
 };
+
 
 /**
  * PLAYLIST
@@ -152,6 +158,7 @@ const changePlayerInfo = function () {
 
   audioSource.addEventListener("loadeddata", updateDuration);
   playMusic();
+  islive();
 };
 
 addEventOnElements(playlistItems, "click", changePlayerInfo);
@@ -186,7 +193,9 @@ const updateDuration = function () {
   playerDuration.textContent = getTimecode(Number(playerSeekRange.max));
 };
 
+
 audioSource.addEventListener("loadeddata", updateDuration);
+
 
 /**
  * PLAY MUSIC
@@ -438,5 +447,33 @@ downloadBtn.addEventListener("click", function() {
   // Remove the anchor element from the DOM
   anchor.remove();
 });
+const islive = function (){
+// Get the current podcast from podcastData array
+// Get the current podcast from podcastData array
+var currentPodcast = podcastData[currentMusic];
+
+// Get all elements with the id "live-hide"
+var liveHideElements = document.querySelectorAll('#live-hide, #download-btn');
+var liveShowElements = document.querySelectorAll('#live-show');
 
 
+// Check if the current podcast is live
+if (currentPodcast.live) {
+    // Loop through each element and hide it
+    liveHideElements.forEach(function(element) {
+        element.style.display = 'none';
+    });
+    liveShowElements.forEach(function(element) {
+      element.style.display = 'flex'; // or 'inline', 'flex', etc. depending on the original display value
+  });
+} else {
+    // Loop through each element and show it
+    liveHideElements.forEach(function(element) {
+        element.style.display = 'flex'; // or 'inline', 'flex', etc. depending on the original display value
+    });
+    liveShowElements.forEach(function(element) {
+      element.style.display = 'none';
+  });
+}
+}
+islive();
