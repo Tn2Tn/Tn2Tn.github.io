@@ -52,15 +52,6 @@ const podcastData = [
      podcastPath: "assets/audio/Eliezer Podcast.mp3",
      live:false,
    },
-   {
-    posterUrl: "assets/images/episode01.png",
-    title: "Live test",
-    guest: "",
-    episode: "live",
-    summary: "This is a test of the websites new live capabilities",
-    podcastPath: "https://streammyaudio.com/tn2tn-live.mp3",
-    live:true,
-  },
  ];
 
 /**
