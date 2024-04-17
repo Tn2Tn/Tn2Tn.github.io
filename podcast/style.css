@@ -542,7 +542,7 @@ body:hover::-webkit-scrollbar-thumb {
  * responsive for large than 992px screen
  */
 
- @media (min-width: 992px) and (min-height: 760px) {
+ @media (min-width: 992px) and (min-height: 600px) {
   /**
    * CUSTOM PROPERTY
    */
