@@ -13,9 +13,18 @@ const podcastData = [
     episode: "",
     summary: "",
     podcastPath: "",
-    live:,
+    live:false,
   },
   */
+  {
+    posterUrl: "assets/images/episode05.png",
+    title: "Therapy Problems (Solved)",
+    guest: "Nosson Perl & Ari Gutwirth",
+    episode: "5",
+    summary: "Just sit and listen to Nosson Perl discuss the problems of therapy, find a solution for it theoretically and Shmuze about who knows what.",
+    podcastPath: "assets/audio/Nosson_Perl_&_Ari_Gutwirth.mp3",
+    live:false,
+  },
   {
     posterUrl: "assets/images/episode04.png",
     title: "Jaaayson For The Naaation",
