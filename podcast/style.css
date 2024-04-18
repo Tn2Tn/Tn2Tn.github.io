@@ -431,7 +431,7 @@ body:hover::-webkit-scrollbar-thumb {
 \*-----------------------------------*/
 
 .playlist {
-  position: fixed;
+  position:fixed;
   top: 0;
   right: -180px;
   width: 180px;
@@ -441,7 +441,7 @@ body:hover::-webkit-scrollbar-thumb {
   border-top-left-radius: var(--radius-16);
   border-bottom-left-radius: var(--radius-16);
   box-shadow: var(--shadow-2);
-  overflow-y: overlay;
+  overflow: hidden;
   visibility: hidden;
   transition: var(--transition-2);
   z-index: 4;
@@ -542,7 +542,7 @@ body:hover::-webkit-scrollbar-thumb {
  * responsive for large than 992px screen
  */
 
- @media (min-width: 992px) and (min-height: 600px) {
+ @media (min-width: 992px){
   /**
    * CUSTOM PROPERTY
    */
@@ -685,7 +685,7 @@ body:hover::-webkit-scrollbar-thumb {
   .playlist {
     position: static;
     visibility: visible;
-    border-radius: 0;
+    border-radius: var(--radius-16);
     box-shadow: none;
     flex-shrink: 0;
   }
