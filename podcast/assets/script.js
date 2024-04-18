@@ -23,7 +23,8 @@ const podcastData = [
     episode: "5",
     summary: "Just sit and listen to Nosson Perl discuss the problems of therapy, find a solution for it theoretically and Shmuze about who knows what.",
     podcastPath: "assets/audio/Nosson_Perl_&_Ari_Gutwirth.mp3",
-    live:false,
+    images:"assets/images/podcast 5/",
+    imagesNum:2,
   },
   {
     posterUrl: "assets/images/episode04.png",
@@ -32,7 +33,6 @@ const podcastData = [
     episode: "4",
     summary: "Listen to Binyomin Jayson speak about politics and who knows what, sing (like a Chazon) and give shout outs to everyone who lives on earth well almost. Keep an ear out for Yehuda Stones short words every now and then.",
     podcastPath: "assets/audio/Stone_&_Jayson.mp3",
-    live:false,
   },
   {
     posterUrl: "assets/images/episode03.png",
@@ -41,7 +41,6 @@ const podcastData = [
     episode: "3",
     summary: "Listen to Ahron Cowen speak about chassidim sharing a small percentage of his large knowledge about them. Litvaks Don't Have To Agree. Winners Of The Purim Survey Are: R Ross, Fler & Allan Davis",
     podcastPath: "assets/audio/Ahron Cowen.mp3",
-    live:false,
   },
   {
     posterUrl: "assets/images/episode02.png",
@@ -50,7 +49,6 @@ const podcastData = [
     episode: "2",
     summary: "An interview with Shloimy Blum discussing his daily Quote, many jokes, his revolution and controversial debates. (07565954248)x∞  P.S. NOT ALL RESPONSES ARE ENDORSED BY MECHANCHIM",
     podcastPath: "assets/audio/Sloimy Blun & surprise.mp3",
-    live:false,
   },
    {
      posterUrl: "assets/images/episode01.png",
@@ -59,7 +57,6 @@ const podcastData = [
      episode: "1",
      summary: "Listen to Eliezer give life musar to all listeners under 90 years young and list 16/21 nicknames  Thank you to MGS for making this episode come out late",
      podcastPath: "assets/audio/Eliezer Podcast.mp3",
-     live:false,
    },
  ];
 
@@ -152,10 +149,70 @@ const playerTitle = document.querySelector("[data-title]");
 const playerAlbum = document.querySelector("[data-guest]");
 const playerYear = document.querySelector("[data-episode]");
 const playerArtist = document.querySelector("[data-summary]");
+const images = document.querySelector("[data-image-list]");
 
 const audioSource = new Audio(podcastData[currentMusic].podcastPath);
 
+const gallary =function(){
+  // Remove existing images from the gallery
+  images.innerHTML = '';
+
+  // Add new images to the gallery
+  if (typeof currentMusic !== 'undefined' && currentMusic >= 0 && currentMusic < podcastData.length) {
+    const currentPodcast = podcastData[currentMusic];
+    for (let i = 0; i < currentPodcast.imagesNum; i++) {
+      const imageURL = `${currentPodcast.images}/${i + 1}.jpg`;
+      const videoURL = `${currentPodcast.images}/${i + 1}.mp4`;
+  
+      // Check if image file exists
+      fetch(imageURL)
+        .then(response => {
+          if (response.ok) {
+            // Image exists, add button for image
+            images.innerHTML += `
+              <li>
+                <a href="${imageURL}" target="_blank">
+                  <img class="image-item" src="${imageURL}" alt="${currentPodcast.title} Image ${i + 1}">
+                </a>
+              </li>
+            `;
+          } else {
+            console.error(`Image ${i + 1} for ${currentPodcast.title} not found.`);
+          }
+        })
+        .catch(error => {
+          console.error(`Error checking image ${i + 1} for ${currentPodcast.title}: ${error}`);
+        });
+  
+      // Check if video file exists
+      fetch(videoURL)
+        .then(response => {
+          if (response.ok) {
+            // Video exists, add button for video
+            images.innerHTML += `
+              <li>
+                <a href="${videoURL}" target="_blank">
+                  <video class="image-item" src="${videoURL}" alt="${currentPodcast.title} Image ${i + 1}">
+                </a>
+              </li>
+            `;
+          } else {
+            console.error(`Video ${i + 1} for ${currentPodcast.title} not found.`);
+          }
+        })
+        .catch(error => {
+          console.error(`Error checking video ${i + 1} for ${currentPodcast.title}: ${error}`);
+        });
+    }
+  } else {
+    console.error("Invalid currentMusic index or podcastData structure.");
+  }
+}
+
+
 const changePlayerInfo = function () {
+
+  // Update other player information
   playerBanner.src = podcastData[currentMusic].posterUrl;
   playerBanner.setAttribute("alt", `${podcastData[currentMusic].title} Album Poster`);
   playerTitle.textContent = podcastData[currentMusic].title;
@@ -166,11 +223,13 @@ const changePlayerInfo = function () {
   audioSource.src = podcastData[currentMusic].podcastPath;
 
   audioSource.addEventListener("loadeddata", updateDuration);
+  gallary();
   playMusic();
   islive();
 };
 
 addEventOnElements(playlistItems, "click", changePlayerInfo);
+
 
 // Set player info on load
 const setPlayerInfo = function () {
@@ -182,6 +241,7 @@ const setPlayerInfo = function () {
   playerArtist.textContent = podcastData[currentMusic].summary;
 
   audioSource.src = podcastData[currentMusic].podcastPath;
+  gallary();
 };
 setPlayerInfo();
 

@@ -45,7 +45,11 @@
    * gradient
    */
 
-  --gradient: linear-gradient(180deg, hsla(204, 9%, 11%, 0.9) 60%, transparent 120%);
+  --gradient: linear-gradient(
+    180deg,
+    hsla(204, 9%, 11%, 0.9) 60%,
+    transparent 120%
+  );
 
   /**
    * typography
@@ -276,7 +280,7 @@ body:hover::-webkit-scrollbar-thumb {
 
 .player {
   --padding: 24px;
-  background-image: var(--gradient); 
+  background-image: var(--gradient);
   padding: var(--padding);
   padding-block-start: calc(64px + var(--padding));
   min-height: 100vh;
@@ -294,9 +298,9 @@ body:hover::-webkit-scrollbar-thumb {
 }
 
 .podcast-banner {
-  aspect-ratio: 1 / 1;
   background-color: var(--surface-variant);
   max-width: 400px;
+  max-height: 400px;
   margin-inline: auto;
   align-self: center;
   overflow: hidden;
@@ -317,11 +321,12 @@ body:hover::-webkit-scrollbar-thumb {
 
 .artist {
   opacity: 0.6;
-  margin-block-end: 36px;
+  margin-block-end: 16px;
 }
 
 .seek-control {
   margin-block-end: 20px;
+  margin-block-start: 20px;
 }
 
 .range-wrapper {
@@ -389,17 +394,22 @@ body:hover::-webkit-scrollbar-thumb {
   user-select: none; /* Prevent text selection */
   color: var(--on-surface-variant);
   font-size: 1.3rem;
-  font-weight:bold
+  font-weight: bold;
 }
 
 /* Circle appearance on hover */
 #speed-input:hover {
-  background-color: hsla(203, 9%, 28%, 0.5); /* Circle color with 50% opacity on hover */
+  background-color: hsla(
+    203,
+    9%,
+    28%,
+    0.5
+  ); /* Circle color with 50% opacity on hover */
 }
-
 
 .player-control {
   justify-content: space-evenly;
+  margin-block-end: 72px;
 }
 
 .player-control .toggle.active {
@@ -431,7 +441,7 @@ body:hover::-webkit-scrollbar-thumb {
 \*-----------------------------------*/
 
 .playlist {
-  position:fixed;
+  position: fixed;
   top: 0;
   right: -180px;
   width: 180px;
@@ -508,6 +518,32 @@ body:hover::-webkit-scrollbar-thumb {
   opacity: 0.5;
 }
 
+.image-list {
+  max-width: 80vw;
+  overflow-x: auto;
+  display: flex;
+  gap: 10px;
+  margin-block-end: 36px;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.image-list::-webkit-scrollbar-thumb {
+  background-color: var(--surface-variant);
+}
+.image-list::-webkit-scrollbar {
+  height: 10px;
+}
+
+.image-item {
+  position: relative;
+  border-radius: var(--radius-12);
+  background-color: var(--surface-variant);
+  height: 80px;
+  align-items: center;
+}
+
 /*-----------------------------------*\
   #MEDIA QUERIES
 \*-----------------------------------*/
@@ -542,7 +578,7 @@ body:hover::-webkit-scrollbar-thumb {
  * responsive for large than 992px screen
  */
 
- @media (min-width: 992px){
+@media (min-width: 992px) {
   /**
    * CUSTOM PROPERTY
    */
@@ -556,7 +592,6 @@ body:hover::-webkit-scrollbar-thumb {
     --headline-gue: 4rem;
     --label-lg: 2.2rem;
   }
-  
 
   /**
    * RESET
@@ -574,16 +609,16 @@ body:hover::-webkit-scrollbar-thumb {
   /**
    * REUSED STYLE
    */
-   #speed-input {
+  #speed-input {
     width: 54px;
     height: 54px;
-    font-size: 1.8rem;}
+    font-size: 1.8rem;
+  }
 
   .btn-icon {
     width: 54px;
     height: 54px;
   }
-  
 
   .btn-icon .material-symbols-rounded {
     font-size: 2.8rem;
@@ -632,7 +667,7 @@ body:hover::-webkit-scrollbar-thumb {
     min-width: 100%;
   }
 
-  .podcast-content :is(.headline-sm, .label-lg, .label-md,.headline-gue) {
+  .podcast-content :is(.headline-sm, .label-lg, .label-md, .headline-gue) {
     max-width: 85%;
   }
 
@@ -700,10 +735,15 @@ body:hover::-webkit-scrollbar-thumb {
 
   .podcast-item .item-icon .material-symbols-rounded {
     font-size: 3.6rem;
+
+  }
+
+  .image-list {
+    justify-content: unset;
+    margin-left: unset;
+    margin-right: unset;
   }
 }
-
-
 
 /**
  * responsive for large than 1200px screen
@@ -723,4 +763,3 @@ body:hover::-webkit-scrollbar-thumb {
     gap: 28px;
   }
 }
-
