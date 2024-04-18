@@ -451,7 +451,7 @@ body:hover::-webkit-scrollbar-thumb {
   border-top-left-radius: var(--radius-16);
   border-bottom-left-radius: var(--radius-16);
   box-shadow: var(--shadow-2);
-  overflow: hidden;
+  overflow: auto;
   visibility: hidden;
   transition: var(--transition-2);
   z-index: 4;
