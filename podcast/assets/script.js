@@ -39,7 +39,7 @@ const podcastData = [
     title: "Chassidish Wikipedia",
     guest: "Ahron Cowen",
     episode: "3",
-    summary: "Listen to Ahron Cowen speak about chassidim sharing a small percentage of his large knowledge about them. Litvaks Don't Have To Agree. Winners Of The Purim Survey Are: R Ross, Fler & Allan Davis",
+    summary: "Listen to Ahron Cowen speak about chassidim sharing a small percentage of his large knowledge about them. Litvaks Don't Have To Agree.",
     podcastPath: "assets/audio/Ahron Cowen.mp3",
   },
   {
