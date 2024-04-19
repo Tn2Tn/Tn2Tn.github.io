@@ -282,6 +282,7 @@ body.compensate-for-scrollbar {
 .fancybox-button,
 .fancybox-button:link,
 .fancybox-button:visited {
+ color: #ccc; 
 }
 .fancybox-button:hover {
   color: #fff;
