@@ -24,7 +24,7 @@ const podcastData = [
     summary: "Just sit and listen to Nosson Perl discuss the problems of therapy, find a solution for it theoretically and Shmuze about who knows what.",
     podcastPath: "assets/audio/Nosson_Perl_&_Ari_Gutwirth.mp3",
     images:"assets/images/podcast 5/",
-    imagesNum:2,
+    imagesNum:3,
   },
   {
     posterUrl: "assets/images/episode04.png",
