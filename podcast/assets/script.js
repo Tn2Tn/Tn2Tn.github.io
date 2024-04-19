@@ -357,47 +357,83 @@ const isMusicEnd = function () {
   }
 };
 
+
 /**
  * SKIP TO NEXT MUSIC
  */
 
-const playerSkipNextBtn = document.querySelector("[data-skip-next]");
+// const playerSkipNextBtn = document.querySelector("[data-skip-next]");
 
-const skipNext = function () {
-  lastPlayedMusic = currentMusic;
+// const skipNext = function () {
+//   lastPlayedMusic = currentMusic;
 
-  if (isShuffled) {
-    shuffleMusic();
-  } else {
-    currentMusic >= podcastData.length - 1 ? (currentMusic = 0) : currentMusic++;
-  }
+//   if (isShuffled) {
+//     shuffleMusic();
+//   } else {
+//     currentMusic >= podcastData.length - 1 ? (currentMusic = 0) : currentMusic++;
+//   }
 
-  changePlayerInfo();
-  changePlaylistItem();
-};
+//   changePlayerInfo();
+//   changePlaylistItem();
+// };
 
-playerSkipNextBtn.addEventListener("click", skipNext);
+// playerSkipNextBtn.addEventListener("click", skipNext);
 
 /**
  * SKIP TO PREVIOUS MUSIC
  */
 
-const playerSkipPrevBtn = document.querySelector("[data-skip-prev]");
+// const playerSkipPrevBtn = document.querySelector("[data-skip-prev]");
 
-const skipPrev = function () {
-  lastPlayedMusic = currentMusic;
+// const skipPrev = function () {
+//   lastPlayedMusic = currentMusic;
 
-  if (isShuffled) {
-    shuffleMusic();
-  } else {
-    currentMusic <= 0 ? (currentMusic = podcastData.length - 1) : currentMusic--;
+//   if (isShuffled) {
+//     shuffleMusic();
+//   } else {
+//     currentMusic <= 0 ? (currentMusic = podcastData.length - 1) : currentMusic--;
+//   }
+
+//   changePlayerInfo();
+//   changePlaylistItem();
+// };
+
+// playerSkipPrevBtn.addEventListener("click", skipPrev);
+
+/**
+ * REPLAY MUSIC
+ */
+
+const replayBtn = document.querySelector("[data-replay]");
+
+const replay = function () {
+  // Rewind the audio by 10 seconds
+  audioSource.currentTime -= 10;
+  // If the audio is paused, play it
+  if (audioSource.paused) {
+    playMusic();
   }
-
-  changePlayerInfo();
-  changePlaylistItem();
 };
 
-playerSkipPrevBtn.addEventListener("click", skipPrev);
+replayBtn.addEventListener("click", replay);
+
+/**
+ * FORWARD MUSIC
+ */
+
+const forwardBtn = document.querySelector("[data-forward]");
+
+const forward = function () {
+  // Fast forward the audio by 30 seconds
+  audioSource.currentTime += 30;
+  // If the audio is paused, play it
+  if (audioSource.paused) {
+    playMusic();
+  }
+};
+
+forwardBtn.addEventListener("click", forward);
+
 
 /**
  * SHUFFLE MUSIC
@@ -533,12 +569,12 @@ if (currentPodcast.live) {
         element.style.display = 'none';
     });
     liveShowElements.forEach(function(element) {
-      element.style.display = 'flex'; // or 'inline', 'flex', etc. depending on the original display value
+      element.style.display = 'grid'; // or 'inline', 'flex', etc. depending on the original display value
   });
 } else {
     // Loop through each element and show it
     liveHideElements.forEach(function(element) {
-        element.style.display = 'flex'; // or 'inline', 'flex', etc. depending on the original display value
+        element.style.display = 'grid'; // or 'inline', 'flex', etc. depending on the original display value
     });
     liveShowElements.forEach(function(element) {
       element.style.display = 'none';
