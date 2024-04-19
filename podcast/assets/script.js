@@ -171,7 +171,7 @@ const gallary =function(){
             // Image exists, add button for image
             images.innerHTML += `
               <li>
-                <a href="${imageURL}" target="_blank">
+                <a href="${imageURL}" data-fancybox="gallery">
                   <img class="image-item" src="${imageURL}" alt="${currentPodcast.title} Image ${i + 1}">
                 </a>
               </li>
@@ -191,7 +191,7 @@ const gallary =function(){
             // Video exists, add button for video
             images.innerHTML += `
               <li>
-                <a href="${videoURL}" target="_blank">
+                <a href="${videoURL}" data-href="VIDEO_URL" data-fancybox="gallery">
                   <video class="image-item" src="${videoURL}" alt="${currentPodcast.title} Image ${i + 1}">
                 </a>
               </li>

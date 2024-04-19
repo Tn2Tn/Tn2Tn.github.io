@@ -525,6 +525,7 @@ body:hover::-webkit-scrollbar-thumb {
   display: flex;
   gap: 10px;
   margin-block-end: 36px;
+  justify-content: center;
   align-items: center;
   margin-left: auto;
   margin-right: auto;
