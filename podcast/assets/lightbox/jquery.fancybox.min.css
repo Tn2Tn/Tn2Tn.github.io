@@ -27,7 +27,6 @@ body.compensate-for-scrollbar {
 }
 .fancybox-container * {
   box-sizing: border-box;
-  border-radius: 10px;
 }
 .fancybox-bg,
 .fancybox-inner,
@@ -212,7 +211,7 @@ body.compensate-for-scrollbar {
   -ms-user-select: none;
   user-select: none;
   width: 100%;
-  border-radius: 10px;
+  border-radius: 12%;
 }
 .fancybox-spaceball {
   z-index: 1;
