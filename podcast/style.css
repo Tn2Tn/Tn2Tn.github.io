@@ -540,7 +540,7 @@ body:hover::-webkit-scrollbar-thumb {
 
 .image-item {
   position: relative;
-  border-radius: var(--radius-12);
+  border-radius: 5px;
   background-color: var(--surface-variant);
   height: 80px;
   align-items: center;
