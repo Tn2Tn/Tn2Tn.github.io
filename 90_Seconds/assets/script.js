@@ -14,6 +14,12 @@ const audioData = [
   },
   */
    {
+    "posterUrl": "assets/images/Parshas Kedoshim.png",
+    "title": "90 seconds to תורה",
+    "episode": "Parshas Kedoshim",
+    "audioPath": "assets/audio/90s Parshas Kedoshim.mp3"
+  },
+ {
     "posterUrl": "assets/images/Parshas Tazria.png",
     "title": "90 seconds to תורה",
     "episode": "Parshas Tazria",
