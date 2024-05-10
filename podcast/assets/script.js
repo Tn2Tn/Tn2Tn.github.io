@@ -17,6 +17,14 @@ const podcastData = [
   },
   */
   {
+    posterUrl: "assets/images/episode06.png",
+    title: "Inspiration with Chaim Morgan",
+    guest: "Chaim Morgan",
+    episode: "6",
+    summary: "Keep calm and listen to Chaim Morgan who joined us to discuss his inspiring thoughts on the world and give so much inspiration to the nation. (This Podcast Is Serious)",
+    podcastPath: "assets/audio/Chaim Morgan.mp3",
+  },
+  {
     posterUrl: "assets/images/episode05.png",
     title: "Therapy Problems (Solved)",
     guest: "Nosson Perl & Ari Gutwirth",
