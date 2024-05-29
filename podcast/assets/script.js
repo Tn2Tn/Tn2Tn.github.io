@@ -17,11 +17,21 @@ const podcastData = [
   },
   */
   {
+    posterUrl: "assets/images/Story.png",
+    title: "Story",
+    guest: "Storyteller",
+    episode: "7??? story 1 of 1",
+    summary:
+      "Discover the secret life of pigeons—turns out they're not just city dwellers, but covert operatives in a world-domination plot, and they’ve been using park benches as their command centers all along",
+    podcastPath: "assets/audio/Story.mp3",
+  },
+  {
     posterUrl: "assets/images/episode06.png",
     title: "Inspiration with Chaim Morgan",
     guest: "Chaim Morgan",
     episode: "6",
-    summary: "Keep calm and listen to Chaim Morgan who joined us to discuss his inspiring thoughts on the world and give so much inspiration to the nation. (This Podcast Is Serious)",
+    summary:
+      "Keep calm and listen to Chaim Morgan who joined us to discuss his inspiring thoughts on the world and give so much inspiration to the nation. (This Podcast Is Serious)",
     podcastPath: "assets/audio/Chaim Morgan.mp3",
   },
   {
@@ -29,17 +39,19 @@ const podcastData = [
     title: "Therapy Problems (Solved)",
     guest: "Nosson Perl & Ari Gutwirth",
     episode: "5",
-    summary: "Just sit and listen to Nosson Perl discuss the problems of therapy, find a solution for it theoretically and Shmuze about who knows what.",
+    summary:
+      "Just sit and listen to Nosson Perl discuss the problems of therapy, find a solution for it theoretically and Shmuze about who knows what.",
     podcastPath: "assets/audio/Nosson_Perl_&_Ari_Gutwirth.mp3",
-    images:"assets/images/podcast 5/",
-    imagesNum:3,
+    images: "assets/images/podcast 5/",
+    imagesNum: 3,
   },
   {
     posterUrl: "assets/images/episode04.png",
     title: "Jaaayson For The Naaation",
     guest: "Binyomin Jayson & Yehuda Stone",
     episode: "4",
-    summary: "Listen to Binyomin Jayson speak about politics and who knows what, sing (like a Chazon) and give shout outs to everyone who lives on earth well almost. Keep an ear out for Yehuda Stones short words every now and then.",
+    summary:
+      "Listen to Binyomin Jayson speak about politics and who knows what, sing (like a Chazon) and give shout outs to everyone who lives on earth well almost. Keep an ear out for Yehuda Stones short words every now and then.",
     podcastPath: "assets/audio/Stone_&_Jayson.mp3",
   },
   {
@@ -47,7 +59,8 @@ const podcastData = [
     title: "Chassidish Wikipedia",
     guest: "Ahron Cowen",
     episode: "3",
-    summary: "Listen to Ahron Cowen speak about chassidim sharing a small percentage of his large knowledge about them. Litvaks Don't Have To Agree.",
+    summary:
+      "Listen to Ahron Cowen speak about chassidim sharing a small percentage of his large knowledge about them. Litvaks Don't Have To Agree.",
     podcastPath: "assets/audio/Ahron Cowen.mp3",
   },
   {
@@ -55,18 +68,20 @@ const podcastData = [
     title: "Daily Quota",
     guest: "Shloimy Blun & Surprise Guest",
     episode: "2",
-    summary: "An interview with Shloimy Blum discussing his daily Quote, many jokes, his revolution and controversial debates. (07565954248)x∞  P.S. NOT ALL RESPONSES ARE ENDORSED BY MECHANCHIM",
+    summary:
+      "An interview with Shloimy Blum discussing his daily Quote, many jokes, his revolution and controversial debates. (07565954248)x∞  P.S. NOT ALL RESPONSES ARE ENDORSED BY MECHANCHIM",
     podcastPath: "assets/audio/Sloimy Blun & surprise.mp3",
   },
-   {
-     posterUrl: "assets/images/episode01.png",
-     title: "Baal Musar",
-     guest: "Eliezer Kahn",
-     episode: "1",
-     summary: "Listen to Eliezer give life musar to all listeners under 90 years young and list 16/21 nicknames  Thank you to MGS for making this episode come out late",
-     podcastPath: "assets/audio/Eliezer Podcast.mp3",
-   },
- ];
+  {
+    posterUrl: "assets/images/episode01.png",
+    title: "Baal Musar",
+    guest: "Eliezer Kahn",
+    episode: "1",
+    summary:
+      "Listen to Eliezer give life musar to all listeners under 90 years young and list 16/21 nicknames  Thank you to MGS for making this episode come out late",
+    podcastPath: "assets/audio/Eliezer Podcast.mp3",
+  },
+];
 
 /**
  * add event Listnere on all elements that are passed
@@ -77,7 +92,6 @@ const addEventOnElements = function (elements, eventType, callback) {
     elements[i].addEventListener(eventType, callback);
   }
 };
-
 
 /**
  * PLAYLIST
@@ -144,8 +158,6 @@ addEventOnElements(playlistItems, "click", function () {
   changePlaylistItem();
 });
 
-
-
 /**
  * PLAYER
  *
@@ -161,20 +173,20 @@ const images = document.querySelector("[data-image-list]");
 
 const audioSource = new Audio(podcastData[currentMusic].podcastPath);
 
-const gallary =function(){
+const gallary = function () {
   // Remove existing images from the gallery
-  images.innerHTML = '';
+  images.innerHTML = "";
 
   // Add new images to the gallery
-  if (typeof currentMusic !== 'undefined' && currentMusic >= 0 && currentMusic < podcastData.length) {
+  if (typeof currentMusic !== "undefined" && currentMusic >= 0 && currentMusic < podcastData.length) {
     const currentPodcast = podcastData[currentMusic];
     for (let i = 0; i < currentPodcast.imagesNum; i++) {
       const imageURL = `${currentPodcast.images}/${i + 1}.jpg`;
       const videoURL = `${currentPodcast.images}/${i + 1}.mp4`;
-  
+
       // Check if image file exists
       fetch(imageURL)
-        .then(response => {
+        .then((response) => {
           if (response.ok) {
             // Image exists, add button for image
             images.innerHTML += `
@@ -188,13 +200,13 @@ const gallary =function(){
             console.error(`Image ${i + 1} for ${currentPodcast.title} not found.`);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(`Error checking image ${i + 1} for ${currentPodcast.title}: ${error}`);
         });
-  
+
       // Check if video file exists
       fetch(videoURL)
-        .then(response => {
+        .then((response) => {
           if (response.ok) {
             // Video exists, add button for video
             images.innerHTML += `
@@ -208,18 +220,16 @@ const gallary =function(){
             console.error(`Video ${i + 1} for ${currentPodcast.title} not found.`);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(`Error checking video ${i + 1} for ${currentPodcast.title}: ${error}`);
         });
     }
   } else {
     console.error("Invalid currentMusic index or podcastData structure.");
   }
-}
-
+};
 
 const changePlayerInfo = function () {
-
   // Update other player information
   playerBanner.src = podcastData[currentMusic].posterUrl;
   playerBanner.setAttribute("alt", `${podcastData[currentMusic].title} Album Poster`);
@@ -237,7 +247,6 @@ const changePlayerInfo = function () {
 };
 
 addEventOnElements(playlistItems, "click", changePlayerInfo);
-
 
 // Set player info on load
 const setPlayerInfo = function () {
@@ -270,9 +279,7 @@ const updateDuration = function () {
   playerDuration.textContent = getTimecode(Number(playerSeekRange.max));
 };
 
-
 audioSource.addEventListener("loadeddata", updateDuration);
-
 
 /**
  * PLAY MUSIC
@@ -296,7 +303,7 @@ const playMusic = function () {
   }
 };
 
-document.addEventListener("keydown", function(event) {
+document.addEventListener("keydown", function (event) {
   // Check if the pressed key is the spacebar
   if (event.keyCode === 32) {
     // Prevent default behavior of scrolling the page
@@ -364,7 +371,6 @@ const isMusicEnd = function () {
     updateRangeFill();
   }
 };
-
 
 /**
  * SKIP TO NEXT MUSIC
@@ -441,7 +447,6 @@ const forward = function () {
 };
 
 forwardBtn.addEventListener("click", forward);
-
 
 /**
  * SHUFFLE MUSIC
@@ -522,23 +527,23 @@ playerVolumeBtn.addEventListener("click", muteVolume);
 
 /**
  * Music Speed
- */ 
+ */
 
-const speedInput = document.getElementById('speed-input');
+const speedInput = document.getElementById("speed-input");
 const speeds = [1, 1.25, 1.5, 1.75, 2];
 let currentSpeedIndex = 0;
 
-speedInput.addEventListener('click', function() {
+speedInput.addEventListener("click", function () {
   currentSpeedIndex = (currentSpeedIndex + 1) % speeds.length;
   const selectedSpeed = speeds[currentSpeedIndex];
   audioSource.playbackRate = selectedSpeed;
-  this.textContent = selectedSpeed + 'x';
-  
+  this.textContent = selectedSpeed + "x";
+
   // Change color based on selected speed
   if (selectedSpeed === 1) {
-    this.style.color = 'var(--on-surface-variant)';
+    this.style.color = "var(--on-surface-variant)";
   } else {
-    this.style.color = 'var(--primary)';
+    this.style.color = "var(--primary)";
   }
 });
 
@@ -546,11 +551,11 @@ speedInput.addEventListener('click', function() {
 const downloadBtn = document.getElementById("download-btn");
 
 // Add event listener for the download button
-downloadBtn.addEventListener("click", function() {
+downloadBtn.addEventListener("click", function () {
   // Get the current podcast's audio file URL
   const currentPodcast = podcastData[currentMusic];
   const podcastUrl = currentPodcast.podcastPath;
-  
+
   // Create a temporary anchor element to trigger the download
   const anchor = document.createElement("a");
   anchor.href = podcastUrl;
@@ -560,33 +565,32 @@ downloadBtn.addEventListener("click", function() {
   // Remove the anchor element from the DOM
   anchor.remove();
 });
-const islive = function (){
-// Get the current podcast from podcastData array
-// Get the current podcast from podcastData array
-var currentPodcast = podcastData[currentMusic];
+const islive = function () {
+  // Get the current podcast from podcastData array
+  // Get the current podcast from podcastData array
+  var currentPodcast = podcastData[currentMusic];
 
-// Get all elements with the id "live-hide"
-var liveHideElements = document.querySelectorAll('#live-hide, #download-btn');
-var liveShowElements = document.querySelectorAll('#live-show');
+  // Get all elements with the id "live-hide"
+  var liveHideElements = document.querySelectorAll("#live-hide, #download-btn");
+  var liveShowElements = document.querySelectorAll("#live-show");
 
-
-// Check if the current podcast is live
-if (currentPodcast.live) {
+  // Check if the current podcast is live
+  if (currentPodcast.live) {
     // Loop through each element and hide it
-    liveHideElements.forEach(function(element) {
-        element.style.display = 'none';
+    liveHideElements.forEach(function (element) {
+      element.style.display = "none";
     });
-    liveShowElements.forEach(function(element) {
-      element.style.display = 'grid'; // or 'inline', 'flex', etc. depending on the original display value
-  });
-} else {
+    liveShowElements.forEach(function (element) {
+      element.style.display = "grid"; // or 'inline', 'flex', etc. depending on the original display value
+    });
+  } else {
     // Loop through each element and show it
-    liveHideElements.forEach(function(element) {
-        element.style.display = 'grid'; // or 'inline', 'flex', etc. depending on the original display value
+    liveHideElements.forEach(function (element) {
+      element.style.display = "grid"; // or 'inline', 'flex', etc. depending on the original display value
     });
-    liveShowElements.forEach(function(element) {
-      element.style.display = 'none';
-  });
-}
-}
+    liveShowElements.forEach(function (element) {
+      element.style.display = "none";
+    });
+  }
+};
 islive();
