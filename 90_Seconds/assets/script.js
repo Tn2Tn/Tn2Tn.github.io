@@ -20,6 +20,12 @@ const audioData = [
     "audioPath": "assets/audio/90s_Parshas_Behar.mp3"
   },
  {
+    "posterUrl": "assets/images/Parshas Bamidbar.png",
+    "title": "90 seconds to תורה",
+    "episode": "Parshas Bamidbar",
+    "audioPath": "assets/audio/90s_Parshas_Bamidbar.mp3"
+  },
+ {
     "posterUrl": "assets/images/Parshas Emor.png",
     "title": "90 seconds to תורה",
     "episode": "Parshas Emor",
