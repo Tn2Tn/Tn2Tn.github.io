@@ -17,6 +17,16 @@ const podcastData = [
   },
   */
   {
+    posterUrl: "assets/images/episode06.png",
+    title: "Travel and more",
+    guest: "Ari Hirsch & Gershy Bambeger",
+    episode: "7",
+    summary: "Ari's child like obsession with stuffed animals, along with Gershy's perfectly timed clapping",
+    podcastPath: "assets/audio/Ari Hirsch & Gershy Bambeger.mp3",
+    images: "assets/images/podcast 7/",
+    imagesNum: 5,
+  },
+  {
     posterUrl: "assets/images/Story.png",
     title: "Story",
     guest: "Storyteller",
