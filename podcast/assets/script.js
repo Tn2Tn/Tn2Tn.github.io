@@ -17,7 +17,7 @@ const podcastData = [
   },
   */
   {
-    posterUrl: "assets/images/episode06.png",
+    posterUrl: "assets/images/episode07.png",
     title: "Travel and more",
     guest: "Ari Hirsch & Gershy Bambeger",
     episode: "7",
