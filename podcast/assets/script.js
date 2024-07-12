@@ -18,7 +18,7 @@ const podcastData = [
   */{
     posterUrl: "assets/images/episode08.png",
     title: "Simcas Dynamics",
-    guest: "Eli Netser",
+    guest: "Eli Netzer",
     episode: "8",
     summary: "listen to us discuss the funny things that happen in simcas and kiddushim across the board.",
     podcastPath: "assets/audio/Eli Netser.mp3",
