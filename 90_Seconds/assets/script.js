@@ -13,6 +13,12 @@ const audioData = [
     audioPath: "",
   },
   */
+    {
+    "posterUrl": "assets/images/Parshas Balak.png",
+    "title": "90 seconds to תורה",
+    "episode": "Parshas Balak",
+    "audioPath": "assets/audio/90s_Parshas_Balak.mp3"
+  },
    {
     "posterUrl": "assets/images/Parshas Korach.png",
     "title": "90 seconds to תורה",
