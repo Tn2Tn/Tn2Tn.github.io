@@ -17,7 +17,7 @@ const podcastData = [
   },
   */{
     posterUrl: "assets/images/episode08.png",
-    title: "Simcas Dynamics",
+    title: "Simcha Dynamics",
     guest: "Eli Netzer",
     episode: "8",
     summary: "listen to us discuss the funny things that happen in simchas and kiddushim across the board.",
