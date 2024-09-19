@@ -10,7 +10,7 @@
             <p>Join our mailing list to know when we release new episodes</p>
           </div>
           <form id="mailing-list-signup-form" class="form-item"  method="POST">
-          <input type="hidden" name="access_key" value="9a8c2a75-d59f-4eb0-8a5c-dbe7748b9d3b">
+          <input type="hidden" name="access_key" value="63510e4d-ea93-4d51-b6a6-b73351946c98">
           <input type="hidden" name="subject" value="Please add me to mailing list">
                       <label for="mailing-list-email-input">Name</label>
             <input type="text" name="Name" placeholder="Steve" required>
