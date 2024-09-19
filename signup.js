@@ -21,6 +21,7 @@
             <button type="submit">Subscribe to mailing list</button>
              <div id="result"></div>
           </form>
+          <button id="already" style="text-align: center;text-decoration-line: underline;margin-left: auto;margin-right: auto;color:white;font-size: 12px;">Already subscribed</button>
         </div>
       </div>
     </div>
@@ -159,6 +160,7 @@
     // Get the necessary elements
     const lightbox = document.getElementById('mailing-list-lightbox');
     const lightboxClose = document.getElementById('mailing-list-lightbox-close');
+    const already = document.getElementById('already');
     const signupForm = document.getElementById('mailing-list-signup-form');
     const emailInput = document.getElementById('mailing-list-email-input');
 
@@ -171,6 +173,11 @@
     lightboxClose.addEventListener('click', () => {
       lightbox.style.display = 'none';
       document.cookie = "list=" + today.toISOString() + "; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/; SameSite=None; Secure";
+    });
+
+    already.addEventListener('click', (event) => {
+      lightbox.style.display = 'none';
+      document.cookie = "list=subscribed" + "; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/; SameSite=None; Secure"
     });
 
     window.addEventListener('click', (event) => {
