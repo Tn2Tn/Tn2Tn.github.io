@@ -125,7 +125,7 @@ for (let i = 0, len = podcastData.length; i < len; i++) {
   <li>
     <button class="podcast-item ${i === 0 ? "playing" : ""}" data-playlist-toggler data-playlist-item="${i}">
       <img src="${podcastData[i].posterUrl}" width="800" height="800" alt="${podcastData[i].title} Album Poster"
-        class="img-cover">
+        class="img-cover lazyload">
 
       <div class="item-icon">
         <span class="material-symbols-rounded">equalizer</span>
@@ -269,6 +269,7 @@ addEventOnElements(playlistItems, "click", changePlayerInfo);
 
 // Set player info on load
 const setPlayerInfo = function () {
+  // playerBanner.setAttribute("data-src", `${podcastData[currentMusic].posterUrl}`);
   playerBanner.src = podcastData[currentMusic].posterUrl;
   playerBanner.setAttribute("alt", `${podcastData[currentMusic].title} Album Poster`);
   playerTitle.textContent = podcastData[currentMusic].title;

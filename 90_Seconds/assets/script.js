@@ -116,7 +116,7 @@ for (let i = 0, len = audioData.length; i < len; i++) {
   <li>
     <button class="podcast-item ${i === 0 ? "playing" : ""}" data-playlist-toggler data-playlist-item="${i}">
       <img src="${audioData[i].posterUrl}" width="800" height="800" alt="${audioData[i].title} Album Poster"
-        class="img-cover">
+        class="img-cover lazyload">
 
       <div class="item-icon">
         <span class="material-symbols-rounded">equalizer</span>
