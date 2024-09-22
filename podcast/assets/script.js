@@ -15,7 +15,19 @@ const podcastData = [
     podcastPath: "",
     live:false,
   },
-  */{
+  
+  */
+  {
+    posterUrl: "assets/images/episode09.png",
+    title: "Cholent Of Topics",
+    guest: "Shmuli Shtimler & Lael Tam",
+    episode: "9",
+    summary: "i don't even know how to describe this comedy sketch (dont worry its not all funny)",
+    podcastPath: "assets/audio/Shmuli Stimler & Lael Tam.mp3",
+    images: "assets/images/podcast 9/",
+    imagesNum: 1,
+  },
+  {
     posterUrl: "assets/images/episode08.png",
     title: "Simcha Dynamics",
     guest: "Eli Netzer",
