@@ -27,7 +27,7 @@ const lightboxHTML =
             margin: auto;
             top: 50%;
             transform: translateY(-50%);
-            width: 90%; /* More responsive */
+            width: fit-content; /* More responsive */
             max-width: 800px; /* Max width */
             max-height: 95vh; /* Max height set to 90% of viewport height */
             overflow-y: auto; /* Enable vertical scroll if content exceeds max-height */
@@ -61,11 +61,11 @@ const lightboxHTML =
         }
 
         .video-pop {
-            width: 100%; /* Responsive video */
             max-height: 80vh; /* Limit video height to 80% of viewport height */
             height: auto; /* Maintain aspect ratio */
             border-radius: 5px; /* Rounded corners for video */
             margin-top: 20px; /* Space between close button and video */
+            aspect-ratio: 9/16;
         }
     </style>
     <button id="openLightbox" style="display: none;">Watch Video</button>
