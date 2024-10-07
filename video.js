@@ -1,5 +1,5 @@
-const lightboxHTML = `
-    <style>
+const lightboxHTML = 
+    `<style>
         @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
         body {
@@ -29,6 +29,8 @@ const lightboxHTML = `
             transform: translateY(-50%);
             width: 90%; /* More responsive */
             max-width: 800px; /* Max width */
+            max-height: 95vh; /* Max height set to 90% of viewport height */
+            overflow-y: auto; /* Enable vertical scroll if content exceeds max-height */
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Shadow for depth */
             border-radius: 10px; /* Rounded corners */
             background-color: hsl(203.1, 9.1%, 28%); /* White background for content */
@@ -60,6 +62,7 @@ const lightboxHTML = `
 
         .video-pop {
             width: 100%; /* Responsive video */
+            max-height: 80vh; /* Limit video height to 80% of viewport height */
             height: auto; /* Maintain aspect ratio */
             border-radius: 5px; /* Rounded corners for video */
             margin-top: 20px; /* Space between close button and video */
@@ -69,7 +72,7 @@ const lightboxHTML = `
     <div id="lightbox" class="lightbox">
         <div class="lightbox-content">
             <span class="close" id="closeLightbox">&times;</span>
-            <h1>Have a happy sweet new year</h1> <!-- Added text here -->
+            <h1>New Special comming soon</h1> <!-- Added text here -->
             <video class="video-pop" src="../podcast.mp4" controls></video>
         </div>
     </div>
