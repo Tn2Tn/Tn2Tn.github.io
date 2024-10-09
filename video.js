@@ -65,7 +65,8 @@ const lightboxHTML =
             height: auto; /* Maintain aspect ratio */
             border-radius: 5px; /* Rounded corners for video */
             margin-top: 20px; /* Space between close button and video */
-            aspect-ratio: 9/16;
+            aspect-ratio: 16/9;
+            max-width: 760px;
         }
     </style>
     <button id="openLightbox" style="display: none;">Watch Video</button>
