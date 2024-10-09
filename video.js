@@ -72,7 +72,7 @@ const lightboxHTML =
     <div id="lightbox" class="lightbox">
         <div class="lightbox-content">
             <span class="close" id="closeLightbox">&times;</span>
-            <h1>New Special comming soon</h1> <!-- Added text here -->
+            <h1>Fast Well!</h1> <!-- Added text here -->
             <video class="video-pop" src="../podcast.mp4" controls></video>
         </div>
     </div>
