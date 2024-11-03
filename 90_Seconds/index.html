@@ -12,16 +12,18 @@
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-PQ5PV83V');</script>
   <!-- End Google Tag Manager -->
-<script>
-  // Add an event listener to the download button
-  document.getElementById('download-btn').addEventListener('click', function() {
-    // Send an event to Google Analytics
-    gtag('event', '90_second_download', {
-      'event_category': 'button',
-      'event_label': '90 Second Download Button Pressed'
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add an event listener to the download button
+      document.getElementById("download-btn").addEventListener('click', function() {
+        // Send an event to Google Analytics
+        gtag('event', '90_second_download', {
+          'event_category': 'button',
+          'event_label': '90 Second Download Button Pressed'
+        });
+      });
     });
-  });
-</script>
+  </script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -104,15 +106,9 @@
       <div class="player">
         <div class="container">
           <figure class="podcast-banner">
-            <video
-            id="90sec" muted
-              src="90s_Video_Countdown.mp4"
-              width="800"
-              height="800"
-              alt="Tn2Tn Podcast click an episode to start"
-              class="img-cover"
-              data-player-banner
-            ></video>
+            <h1 data-countdown>90
+            </h1>
+            <img src="assets/90s_Video_Countdown.png" alt="Tn2Tn Podcast" class="img-cover" />
           </figure>
 
             <div class="podcast-content">
@@ -150,16 +146,16 @@
                   </div>
                 </div>
               </div>
-
+              
               <div class="player-control wrapper">
                 <!-- <button class="btn-icon toggle" data-repeat>
                   <span class="material-symbols-rounded default-icon">repeat</span>
                   <span class="material-symbols-rounded active-icon">repeat_one</span>
                 </button> -->
 
-<button class="btn-icon" id="download-btn" data-download-btn>
-  <span class="material-symbols-rounded">file_download</span>
-</button>
+                <button class="btn-icon" id="download-btn" data-download-btn>
+                  <span class="material-symbols-rounded">file_download</span>
+                </button>
 
                 <button class="btn-icon" data-skip-prev>
                   <span class="material-symbols-rounded">skip_previous</span>
