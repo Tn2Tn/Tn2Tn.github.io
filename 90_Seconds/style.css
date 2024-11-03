@@ -317,6 +317,7 @@ body:hover::-webkit-scrollbar-thumb {
   top: 50%;
   transform: translate(-50%, -47%);
   text-align: center;
+  color: #a13c8d;
   white-space: nowrap;
 }
 

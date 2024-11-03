@@ -507,4 +507,3 @@ downloadBtn.addEventListener("click", function() {
   // Remove the anchor element from the DOM
   anchor.remove();
 });
-
