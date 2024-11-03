@@ -183,7 +183,6 @@ const playerYear = document.querySelector("[data-episode]");
 const audioSource = new Audio(audioData[currentMusic].audioPath);
 
 const changePlayerInfo = function () {
-  playerBanner.setAttribute("alt", `${audioData[currentMusic].title} Album Poster`);
   playerTitle.textContent = audioData[currentMusic].title;
   playerYear.textContent = audioData[currentMusic].episode;
 
@@ -197,7 +196,6 @@ addEventOnElements(playlistItems, "click", changePlayerInfo);
 
 // Set player info on load
 const setPlayerInfo = function () {
-  playerBanner.setAttribute("alt", `${audioData[currentMusic].title} Album Poster`);
   playerTitle.textContent = audioData[currentMusic].title;
   playerYear.textContent = audioData[currentMusic].episode;
 
@@ -237,12 +235,10 @@ let playInterval;
 const playMusic = function () {
   if (audioSource.paused) {
     audioSource.play();
-    vid.play(); 
     playBtn.classList.add("active");
     playInterval = setInterval(updateRunningTime, 500);
   } else {
     audioSource.pause();
-    vid.pause(); 
     playBtn.classList.remove("active");
     clearInterval(playInterval);
   }
@@ -260,27 +256,37 @@ document.addEventListener("keydown", function(event) {
 
 playBtn.addEventListener("click", playMusic);
 
-let vid = document.getElementById("90sec"); 
-
-function playVid() { 
-  vid.play(); 
-} 
-
-function pauseVid() { 
-  vid.pause(); 
-} 
 
 /** update running time while playing podcast */
 
 const playerRunningTime = document.querySelector("[data-running-time");
 
+/** Countdown Logic */
+
 const updateRunningTime = function () {
+  // Update the player seek range to match the current time of the audio
   playerSeekRange.value = audioSource.currentTime;
   playerRunningTime.textContent = getTimecode(audioSource.currentTime);
 
+  // Calculate the remaining countdown by subtracting the current time from 90 seconds
+  countdown = 90 - Math.ceil(audioSource.currentTime);
+
+  // Display countdown in the designated HTML element
+  document.querySelector("[data-countdown]").textContent = countdown;
+
+  // Update the range fill and check if the music has ended
   updateRangeFill();
   isMusicEnd();
 };
+
+// Ensure you have an element in your HTML to display the countdown
+// <div data-countdown>90</div>
+
+
+
+// Ensure you have an element in your HTML to display the countdown
+// <div data-countdown>90:00</div>
+
 
 /**
  * RANGE FILL WIDTH
@@ -306,10 +312,26 @@ addEventOnElements(ranges, "input", updateRangeFill);
  * seek podcast while changing player seek range
  */
 
+let countdown = 90; // Initialize countdown to 90 seconds
+
+// Update running time and countdown when seeking
 const seek = function () {
+  // Set the audio current time to the seek range's value
   audioSource.currentTime = playerSeekRange.value;
+  
+  // Update the running time display
   playerRunningTime.textContent = getTimecode(playerSeekRange.value);
+
+  // Update countdown based on the new current time
+  countdown = 90 - Math.ceil(audioSource.currentTime);
+  
+  // Display the updated countdown
+  document.querySelector("[data-countdown]").textContent = countdown;
+
+  // Update the range fill width to match the new position
+  updateRangeFill();
 };
+
 
 playerSeekRange.addEventListener("input", seek);
 
@@ -320,7 +342,6 @@ playerSeekRange.addEventListener("input", seek);
 const isMusicEnd = function () {
   if (audioSource.ended) {
     playBtn.classList.remove("active");
-    audioSource.currentTime = 0;
     playerSeekRange.value = audioSource.currentTime;
     playerRunningTime.textContent = getTimecode(audioSource.currentTime);
     updateRangeFill();
