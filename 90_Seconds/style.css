@@ -319,6 +319,7 @@ body:hover::-webkit-scrollbar-thumb {
   text-align: center;
   color: #a13c8d;
   white-space: nowrap;
+  font-weight: normal;
 }
 
 
