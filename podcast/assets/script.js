@@ -18,6 +18,14 @@ const podcastData = [
   
   */
   {
+    posterUrl: "assets/images/episode10.png",
+    title: "Wheres Wally",
+    guest: "Yehoshua Sayagh",
+    episode: "10",
+    summary: "Thank You Hashem Ep. 10 Is Out. Discussing where Yehoshua works, Jtrade and freebees' & why this podcast's Episodes aren't more than 45min (around)",
+    podcastPath: "assets/audio/Yehoshua Sayagh.mp3",
+  },
+  {
     posterUrl: "assets/images/episode09.png",
     title: "Cholent Of Topics",
     guest: "Shmuli Stimler & Lael Tam",
