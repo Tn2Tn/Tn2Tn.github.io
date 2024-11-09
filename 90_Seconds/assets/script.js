@@ -14,83 +14,11 @@ const audioData = [
   },
   */
     {
-    "posterUrl": "assets/images/Parshas Ki Seitzei.png",
+    "posterUrl": "assets/images/Parshas Lech Lecha.png",
     "title": "90 seconds to תורה",
-    "episode": "Parshas Ki Seitzei",
-    "audioPath": "assets/audio/90s_Parshas_Ki_Seitzei.mp3"
+    "episode": "Parshas Lech Lecha",
+    "audioPath": "assets/audio/P Lech Lecha.mp3"
   },
-   {
-    "posterUrl": "assets/images/Parshas Balak.png",
-    "title": "90 seconds to תורה",
-    "episode": "Parshas Balak",
-    "audioPath": "assets/audio/90s_Parshas_Balak.mp3"
-  },
-   {
-    "posterUrl": "assets/images/Parshas Korach.png",
-    "title": "90 seconds to תורה",
-    "episode": "Parshas Korach",
-    "audioPath": "assets/audio/90s_Parshas_Korach.mp3"
-  },
-  {
-    "posterUrl": "assets/images/Parshas Bamidbar.png",
-    "title": "90 seconds to תורה",
-    "episode": "Parshas Bamidbar",
-    "audioPath": "assets/audio/90s_Parshas_Bamidbar.mp3"
-  },
-   {
-    "posterUrl": "assets/images/Parshas Behar.png",
-    "title": "90 seconds to תורה",
-    "episode": "Parshas Behar",
-    "audioPath": "assets/audio/90s_Parshas_Behar.mp3"
-  },
- {
-    "posterUrl": "assets/images/Parshas Emor.png",
-    "title": "90 seconds to תורה",
-    "episode": "Parshas Emor",
-    "audioPath": "assets/audio/90s_Parshas_Emor.mp3"
-  },
- {
-    "posterUrl": "assets/images/Parshas Kedoshim.png",
-    "title": "90 seconds to תורה",
-    "episode": "Parshas Kedoshim",
-    "audioPath": "assets/audio/90s Parshas Kedoshim.mp3"
-  },
- {
-    "posterUrl": "assets/images/Parshas Tazria.png",
-    "title": "90 seconds to תורה",
-    "episode": "Parshas Tazria",
-    "audioPath": "assets/audio/90s_Parshas_Tazria.mp3"
-  },
- {
-    "posterUrl": "assets/images/Parshas Shemini.png",
-    "title": "90 seconds to תורה",
-    "episode": "Parshas Shemini",
-    "audioPath": "assets/audio/90s_Parshas_Shemini.mp3"
-  },
- {
-    "posterUrl": "assets/images/Parshas Tzav.png",
-    "title": "90 seconds to תורה",
-    "episode": "Parshas Tzav",
-    "audioPath": "assets/audio/90s_Parshas_Tzav.mp3"
-  },
- {
-    "posterUrl": "assets/images/Parshas Vayikra.png",
-    "title": "90 seconds to תורה",
-    "episode": "Parshas Vayikra",
-    "audioPath": "assets/audio/90s_Parshas_Vayikra.mp3"
-  },
-  {
-    "posterUrl": "assets/images/Parshas Pekudei.png",
-    "title": "90 seconds to תורה",
-    "episode": "Parshas Pekudei",
-    "audioPath": "assets/audio/90s_Parshas_Pekudei.mp3"
-  },
-   {
-    "posterUrl": "assets/images/Parshas Vayakel.png",
-    "title": "90 seconds to תורה",
-    "episode": "Parshas Vayakel",
-    "audioPath": "assets/audio/90s_Parshas_Vayakel.mp3"
-  }, 
 ];
 
 /**
