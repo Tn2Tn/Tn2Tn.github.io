@@ -13,6 +13,12 @@ const audioData = [
     audioPath: "",
   },
   */
+     {
+    "posterUrl": "assets/images/Parshas Chayei Sara.png",
+    "title": "90 seconds to תורה",
+    "episode": "Parshas Chayei Sara",
+    "audioPath": "assets/audio/P Chayei Sara.mp3"
+  },
     {
     "posterUrl": "assets/images/Parshas Lech Lecha.png",
     "title": "90 seconds to תורה",
