@@ -73,8 +73,8 @@ const lightboxHTML =
     <div id="lightbox" class="lightbox">
         <div class="lightbox-content">
             <span class="close" id="closeLightbox">&times;</span>
-            <h1>Fast Well!</h1> <!-- Added text here -->
-            <video class="video-pop" src="../podcast.mp4" controls></video>
+            <h1>ט״ו בשבט</h1> <!-- Added text here -->
+            <video class="video-pop" src="../Tu Bishvat.mp4" controls></video>
         </div>
     </div>
 `;
