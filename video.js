@@ -73,7 +73,7 @@ const lightboxHTML =
         <div class="lightbox-content">
             <span class="close" id="closeLightbox">&times;</span>
             <h1>ט״ו בשבט</h1> <!-- Added text here -->
-<iframe src="https://1drv.ms/v/c/e424e196fc5855e9/IQRCUwiAyH3MSLq5Uu9jVtMYAc4iokXZ7Vz1HJ088Jc06Bc" width="1920" height="1080" frameborder="0" scrolling="no" allowfullscreen="" style="width: 80vw; max-width: 1000px; height: auto; max-height: 80vh border-radius: 8px;"></iframe>     </div>
+<iframe src="https://1drv.ms/v/c/e424e196fc5855e9/IQRCUwiAyH3MSLq5Uu9jVtMYAc4iokXZ7Vz1HJ088Jc06Bc" width="1920" height="1080" frameborder="0" scrolling="no" allowfullscreen="" style="width: 80vw; max-width: 1000px; max-height: 80vh; border-radius: 8px;"></iframe>     </div>
     </div>
 `;
 
