@@ -74,8 +74,7 @@ const lightboxHTML =
         <div class="lightbox-content">
             <span class="close" id="closeLightbox">&times;</span>
             <h1>ט״ו בשבט</h1> <!-- Added text here -->
-            <video class="video-pop" src="../Tu Bishvat.mp4" controls></video>
-        </div>
+<iframe src="https://drive.google.com/file/d/1N8RiJIZA7kVHqBCP58W-7gBq-uRGvQ9l/preview" width="640" height="480" allow="autoplay"></iframe>        </div>
     </div>
 `;
 
