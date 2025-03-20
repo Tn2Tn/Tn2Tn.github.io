@@ -21,7 +21,7 @@
             <button type="submit">Subscribe to mailing list</button>
              <div id="result"></div>
           </form>
-          <button id="already" style="text-align: center;text-decoration-line: underline;margin-left: auto;margin-right: auto;color:white;font-size: 12px;">Already subscribed</button>
+          <button id="already" style="text-align: center;text-decoration-line: underline;margin-left: auto;margin-right: auto;color:white;display: block;font-size: 12px;background: none;border: none;cursor: pointer;">Already subscribed</button>
         </div>
       </div>
     </div>
@@ -98,7 +98,7 @@
       padding: 1rem;
       margin-bottom: 1rem;
       border-radius: 8px;
-      color: white; /* Set the text color to white */
+      color: #41494e; /* Set the text color to white */
     }
     .form-item input {
       border: 1px solid var(--grey);
