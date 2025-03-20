@@ -10,7 +10,14 @@ const podcastData = [
       live:false,
     },
     
-    */
+    */{
+    posterUrl: "assets/images/Purim25.png",
+    title: "Cowen again",
+    guest: "Ahron Cowen",
+    date: "Purim",
+    summary: "",
+    podcastPath: "assets/audio/Venohapochu.mp3",
+    },
      {
   posterUrl: "assets/images/Problem.png",
   title: "Please Help",
