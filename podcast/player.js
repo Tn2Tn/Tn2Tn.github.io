@@ -52,23 +52,21 @@ document.addEventListener("DOMContentLoaded", () => {
             if (progressData.podcastPath === currentPodcast.podcastPath) {
                 // Restore progress if it's less than 100% of the total duration
                 if (progressData.percentagePlayed < 100) {
-                    // Wait for metadata to load
-                    audioSource.addEventListener('loadedmetadata', () => {
-                        audioSource.currentTime = progressData.currentTime;
-                        
-                        // Update seek range and running time
-                        playerSeekRange.value = progressData.currentTime;
-                        playerRunningTime.textContent = getTimecode(progressData.currentTime);
-                        
-                        // Update range fill
-                        const rangeValue = (progressData.currentTime / audioSource.duration) * 100;
-                        document.querySelector('[data-range-fill]').style.width = `min(calc(${rangeValue}% + 1px), 100%)`;
-                        
-                        // Call updatePlaylistProgress if the function exists in playlist.js
-                        if (typeof updatePlaylistProgress === 'function') {
-                            updatePlaylistProgress(currentMusic, progressData.percentagePlayed);
-                        }
-                    }, { once: true });
+                    // Immediately set current time
+                    audioSource.currentTime = progressData.currentTime;
+                    
+                    // Update seek range and running time
+                    playerSeekRange.value = progressData.currentTime;
+                    playerRunningTime.textContent = getTimecode(progressData.currentTime);
+                    
+                    // Update range fill
+                    const rangeValue = (progressData.currentTime / audioSource.duration) * 100;
+                    document.querySelector('[data-range-fill]').style.width = `min(calc(${rangeValue}% + 1px), 100%)`;
+                    
+                    // Call updatePlaylistProgress if the function exists in playlist.js
+                    if (typeof updatePlaylistProgress === 'function') {
+                        updatePlaylistProgress(currentMusic, progressData.percentagePlayed);
+                    }
                 }
             }
         }
@@ -87,9 +85,15 @@ document.addEventListener("DOMContentLoaded", () => {
         playerDuration.textContent = getTimecode(Number(playerSeekRange.max));
         checkSkipButtonVisibility(); // Check visibility after duration is updated
 
-        // Load podcast progress after duration is set
+        // Load podcast progress immediately after duration is set
         loadPodcastProgress();
     };
+
+    // Modify the event listener to load progress before other actions
+    audioSource.addEventListener('loadedmetadata', () => {
+        updateDuration();
+        
+    });
     audioSource.addEventListener('loadeddata', updateDuration);
 
     // Range Fill Update
