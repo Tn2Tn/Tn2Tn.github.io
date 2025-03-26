@@ -11,6 +11,14 @@ const podcastData = [
     },
     
     */
+    {
+    posterUrl: "assets/images/Purim25.png",
+    title: "Cowen again",
+    guest: "Ahron Cowen",
+    date: "Purim",
+    summary: "",
+    podcastPath: "assets/audio/Venohapochu.mp3",
+    },
      {
   posterUrl: "https://tn2tn.github.io/podcast/assets/images/Problem.png",
   title: "Please Help",
