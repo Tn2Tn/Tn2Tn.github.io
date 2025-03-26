@@ -10,109 +10,102 @@ const podcastData = [
       live:false,
     },
     
-    */{
-    posterUrl: "assets/images/Purim25.png",
-    title: "Cowen again",
-    guest: "Ahron Cowen",
-    date: "Purim",
-    summary: "",
-    podcastPath: "assets/audio/Venohapochu.mp3",
-    },
+    */
      {
-  posterUrl: "assets/images/Problem.png",
+  posterUrl: "https://tn2tn.github.io/podcast/assets/images/Problem.png",
   title: "Please Help",
   guest: "Urgent Notice",
   date: "A Long Time Ago",
   summary: "Share With At Least 3 People Or Contact Us To Record",
-  podcastPath: "assets/audio/Problem.mp3",
+  podcastPath: "https://tn2tn.github.io/podcast/assets/audio/Problem.mp3",
 },
 {
-  posterUrl: "assets/images/episode10.png",
+  posterUrl: "https://tn2tn.github.io/podcast/assets/images/episode10.png",
   title: "Wheres Wally",
   guest: "Yehoshua Sayagh",
   date: "November 7th 2024",
   summary: "Thank You Hashem Ep. 10 Is Out. Discussing where Yehoshua works, Jtrade and freebees' & why this podcast's Episodes aren't more than 45min (around)",
-  podcastPath: "assets/audio/Yehoshua Sayagh.mp3",
+  podcastPath: "https://tn2tn.github.io/podcast/assets/audio/Yehoshua Sayagh.mp3",
 },
 {
-  posterUrl: "assets/images/episode09.png",
+  posterUrl: "https://tn2tn.github.io/podcast/assets/images/episode09.png",
   title: "Cholent Of Topics",
   guest: "Shmuli Stimler & Lael Tam",
   date: "September 22nd 2024",
   summary: "I don't even know how to describe this comedy sketch (dont worry its not all funny)",
-  podcastPath: "assets/audio/Shmuli Stimler & Lael Tam.mp3",
-  images: "assets/images/podcast 9/",
+  podcastPath: "https://tn2tn.github.io/podcast/assets/audio/Shmuli Stimler & Lael Tam.mp3",
+  images: "https://tn2tn.github.io/podcast/assets/images/podcast 9/",
   imagesNum: 2,
 },
 {
-  posterUrl: "assets/images/episode08.png",
+  posterUrl: "https://tn2tn.github.io/podcast/assets/images/episode08.png",
   title: "Simcha Dynamics",
   guest: "Eli Netzer",
   date: "July 12th 2024",
   summary: "listen to us discuss the funny things that happen in simchas and kiddushim across the board.",
-  podcastPath: "assets/audio/Eli Netser.mp3",
-  images: "assets/images/podcast 8/",
+  podcastPath: "https://tn2tn.github.io/podcast/assets/audio/Eli Netser.mp3",
+  images: "https://tn2tn.github.io/podcast/assets/images/podcast 8/",
   imagesNum: 1,
 },
 {
-  posterUrl: "assets/images/episode07.png",
+  posterUrl: "https://tn2tn.github.io/podcast/assets/images/episode07.png",
   title: "Travel and more",
   guest: "Ari Hirsch & Gershy Bambeger",
   date: "June 20th 2024",
   summary: "Ari's child like obsession with stuffed animals, jet setting and gershy bamberger clapping when compleatly needed",
-  podcastPath: "assets/audio/Ari Hirsch & Gershy Bambeger.mp3",
-  images: "assets/images/podcast 7/",
+  podcastPath: "https://tn2tn.github.io/podcast/assets/audio/Ari Hirsch & Gershy Bambeger.mp3",
+  images: "https://tn2tn.github.io/podcast/assets/images/podcast 7/",
   imagesNum: 5,
 },
 {
-  posterUrl: "assets/images/episode06.png",
+  posterUrl: "https://tn2tn.github.io/podcast/assets/images/episode06.png",
   title: "Inspiration with Chaim Morgan",
   guest: "Chaim Morgan",
   date: "May 10th 2024",
   summary: "Keep calm and listen to Chaim Morgan who joined us to discuss his inspiring thoughts on the world and give so much inspiration to the nation. (This Podcast Is Serious)",
-  podcastPath: "assets/audio/Chaim Morgan.mp3",
+  podcastPath: "https://tn2tn.github.io/podcast/assets/audio/Chaim Morgan.mp3",
 },
 {
-  posterUrl: "assets/images/episode05.png",
+  posterUrl: "https://tn2tn.github.io/podcast/assets/images/episode05.png",
   title: "Therapy Problems (Solved)",
   guest: "Nosson Perl & Ari Gutwirth",
   date: "April 18th 2024",
   summary: "Just sit and listen to Nosson Perl discuss the problems of therapy, find a solution for it theoretically and Shmuze about who knows what.",
-  podcastPath: "assets/audio/Nosson_Perl_&_Ari_Gutwirth.mp3",
-  images: "assets/images/podcast 5/",
+  podcastPath: "https://tn2tn.github.io/podcast/assets/audio/Nosson_Perl_&_Ari_Gutwirth.mp3",
+  images: "https://tn2tn.github.io/podcast/assets/images/podcast 5/",
   imagesNum: 3,
 },
 {
-  posterUrl: "assets/images/episode04.png",
+  posterUrl: "https://tn2tn.github.io/podcast/assets/images/episode04.png",
   title: "Jaaayson For The Naaation",
   guest: "Binyomin Jayson & Yehuda Stone",
   date: "April 11th 2024",
   summary: "Listen to Binyomin Jayson speak about politics and who knows what, sing (like a Chazon) and give shout outs to everyone who lives on earth well almost. Keep an ear out for Yehuda Stones short words every now and then.",
-  podcastPath: "assets/audio/Stone_&_Jayson.mp3",
+  podcastPath: "https://tn2tn.github.io/podcast/assets/audio/Stone_&_Jayson.mp3",
 },
 {
-  posterUrl: "assets/images/episode03.png",
+  posterUrl: "https://tn2tn.github.io/podcast/assets/images/episode03.png",
   title: "Chassidish Wikipedia",
   guest: "Ahron Cowen",
   date: "April 4th 2024",
   summary: "Listen to Ahron Cowen speak about chassidim sharing a small percentage of his large knowledge about them. Litvaks Don't Have To Agree.",
-  podcastPath: "assets/audio/Ahron Cowen.mp3",
+  podcastPath: "https://tn2tn.github.io/podcast/assets/audio/Ahron Cowen.mp3",
 },
 {
-  posterUrl: "assets/images/episode02.png",
+  posterUrl: "https://tn2tn.github.io/podcast/assets/images/episode02.png",
   title: "Daily Quota",
   guest: "Shloimy Blun & Surprise Guest",
   date: "March 7th 2024",
   summary: "An interview with Shloimy Blum discussing his daily Quote, many jokes, his revolution and controversial debates. (07565954248)x∞  P.S. NOT ALL RESPONSES ARE ENDORSED BY MECHANCHIM",
-  podcastPath: "assets/audio/Sloimy Blun & surprise.mp3",
+  podcastPath: "https://tn2tn.github.io/podcast/assets/audio/Sloimy Blun & surprise.mp3",
 },
 {
-  posterUrl: "assets/images/episode01.png",
+  posterUrl: "https://tn2tn.github.io/podcast/assets/images/episode01.png",
   title: "Baal Musar",
   guest: "Eliezer Kahn",
   date: "March 1st 2024",
   summary: "Listen to Eliezer give life musar to all listeners under 90 years young and list 16/21 nicknames. Thank you to MGS for making this episode come out late",
-  podcastPath: "assets/audio/Eliezer Podcast.mp3",
+  podcastPath: "https://tn2tn.github.io/podcast/assets/audio/Eliezer Podcast.mp3",
 }
   ];
   
@@ -313,30 +306,41 @@ function createVideoGallery() {
 
   
   // Initialize the page
-  document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     // Initialize audio source
     audioSource = new Audio(podcastData[currentMusic].podcastPath);
-  
+
     // Create video gallery
     createVideoGallery();
-  
+
     // Initial player info setup
     const playerBanner = document.querySelector('[data-player-banner]');
     const playerTitle = document.querySelector('[data-title]');
     const playerAlbum = document.querySelector('[data-guest]');
     const playerArtist = document.querySelector('[data-summary]');
-  
+    const images = document.querySelector('[data-image-list]');
+
     const currentPodcast = podcastData[currentMusic];
-  
+
+    // Update player information as if first podcast was clicked
     playerBanner.src = currentPodcast.posterUrl;
     playerBanner.setAttribute('alt', `${currentPodcast.title} Album Poster`);
     playerTitle.textContent = currentPodcast.title;
     playerAlbum.textContent = currentPodcast.guest;
     playerArtist.textContent = currentPodcast.summary;
-  
-    // Additional event listeners and functionality can be added here
+
+    // Update playlist item to show first item as selected
+    updatePlaylistItem();
+
+    // Populate image gallery (if applicable)
+    updateImageGallery(currentPodcast);
+
+    // Update playlist progress from cookies
     updatePlaylistProgressFromCookies();
-  });
+
+    // Ensure audio is loaded but not automatically played
+    audioSource.load();
+});
   
   const islive = function () {
     // Get the current podcast from podcastData array
