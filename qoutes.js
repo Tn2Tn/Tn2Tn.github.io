@@ -162,7 +162,7 @@ svg.filters {
 }
 .header-text {
   color: #63687d;
-  font-size: 11vh;
+  font-size: min(13vw, 11vh);
   text-align: center;
   line-height: 1.0625;
   font-weight: 600;
