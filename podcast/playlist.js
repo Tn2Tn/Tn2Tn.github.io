@@ -13,7 +13,7 @@ const podcastData = [
     */
 {
   posterUrl: "assets/images/World-tour.png",
-  title: "Cowen again",
+  title: "World Tour",
   guest: "רגב مُحَمَّد Françwa Володимир Mendle..",
   date: "April 7th 2025",
   summary: "Around the world with all diferent expirences. חַג כָּשֵׁר וְשָׂמֵחַ",
