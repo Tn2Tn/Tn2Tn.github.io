@@ -11,21 +11,21 @@ const podcastData = [
     },
     
     */
-    {
-    posterUrl: "assets/images/Purim25.png",
-    title: "Cowen again",
-    guest: "Ahron Cowen",
-    date: "Purim",
-    summary: "",
-    podcastPath: "assets/audio/Venohapochu.mp3",
-    },
-     {
-  posterUrl: "https://tn2tn.github.io/podcast/assets/images/Problem.png",
-  title: "Please Help",
-  guest: "Urgent Notice",
-  date: "A Long Time Ago",
-  summary: "Share With At Least 3 People Or Contact Us To Record",
-  podcastPath: "https://tn2tn.github.io/podcast/assets/audio/Problem.mp3",
+{
+  posterUrl: "assets/images/World-tour.png",
+  title: "Cowen again",
+  guest: "רגב مُحَمَّد Françwa Володимир Mendle..",
+  date: "April 7th 2025",
+  summary: "Around the world with all diferent expirences. חַג כָּשֵׁר וְשָׂמֵחַ",
+  podcastPath: "https://drive.usercontent.google.com/download?id=1AwIdhZ81kEbSxnBeGRW1wjj3qw002U-k&export=download&authuser=0&confirm=t&uuid=2f6c07b0-8596-4103-bc4e-7f54f2293786&at=APcmpowjtrtzDIiDFf_7mq-HDoL-:1744050987681",
+},
+{
+  posterUrl: "assets/images/Purim25.png",
+  title: "Cowen again",
+  guest: "Ahron Cowen",
+  date: "Purim",
+  summary: "",
+  podcastPath: "assets/audio/Venohapochu.mp3",
 },
 {
   posterUrl: "https://tn2tn.github.io/podcast/assets/images/episode10.png",
