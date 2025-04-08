@@ -14,10 +14,10 @@ const podcastData = [
 {
   posterUrl: "assets/images/World-tour.png",
   title: "World Tour",
-  guest: "مُحَمَّد רגב Françwa Володимир Mendle..",
+  guest: "مُحَمَّد רגב Françwa Володимир and More",
   date: "April 7th 2025",
   summary: "Around the world with all diferent expirences. חַג כָּשֵׁר וְשָׂמֵחַ",
-  podcastPath: "https://my.microsoftpersonalcontent.com/personal/e424e196fc5855e9/_layouts/15/download.aspx?UniqueId=780f3f9b-8603-4dd6-91c0-7f58a1ed03f0&Translate=false&tempauth=v1e.eyJzaXRlaWQiOiJiMDk2ZDcwMS1mODA5LTRiZTgtODkyYi1lOTNjZmY2NjQ4NmMiLCJhcHBpZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDA0ODE3MTBhNCIsImF1ZCI6IjAwMDAwMDAzLTAwMDAtMGZmMS1jZTAwLTAwMDAwMDAwMDAwMC9teS5taWNyb3NvZnRwZXJzb25hbGNvbnRlbnQuY29tQDkxODgwNDBkLTZjNjctNGM1Yi1iMTEyLTM2YTMwNGI2NmRhZCIsImV4cCI6IjE3NDQwNTc4MjQifQ.0vrUnwegY4qKEDvxs6ixNbFxq47SOnUeQpEXM-Js8y6IzokmDRKFlAK_csY6iPTpu26txxmOfa1KU0COL-gmjb28HtzwlxxknUjNnYXqW42ZjV8DSZsyfOfinPbe8IQ-kbUXsOZf-8Hv0VW6v0DpCudYlfz6siP69QZShzxTO1NVETCQOFUNI09IkqR_BzoFDWOWQ-80KusIe7pYyrNdCZmx29gn8hm7xw_hHQZZaZdBi4WRITGdiCjrcTafTYYUk_30NHn4kqq86HonGjiwsWRTOCAe4Vgjq4-fE8p88Z1D9HoYXdL2D-lqxakHNQe7K7i0irrEUriJheRY1NeDIUYdJK5j9x-4KqHr70gsScg_f_UGv2srMc4rWyuc15UVsadlqN7rw8ZqBgFsFcrcXw.L6ypwGfDyrFustfqtjePou74o7EB79nvdpC4HoBSgsY&ApiVersion=2.0",
+  podcastPath: "https://www.dropbox.com/scl/fi/8jidt4qqzkn06epxqnzqv/World-Tour.mp3?rlkey=0s4tpqcic6bjhgpcz1ljbv35z&st=hlf8as6t&raw=1",
 },
 {
   posterUrl: "assets/images/Purim25.png",
