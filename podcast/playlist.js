@@ -11,6 +11,14 @@ const podcastData = [
     },
     
     */
+   {
+  posterUrl: "assets/images/episode11.png",
+  title: "The Real Podcast",
+  guest: "Rebbe Lemmel",
+  date: "August 1st 2025",
+  summary: "Everything about emotions with our very own highly qualified therapist / phycologist and Rebbe",
+  podcastPath: "assets/audio/Rebbe Lemmel.mp3",
+},
 {
   posterUrl: "assets/images/World-tour.png",
   title: "World Tour",
