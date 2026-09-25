@@ -20,14 +20,6 @@ const podcastData = [
   podcastPath: "assets/audio/Rebbe Lemmel.mp3",
 },
 {
-  posterUrl: "assets/images/World-tour.png",
-  title: "World Tour",
-  guest: "مُحَمَّد רגב Françwa Володимир and More",
-  date: "April 7th 2025",
-  summary: "Around the world with all diferent expirences. חַג כָּשֵׁר וְשָׂמֵחַ",
-  podcastPath: "https://www.dropbox.com/scl/fi/8jidt4qqzkn06epxqnzqv/World-Tour.mp3?rlkey=0s4tpqcic6bjhgpcz1ljbv35z&st=hlf8as6t&raw=1",
-},
-{
   posterUrl: "assets/images/Purim25.png",
   title: "Cowen again",
   guest: "Ahron Cowen",
