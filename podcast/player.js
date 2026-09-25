@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Change font size based on selected speed and screen width
         const isMobile = window.matchMedia("(max-width: 1200px)").matches;
     
-        if (selectedSpeed === 1 || selectedSpeed === 2) {
+        if (selectedSpeed === 1 || selectedSpeed === 32) {
             speedInput.style.fontSize = isMobile ? "1rem" : "1.2rem";
         } else {
             speedInput.style.fontSize = isMobile ? "0.85rem" : "1rem";
