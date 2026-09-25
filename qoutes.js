@@ -1,11 +1,11 @@
 const quotes = [
     {
-        text: "Do It Now.",
-        highlight: "It Now."
+        text: "Whether you think you can or think you can't, you're right.",
+        highlight: "you're right."
     },
     {
-        text: "Be Grateful.",
-        highlight: "Grateful."
+        text: "You miss 100% of the shots you don't take.",
+        highlight: "the shots you don't take."
     },
     {
         text: "Live With Less.",
@@ -96,8 +96,8 @@ const quotes = [
         highlight: "Yourself."
     },
     {
-        text: "Bet On Yourself.",
-        highlight: "Yourself."
+        text: "Knowing yourself is the beginning of all wisdom.",
+        highlight: "all wisdom."
     },
     {
         text: "Every Day Is Another Chance.",
