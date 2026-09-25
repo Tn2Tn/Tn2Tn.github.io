@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
     forwardBtn.addEventListener('click', forward);
 
     // Playback Speed
-    const speeds = [1, 1.25, 1.5, 1.75, 2, 32];
+    const speeds = [1, 1.25, 1.5, 1.75, 2];
     let currentSpeedIndex = 0;
     
     speedInput.addEventListener('click', () => {
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Change font size based on selected speed and screen width
         const isMobile = window.matchMedia("(max-width: 1200px)").matches;
     
-        if (selectedSpeed === 1 || selectedSpeed === 32) {
+        if (selectedSpeed === 1 || selectedSpeed === 2) {
             speedInput.style.fontSize = isMobile ? "1rem" : "1.2rem";
         } else {
             speedInput.style.fontSize = isMobile ? "0.85rem" : "1rem";
