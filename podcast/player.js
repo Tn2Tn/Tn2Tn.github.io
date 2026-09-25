@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
     forwardBtn.addEventListener('click', forward);
 
     // Playback Speed
-    const speeds = [1, 1.25, 1.5, 1.75, 2];
+    const speeds = [1, 1.25, 1.5, 1.75, 2, 32];
     let currentSpeedIndex = 0;
     
     speedInput.addEventListener('click', () => {
