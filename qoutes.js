@@ -32,8 +32,8 @@ const quotes = [
         highlight: "Heart."
     },
     {
-        text: "You Can Do It.",
-        highlight: "You Can"
+        text: "Whether you think you can, or you can think Power on.",
+        highlight: "Power on"
     },
     {
         text: "Find Joy In The Ordinary.",
@@ -48,8 +48,8 @@ const quotes = [
         highlight: "Powers Passion."
     },
     {
-        text: "Breathe.",
-        highlight: "Breathe."
+        text: "A bad worker blames his tools, a bad Tn Does not exist.",
+        highlight: "Does not exist."
     },
     {
         text: "Be A Victor, Not A Victim.",
@@ -64,8 +64,8 @@ const quotes = [
         highlight: "Illuminate"
     },
     {
-        text: "Be Happy.",
-        highlight: "Happy."
+        text: "Light is needed to create a shadow.",
+        highlight: "Light is needed."
     },
     {
         text: "Create Every Day.",
