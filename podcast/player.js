@@ -1,3 +1,35 @@
+// Playback Speed
+    const speeds = [1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 32];
+    let currentSpeedIndex = 0;
+    
+    speedInput.addEventListener('click', () => {
+        currentSpeedIndex = (currentSpeedIndex + 1) % speeds.length;
+        const selectedSpeed = speeds[currentSpeedIndex];
+
+        try {
+            audioSource.playbackRate = selectedSpeed;
+        } catch (e) {
+            console.warn(`Browser capped playback speed to maximum supported rate.`);
+        }
+
+        speedInput.textContent = selectedSpeed + "x";
+    
+        // Change color based on selected speed
+        speedInput.style.color = selectedSpeed === 1 
+            ? "#fff" 
+            : "var(--primary)";
+    
+        // Change font size based on selected speed and screen width
+        const isMobile = window.matchMedia("(max-width: 1200px)").matches;
+    
+        if (selectedSpeed === 1 || selectedSpeed === 2 || selectedSpeed === 32) {
+            speedInput.style.fontSize = isMobile ? "1rem" : "1.2rem";
+        } else {
+            speedInput.style.fontSize = isMobile ? "0.85rem" : "1rem";
+        }
+    });
+Complete Code
+JavaScript
 document.addEventListener("DOMContentLoaded", () => {
     // Player Controls
     const playBtn = document.querySelector('[data-play-btn]');
@@ -175,13 +207,19 @@ document.addEventListener("DOMContentLoaded", () => {
     forwardBtn.addEventListener('click', forward);
 
     // Playback Speed
-    const speeds = [1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3];
+    const speeds = [1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 32];
     let currentSpeedIndex = 0;
     
     speedInput.addEventListener('click', () => {
         currentSpeedIndex = (currentSpeedIndex + 1) % speeds.length;
         const selectedSpeed = speeds[currentSpeedIndex];
-        audioSource.playbackRate = selectedSpeed;
+
+        try {
+            audioSource.playbackRate = selectedSpeed;
+        } catch (e) {
+            console.warn(`Browser capped playback speed to maximum supported rate.`);
+        }
+
         speedInput.textContent = selectedSpeed + "x";
     
         // Change color based on selected speed
@@ -192,7 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Change font size based on selected speed and screen width
         const isMobile = window.matchMedia("(max-width: 1200px)").matches;
     
-        if (selectedSpeed === 1 || selectedSpeed === 2) {
+        if (selectedSpeed === 1 || selectedSpeed === 2 || selectedSpeed === 32) {
             speedInput.style.fontSize = isMobile ? "1rem" : "1.2rem";
         } else {
             speedInput.style.fontSize = isMobile ? "0.85rem" : "1rem";
