@@ -346,7 +346,7 @@ forwardBtn.addEventListener('click', forward);
 
 // Playback Speed
 
-const speeds = [1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3];
+const speeds = [1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 16];
 
 let currentSpeedIndex = 0;
 
