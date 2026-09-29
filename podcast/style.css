@@ -163,7 +163,7 @@ body {
   opacity: 1;
 }
 .video-item.playing {
-  box-shadow: 0 0px 7px rgb(224 81 57);
+  box-shadow: 0 0px 7px #00b188;
   opacity: 1;
   background-color: #000;
   align-items: unset;
@@ -454,7 +454,7 @@ img {
   overflow: auto;
 }
 /**
-* copyright 2022 codewithsadee
+- copyright 2022 codewithsadee
 */
 
 /*-----------------------------------*\
@@ -488,7 +488,7 @@ img {
   --on-surface-variant: var(--silver-sand);
   --on-surface-variant-hover: var(--light-sky-blue_a8);
   --on-surface-variant-focus: var(--light-sky-blue_a12);
-  --primary: rgb(224 81 57);
+  --primary: #00b188;
   --on-primary: var(--prussian-blue);
 
   /**
@@ -1053,7 +1053,7 @@ button {
 }
 .range::-webkit-slider-thumb:hover {
   transform: scale(1.2);
-  box-shadow: 0 0 0 8px rgba(224, 81, 57, 0.1);
+  box-shadow: 0 0 0 8px rgba(0, 177, 136, 0.1);
 }
 
 /* Player Controls */
@@ -1068,19 +1068,19 @@ button {
 .btn-icon.play {
   width: 64px;
   height: 64px;
-  background: rgb(224, 81, 57);
-  box-shadow: 0 4px 12px rgba(224, 81, 57, 0.3);
+  background: #00b188;
+  box-shadow: 0 4px 12px rgba(0, 177, 136, 0.3);
 }
 
 .btn-icon.play:hover {
-  background: rgb(240, 96, 72);
-  box-shadow: 0 6px 16px rgba(224, 81, 57, 0.4);
+  background: #00d1a1;
+  box-shadow: 0 6px 16px rgba(0, 177, 136, 0.4);
 }
 
 .btn-icon.play:active {
   transform: scale(0.95);
-  box-shadow: 0 2px 8px rgba(224, 81, 57, 0.5);
-  background: rgb(200, 70, 50);
+  box-shadow: 0 2px 8px rgba(0, 177, 136, 0.5);
+  background: #009371;
 }
 
 .duration-label {
@@ -1151,7 +1151,7 @@ button {
   position: relative;
   left: -50%;
   height: 5px;
-  background-color: #e05139;
+  background-color: #00b188;
 }
 .complete.playing {
   width: 50%;
@@ -1159,7 +1159,7 @@ button {
   position: relative;
   left: -50%;
   height: 5px;
-  background-color: #e05139;
+  background-color: #00b188;
 }
 
 .video-item:hover .readylistened {
@@ -1189,7 +1189,7 @@ button {
   position: relative;
   left: -50%;
   height: 3px;
-  background-color: #e05139;
+  background-color: #00b188;
 }
 
 .video-item.playing .complete {
@@ -1198,5 +1198,5 @@ button {
   position: relative;
   left: -50%;
   height: 3px;
-  background-color: #e05139;
+  background-color: #00b188;
 }
