@@ -93,9 +93,9 @@ body {
   right: 10px;
   bottom: 10px;
   background-color: transparent; 
-  background-color: #e05139; 
+  background-color: #00b188; 
   color: #fff; 
-  border: 2px solid #e05139; 
+  border: 2px solid #00b188; 
   padding: 7px 25px;
   border-radius: 5px 20px 20px 5px;
   cursor: pointer;
@@ -109,8 +109,8 @@ body {
   right: 10px;
   bottom: 10px;
   background-color: transparent; 
-  color: #e05139; 
-  border: 2px solid #e05139; 
+  color: #00b188; 
+  border: 2px solid #00b188; 
   padding: 7px 25px;
   border-radius: 5px 20px 20px 5px;
   cursor: pointer;
@@ -124,8 +124,8 @@ body {
   right: 85px;
   bottom: 10px;
   background-color: transparent; 
-  color: #e05139; 
-  border: 2px solid #e05139; 
+  color: #00b188; 
+  border: 2px solid #00b188; 
   padding: 7px 10px;
   border-radius: 20px 5px 5px 20px;
   cursor: pointer;
@@ -135,7 +135,7 @@ body {
 
 .episode-button:hover,
 .episode-button1:hover {
-  background-color: #e05139; 
+  background-color: #00b188; 
   color: #fff; 
 }
 
