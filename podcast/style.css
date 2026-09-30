@@ -57,6 +57,9 @@ body {
 }
 
 .gallery-container {
+  box-shadow: inset #000e0b 0px 0px 12px 0px;
+  border-radius: 15px;
+  background: #001b1547;
   left: 0;
   z-index: 10;
   position: absolute;
@@ -66,7 +69,6 @@ body {
   text-align: center;
   height: 80vh;
   overflow: auto;
-  mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
   direction: rtl;
   animation: slideGoDown 1s ease-out forwards;
   transition: left 0.3s ease;
