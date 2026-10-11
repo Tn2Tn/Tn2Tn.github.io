@@ -24,7 +24,7 @@ const podcastData = [
   title: "The Therapy Podcast",
   guest: "Nosson Perl & Ari Gutwirth",
   date: "A Loooooong Time Ago",
-  summary: "Nosson Perl gives his opinions on therapy kiruv and Binyomin Jayson (listen closely for Ari Gutwirth's claps every so often)",
+  summary: "Nosson Perl gives his opinions on therapy kiruv and Binyomin Jayson",
   podcastPath: "assets/audio/Nosson_Perl_&_Ari_Gutwirth.mp3",
 },
 
