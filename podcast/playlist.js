@@ -17,7 +17,7 @@ const podcastData = [
   guest: "Shmelke Peters And Marcel Joseph Pearl",
   date: "October 12th 2026",
   summary: "Everything about the TLM, dolphins ,Ramizz and much more with our highly trained hashkofo pannelists",
-  podcastPath: "assets/audio/Not Haskofo Podcast.mp3",
+  podcastPath: "assets/audio/Not Hashkofo Podcast.mp3",
 },
 
   ];
