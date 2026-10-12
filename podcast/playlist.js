@@ -13,19 +13,11 @@ const podcastData = [
     */
    {
   posterUrl: "assets/images/episode11.png",
-  title: "The Real Podcast",
-  guest: "Rebbe Lemmel",
-  date: "August 1st 2025",
-  summary: "Everything about emotions with our very own highly qualified therapist / phycologist and Rebbe",
-  podcastPath: "assets/audio/Rebbe Lemmel.mp3",
-},
-     {
-  posterUrl: "assets/images/episode12.png",
-  title: "The Therapy Podcast",
-  guest: "Nosson Perl & Ari Gutwirth",
-  date: "A Loooooong Time Ago",
-  summary: "Nosson Perl gives his opinions on therapy kiruv and Binyomin Jayson",
-  podcastPath: "assets/audio/Nosson_Perl_&_Ari_Gutwirth.mp3",
+  title: "Not A Hashkofo Podcast",
+  guest: "Shmelke Peters And Marcel Joseph Pearl",
+  date: "October 12th 2026",
+  summary: "Everything about the TLM, dolphins ,Ramizz and much more with our highly trained hashkofo pannelists",
+  podcastPath: "assets/audio/Not Haskofo Podcast.mp3",
 },
 
   ];
