@@ -433,7 +433,7 @@ const currentTime = audioSource.currentTime;
 
 // Show the skip button if the duration is greater than 20 minutes and current time is less than 25 seconds
 
-if (duration > 1200 && currentTime < 29) {
+if (duration > 1200 && currentTime < 14) {
 
 skipBtn.classList.add('visible');
 
@@ -446,7 +446,7 @@ skipBtn.classList.add('fade-out');
 }
 
 
-if (duration < 1200 || currentTime > 31) {
+if (duration < 1200 || currentTime > 16) {
 
 skipBtn.classList.remove('visible');
 
