@@ -18,6 +18,8 @@ const podcastData = [
   date: "October 12th 2026",
   summary: "Everything about the TLM, dolphins ,Ramizz and much more with our highly trained hashkofo pannelists",
   podcastPath: "assets/audio/Not Hashkofo Podcast.mp3",
+  images: "https://tn2tn.github.io/podcast/assets/images/podcast 11/"
+  imagesNum: 1, 
 },
 
   ];
