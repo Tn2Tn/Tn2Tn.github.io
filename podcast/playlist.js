@@ -12,7 +12,7 @@ const podcastData = [
     
     */
    {
-  posterUrl: "assets/images/Add a subheading.png",
+  posterUrl: "assets/images/episode11.png",
   title: "Not A Hashkofo Podcast",
   guest: "Shmelke Peters And Marcel Joseph Pearl",
   date: "October 12th 2026",
