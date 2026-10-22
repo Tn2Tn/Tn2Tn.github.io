@@ -19,6 +19,14 @@ const podcastData = [
   summary: "Everything about the TLM, dolphins ,Ramizz and much more with our highly trained hashkofo pannelists",
   podcastPath: "assets/audio/Not Hashkofo Podcast.mp3", 
 },
+    {
+  posterUrl: "assets/images/episode13.png",
+  title: "Musical??",
+  guest: "Danny Wasyng And Avrumi Eckstein",
+  date: "October 22nd 2026",
+  summary: "Politics, music and a bunch more shtusim, Honestly not sure what went on in this podcast ;)",
+  podcastPath: "assets/audio/Musical.mp3", 
+},
 
   ];
   
