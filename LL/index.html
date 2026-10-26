@@ -3,42 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audio Shorts - Tn 2 Tn Network</title>
+    <title>לישמור ולעשות - Tn²</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body, html {
-            height: 100%;
-            background-color: #121212;
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            overflow: hidden;
+        /* Exact Scrollbar Styling from Podcast Page */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+            padding-top: 30px;
+            padding-bottom: 30px;
         }
 
-        /* Back to Main Site Button */
-        .back-home {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 10;
-            background: rgba(18, 18, 18, 0.8);
-            backdrop-filter: blur(8px);
-            color: #ffffff;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            border: 1px solid rgba(0, 255, 204, 0.3);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            transition: all 0.2s ease;
+        ::-webkit-scrollbar-thumb {
+            background-color: #2c3e50;
+            border-radius: 2px;
         }
-        .back-home:hover {
-            background: rgba(0, 255, 204, 0.1);
-            border-color: #00ffcc;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+
+        :not(:hover)::-webkit-scrollbar-thumb {
+            background-color: transparent;
+            border: none;
+        }
+
+        ::-webkit-scrollbar-track {
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+        :root {
+            --background: #222;
+            --surface-variant: #2c3e50;
+            --primary: #d800ff;
+            --on-primary: #ffffff;
+            --on-surface-variant-hover: rgba(255, 255, 255, 0.1);
+            --on-surface-variant-focus: rgba(255, 255, 255, 0.15);
+        }
+
+        *,
+        *::after,
+        *::before {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            scroll-behavior: smooth;
+        }
+
+        body, html {
+            height: 100vh;
+            background-color: var(--background);
+            color: white;
+            font-family: 'Poppins', Arial, sans-serif;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Header matching podcast page (Borderless) */
+        .header {
+            height: 55px;
+            width: 80%;
+            max-width: 1100px;
+            border-radius: 15px;
+            background-color: #31343cf2;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            animation: slideDownZoomIn 1s ease-out forwards;
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .pages {
+            display: flex;
+            padding: 0 10px;
+            gap: 10px;
+        }
+
+        .pag {
+            background-color: #0000;
+            border-radius: 10px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            padding: 8px 12px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 15px;
+            color: #ddd;
+        }
+        .pag:hover {
+            background-color: #000;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        @keyframes slideDownZoomIn {
+            from {
+                transform: translate(-50%, -100%) scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, 0) scale(1);
+                opacity: 1;
+            }
         }
 
         /* Vertical Scrolling Container */
@@ -46,10 +129,10 @@
             height: 100vh;
             overflow-y: scroll;
             scroll-snap-type: y mandatory;
-            scrollbar-width: none; /* Hide scrollbar for Firefox */
+            scrollbar-width: none;
         }
         .shorts-container::-webkit-scrollbar {
-            display: none; /* Hide scrollbar for Chrome, Safari, Edge */
+            display: none;
         }
 
         /* Individual Short Card */
@@ -62,10 +145,10 @@
             flex-direction: column;
             justify-content: flex-end;
             padding: 40px 20px;
-            background: linear-gradient(135deg, #181824, #121212);
+            background: linear-gradient(135deg, #1b1f23, #121212);
         }
 
-        /* Rotating Image Vinyl Art */
+        /* Rotating Image Vinyl Art with Purple Glow (Borderless) */
         .audio-art {
             position: absolute;
             top: 0;
@@ -81,15 +164,15 @@
             width: 240px;
             height: 240px;
             border-radius: 50%;
-            border: 6px solid #1a1a1a;
+            border: none;
             object-fit: cover;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 25px rgba(0, 255, 204, 0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 25px rgba(216, 0, 255, 0.2);
             animation: spin 10s linear infinite;
             animation-play-state: paused;
         }
         .album-disc.playing {
             animation-play-state: running;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 35px rgba(0, 255, 204, 0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 35px rgba(216, 0, 255, 0.5);
         }
 
         @keyframes spin {
@@ -97,128 +180,198 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Content Overlay (Title, Description, Player Controls) */
+        /* Content Overlay (Borderless) */
         .short-content {
             position: relative;
             z-index: 2;
             max-width: 500px;
             margin: 0 auto;
             width: 100%;
-            background: rgba(18, 18, 18, 0.75);
+            background: rgba(30, 20, 40, 0.85);
             backdrop-filter: blur(12px);
-            padding: 22px;
-            border-radius: 18px;
-            border: 1px solid rgba(0, 255, 204, 0.2);
+            padding: 24px;
+            border-radius: 24px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .audio-title {
             font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #ffffff;
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: #fff;
         }
 
         .audio-desc {
             font-size: 0.9rem;
-            color: #b0b0b0;
-            margin-bottom: 16px;
+            color: #aaa;
+            margin-bottom: 20px;
         }
 
         .audio-controls {
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: center;
+            gap: 16px;
         }
 
-        /* Neon Styled Play Button */
-        .play-btn {
-            background: linear-gradient(135deg, #00ffcc, #00b386);
-            border: none;
-            width: 45px;
-            height: 45px;
+        /* Podcast Page Button Style */
+        .btn-icon {
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            color: #121212;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
-            transition: transform 0.2s, box-shadow 0.2s;
-            flex-shrink: 0;
-        }
-        .play-btn:hover {
-            box-shadow: 0 0 25px rgba(0, 255, 204, 0.7);
-        }
-        .play-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* Podcast-Style Speed Button Matching Your Script */
-        .speed-btn {
-            background: rgba(18, 18, 18, 0.9);
-            border: 1px solid rgba(0, 255, 204, 0.4);
             color: #fff;
-            height: 38px;
-            padding: 0 10px;
-            border-radius: 19px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            cursor: pointer;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-            letter-spacing: 0.5px;
-        }
-        .speed-btn:hover {
-            background: rgba(0, 255, 204, 0.15);
-            border-color: #00ffcc;
-            box-shadow: 0 0 12px rgba(0, 255, 204, 0.4);
-        }
-
-        .progress-bar-container {
-            flex-grow: 1;
-            background: rgba(255, 255, 255, 0.15);
-            height: 6px;
-            border-radius: 3px;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            border: none;
+            flex-shrink: 0;
         }
 
-        .progress-bar {
-            height: 100%;
-            background: #00ffcc;
+        .btn-icon:hover {
+            background: var(--on-surface-variant-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-icon:active {
+            transform: scale(0.95);
+            background: var(--on-surface-variant-focus);
+        }
+
+        /* Play Button specific podcast style with purple gradient */
+        .btn-icon.play {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #d800ff, #9c00b3);
+            color: var(--on-primary);
+            box-shadow: 0 4px 12px rgba(216, 0, 255, 0.4);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .btn-icon.play:hover {
+            box-shadow: 0 6px 16px rgba(216, 0, 255, 0.6);
+        }
+
+        /* Speed Control matching podcast `#speed-input` */
+        #speed-input {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            flex-shrink: 0;
+        }
+        #speed-input:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        #speed-input:active {
+            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Seek / Progress Range Slider matching podcast page */
+        .seek-control {
+            flex-grow: 1;
+            margin-inline: 8px;
+        }
+
+        .range-wrapper {
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .range {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+            border: none;
+        }
+
+        .range::-webkit-slider-runnable-track {
+            background: rgba(255, 255, 255, 0.1);
+            height: 4px;
+            border-radius: 2px;
+            border: none;
+        }
+
+        .range-fill {
+            content: "";
             width: 0%;
-            border-radius: 3px;
-            box-shadow: 0 0 10px #00ffcc;
-            transition: width 0.1s linear;
+            background-color: var(--primary);
+            border-radius: 2px;
+            height: 4px;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border-radius: 50%;
+            margin-top: -4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+            z-index: 3;
+            border: none;
+        }
+        .range::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 8px rgba(216, 0, 255, 0.2);
         }
     </style>
 </head>
 <body>
 
-    <a href="https://tn2tn.github.io" class="back-home">← Back to Home</a>
+    <!-- Header -->
+    <div class="header">
+        <a href="https://tn2tn.github.io" class="title">Tn²</a>
+        <div class="pages">
+            <a href="https://tn2tn.github.io" class="pag">Home</a>
+            <a href="#" class="pag">לישמור ולעשות</a>
+        </div>
+    </div>
 
+    <!-- Shorts Container -->
     <div class="shorts-container" id="shortsContainer">
         <!-- Short Item 1 -->
         <div class="short-card" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
             <div class="audio-art">
-                <img src="logo.png" alt="Vinyl Art" class="album-disc">
+                <img src="8k-3_2.jpg" alt="Vinyl Art" class="album-disc">
             </div>
             <div class="short-content">
-                <div class="audio-title">1</div>
-                <div class="audio-desc">eggsample</div>
+                <div class="audio-title">Episode 1</div>
+                <div class="audio-desc">eggsample audio short</div>
                 <div class="audio-controls">
-                    <button class="play-btn">▶</button>
-                    <button class="speed-btn">1x</button>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar"></div>
+                    <button class="btn-icon play play-btn">▶</button>
+                    <button id="speed-input" class="speed-btn">1x</button>
+                    <div class="seek-control">
+                        <div class="range-wrapper">
+                            <input type="range" min="0" max="100" value="0" class="range player-seek">
+                            <div class="range-fill"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -227,16 +380,19 @@
         <!-- Short Item 2 -->
         <div class="short-card" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
             <div class="audio-art">
-                <img src="logo.png" alt="Vinyl Art" class="album-disc">
+                <img src="8k-3_2.jpg" alt="Vinyl Art" class="album-disc">
             </div>
             <div class="short-content">
-                <div class="audio-title">2</div>
-                <div class="audio-desc">eggsample 2</div>
+                <div class="audio-title">Episode 2</div>
+                <div class="audio-desc">eggsample audio short 2</div>
                 <div class="audio-controls">
-                    <button class="play-btn">▶</button>
-                    <button class="speed-btn">1x</button>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar"></div>
+                    <button class="btn-icon play play-btn">▶</button>
+                    <button id="speed-input" class="speed-btn">1x</button>
+                    <div class="seek-control">
+                        <div class="range-wrapper">
+                            <input type="range" min="0" max="100" value="0" class="range player-seek">
+                            <div class="range-fill"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -245,16 +401,19 @@
         <!-- Short Item 3 -->
         <div class="short-card" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">
             <div class="audio-art">
-                <img src="logo.png" alt="Vinyl Art" class="album-disc">
+                <img src="8k-3_2.jpg" alt="Vinyl Art" class="album-disc">
             </div>
             <div class="short-content">
-                <div class="audio-title">3</div>
-                <div class="audio-desc">eggsample 3.</div>
+                <div class="audio-title">Episode 3</div>
+                <div class="audio-desc">eggsample audio short 3</div>
                 <div class="audio-controls">
-                    <button class="play-btn">▶</button>
-                    <button class="speed-btn">1x</button>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar"></div>
+                    <button class="btn-icon play play-btn">▶</button>
+                    <button id="speed-input" class="speed-btn">1x</button>
+                    <div class="seek-control">
+                        <div class="range-wrapper">
+                            <input type="range" min="0" max="100" value="0" class="range player-seek">
+                            <div class="range-fill"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -267,7 +426,7 @@
         const container = document.getElementById('shortsContainer');
         const audioPlayer = document.getElementById('audioPlayer');
         
-        // Get original cards and set up infinite loop cloning
+        // Setup infinite loop cloning matching original cards
         const originalCards = Array.from(container.querySelectorAll('.short-card'));
         const firstClone = originalCards[0].cloneNode(true);
         const lastClone = originalCards[originalCards.length - 1].cloneNode(true);
@@ -305,7 +464,8 @@
         cards.forEach(card => {
             const playBtn = card.querySelector('.play-btn');
             const speedBtn = card.querySelector('.speed-btn');
-            const progressContainer = card.querySelector('.progress-bar-container');
+            const seekRange = card.querySelector('.player-seek');
+            const rangeFill = card.querySelector('.range-fill');
             const disc = card.querySelector('.album-disc');
             const audioSrc = card.getAttribute('data-src');
 
@@ -346,25 +506,16 @@
                 audioPlayer.playbackRate = selectedSpeed;
                 speedBtn.textContent = selectedSpeed + "x";
 
-                speedBtn.style.color = selectedSpeed === 1 ? "#fff" : "#00ffcc";
-
-                const isMobile = window.matchMedia("(max-width: 1200px)").matches;
-                if (selectedSpeed === 1 || selectedSpeed === 2) {
-                    speedBtn.style.fontSize = isMobile ? "0.8rem" : "0.9rem";
-                } else {
-                    speedBtn.style.fontSize = isMobile ? "0.75rem" : "0.85rem";
-                }
+                speedBtn.style.color = selectedSpeed === 1 ? "#fff" : "var(--primary)";
 
                 if (currentCard === card && !audioPlayer.paused) {
                     audioPlayer.playbackRate = selectedSpeed;
                 }
             });
 
-            progressContainer.addEventListener('click', (e) => {
-                if (currentAudioSrc === audioSrc && !audioPlayer.paused) {
-                    const rect = progressContainer.getBoundingClientRect();
-                    const clickX = e.clientX - rect.left;
-                    audioPlayer.currentTime = (clickX / rect.width) * audioPlayer.duration;
+            seekRange.addEventListener('input', () => {
+                if (currentAudioSrc === audioSrc && audioPlayer.duration) {
+                    audioPlayer.currentTime = (seekRange.value / 100) * audioPlayer.duration;
                 }
             });
         });
@@ -372,10 +523,14 @@
         audioPlayer.addEventListener('timeupdate', () => {
             if (currentCard && audioPlayer.duration) {
                 const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-                currentCard.querySelector('.progress-bar').style.width = percent + '%';
+                const rangeFill = currentCard.querySelector('.range-fill');
+                const seekRange = currentCard.querySelector('.player-seek');
+                rangeFill.style.width = percent + '%';
+                seekRange.value = percent;
             }
         });
 
+        // Loop functionality: Restart current audio clip when it ends
         audioPlayer.addEventListener('ended', () => {
             if (currentCard) {
                 audioPlayer.currentTime = 0;
@@ -390,7 +545,6 @@
                     const speedBtn = entry.target.querySelector('.speed-btn');
                     speedBtn.textContent = "1x";
                     speedBtn.style.color = "#fff";
-                    speedBtn.style.fontSize = "0.85rem";
 
                     if (currentCard === entry.target && !audioPlayer.paused) {
                         audioPlayer.playbackRate = 1;
