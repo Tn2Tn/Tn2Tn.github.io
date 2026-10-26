@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lishmor VeLaasos - Tn 2 Tn Network</title>
+    <title>Audio Shorts - Tn 2 Tn Network</title>
     <style>
         * {
             box-sizing: border-box;
@@ -147,6 +147,7 @@
             justify-content: center;
             box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
             transition: transform 0.2s, box-shadow 0.2s;
+            flex-shrink: 0;
         }
         .play-btn:hover {
             box-shadow: 0 0 25px rgba(0, 255, 204, 0.7);
@@ -155,21 +156,29 @@
             transform: scale(0.95);
         }
 
-        /* Neon Styled Speed Button */
+        /* Podcast-Style Speed Button Matching Your Script */
         .speed-btn {
-            background: rgba(0, 255, 204, 0.1);
-            border: 1px solid rgba(0, 255, 204, 0.3);
-            color: #00ffcc;
-            padding: 6px 12px;
-            border-radius: 10px;
-            font-size: 0.8rem;
+            background: rgba(18, 18, 18, 0.9);
+            border: 1px solid rgba(0, 255, 204, 0.4);
+            color: #fff;
+            height: 38px;
+            padding: 0 10px;
+            border-radius: 19px;
+            font-size: 0.85rem;
             font-weight: 700;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
             transition: all 0.2s ease;
+            flex-shrink: 0;
+            letter-spacing: 0.5px;
         }
         .speed-btn:hover {
-            background: rgba(0, 255, 204, 0.25);
-            box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+            background: rgba(0, 255, 204, 0.15);
+            border-color: #00ffcc;
+            box-shadow: 0 0 12px rgba(0, 255, 204, 0.4);
         }
 
         .progress-bar-container {
@@ -194,7 +203,7 @@
 </head>
 <body>
 
-    <a href="index.html" class="back-home">← Back to Home</a>
+    <a href="https://tn2tn.github.io" class="back-home">← Back to Home</a>
 
     <div class="shorts-container" id="shortsContainer">
         <!-- Short Item 1 -->
@@ -203,8 +212,8 @@
                 <img src="logo.png" alt="Vinyl Art" class="album-disc">
             </div>
             <div class="short-content">
-                <div class="audio-title">Snippet 1: Daily Insight</div>
-                <div class="audio-desc">A quick audio thought and reflection.</div>
+                <div class="audio-title">1</div>
+                <div class="audio-desc">eggsample</div>
                 <div class="audio-controls">
                     <button class="play-btn">▶</button>
                     <button class="speed-btn">1x</button>
@@ -221,8 +230,8 @@
                 <img src="logo.png" alt="Vinyl Art" class="album-disc">
             </div>
             <div class="short-content">
-                <div class="audio-title">Snippet 2: Podcast Highlight</div>
-                <div class="audio-desc">Key takeaway from this week's episode.</div>
+                <div class="audio-title">2</div>
+                <div class="audio-desc">eggsample 2</div>
                 <div class="audio-controls">
                     <button class="play-btn">▶</button>
                     <button class="speed-btn">1x</button>
@@ -239,8 +248,8 @@
                 <img src="logo.png" alt="Vinyl Art" class="album-disc">
             </div>
             <div class="short-content">
-                <div class="audio-title">Snippet 3: Quick Lesson</div>
-                <div class="audio-desc">Short audio clip on practical life applications.</div>
+                <div class="audio-title">3</div>
+                <div class="audio-desc">eggsample 3.</div>
                 <div class="audio-controls">
                     <button class="play-btn">▶</button>
                     <button class="speed-btn">1x</button>
@@ -256,14 +265,42 @@
 
     <script>
         const container = document.getElementById('shortsContainer');
-        const cards = document.querySelectorAll('.short-card');
         const audioPlayer = document.getElementById('audioPlayer');
+        
+        // Get original cards and set up infinite loop cloning
+        const originalCards = Array.from(container.querySelectorAll('.short-card'));
+        const firstClone = originalCards[0].cloneNode(true);
+        const lastClone = originalCards[originalCards.length - 1].cloneNode(true);
+        
+        container.appendChild(firstClone);
+        container.insertBefore(lastClone, originalCards[0]);
+
+        const cards = container.querySelectorAll('.short-card');
         
         let currentCard = null;
         let currentAudioSrc = null;
-        
-        // Speeds: 1x, 1.25x, 1.5x, 2x, and 16x
-        const speeds = [1, 1.25, 1.5, 2, 16];
+        const speeds = [1, 1.25, 1.5, 1.75, 2, 16];
+
+        // Start initial view on the first real card (index 1)
+        window.addEventListener('load', () => {
+            container.scrollTop = window.innerHeight;
+        });
+
+        // Infinite scroll loop repositioning logic
+        container.addEventListener('scroll', () => {
+            const cardHeight = window.innerHeight;
+            const totalOriginals = originalCards.length;
+
+            if (container.scrollTop >= (totalOriginals + 1) * cardHeight - 10) {
+                container.style.scrollSnapType = 'none';
+                container.scrollTop = cardHeight;
+                setTimeout(() => { container.style.scrollSnapType = 'y mandatory'; }, 50);
+            } else if (container.scrollTop <= 5) {
+                container.style.scrollSnapType = 'none';
+                container.scrollTop = totalOriginals * cardHeight;
+                setTimeout(() => { container.style.scrollSnapType = 'y mandatory'; }, 50);
+            }
+        });
 
         cards.forEach(card => {
             const playBtn = card.querySelector('.play-btn');
@@ -272,12 +309,13 @@
             const disc = card.querySelector('.album-disc');
             const audioSrc = card.getAttribute('data-src');
 
+            card.dataset.speedIndex = 0;
+
             playBtn.addEventListener('click', () => {
                 if (currentAudioSrc !== audioSrc) {
                     audioPlayer.src = audioSrc;
                     currentAudioSrc = audioSrc;
                     
-                    // Reset other cards
                     cards.forEach(c => {
                         c.querySelector('.play-btn').textContent = '▶';
                         c.querySelector('.album-disc').classList.remove('playing');
@@ -289,6 +327,9 @@
                     playBtn.textContent = '⏸';
                     disc.classList.add('playing');
                     currentCard = card;
+
+                    let speedIdx = parseInt(card.dataset.speedIndex);
+                    audioPlayer.playbackRate = speeds[speedIdx];
                 } else {
                     audioPlayer.pause();
                     playBtn.textContent = '▶';
@@ -296,17 +337,29 @@
                 }
             });
 
-            // Speed toggle functionality
             speedBtn.addEventListener('click', () => {
-                let currentSpeed = audioPlayer.playbackRate;
-                let nextIndex = (speeds.indexOf(currentSpeed) + 1) % speeds.length;
-                let newSpeed = speeds[nextIndex];
+                let speedIdx = parseInt(card.dataset.speedIndex);
+                speedIdx = (speedIdx + 1) % speeds.length;
+                card.dataset.speedIndex = speedIdx;
                 
-                audioPlayer.playbackRate = newSpeed;
-                speedBtn.textContent = newSpeed + 'x';
+                const selectedSpeed = speeds[speedIdx];
+                audioPlayer.playbackRate = selectedSpeed;
+                speedBtn.textContent = selectedSpeed + "x";
+
+                speedBtn.style.color = selectedSpeed === 1 ? "#fff" : "#00ffcc";
+
+                const isMobile = window.matchMedia("(max-width: 1200px)").matches;
+                if (selectedSpeed === 1 || selectedSpeed === 2) {
+                    speedBtn.style.fontSize = isMobile ? "0.8rem" : "0.9rem";
+                } else {
+                    speedBtn.style.fontSize = isMobile ? "0.75rem" : "0.85rem";
+                }
+
+                if (currentCard === card && !audioPlayer.paused) {
+                    audioPlayer.playbackRate = selectedSpeed;
+                }
             });
 
-            // Seek functionality
             progressContainer.addEventListener('click', (e) => {
                 if (currentAudioSrc === audioSrc && !audioPlayer.paused) {
                     const rect = progressContainer.getBoundingClientRect();
@@ -325,16 +378,24 @@
 
         audioPlayer.addEventListener('ended', () => {
             if (currentCard) {
-                currentCard.querySelector('.play-btn').textContent = '▶';
-                currentCard.querySelector('.album-disc').classList.remove('playing');
-                currentCard.querySelector('.progress-bar').style.width = '0%';
+                audioPlayer.currentTime = 0;
+                audioPlayer.play();
             }
         });
 
-        // Pause audio automatically when scrolling away from the card
         let observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (!entry.isIntersecting) {
+                if (entry.isIntersecting) {
+                    entry.target.dataset.speedIndex = 0;
+                    const speedBtn = entry.target.querySelector('.speed-btn');
+                    speedBtn.textContent = "1x";
+                    speedBtn.style.color = "#fff";
+                    speedBtn.style.fontSize = "0.85rem";
+
+                    if (currentCard === entry.target && !audioPlayer.paused) {
+                        audioPlayer.playbackRate = 1;
+                    }
+                } else {
                     const cardAudioSrc = entry.target.getAttribute('data-src');
                     if (currentAudioSrc === cardAudioSrc && !audioPlayer.paused) {
                         audioPlayer.pause();
