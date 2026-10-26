@@ -1,155 +1,351 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Podcast | Tn 2 Tn Network</title>
-    <link rel="icon" href="Tn 2 Tn.png" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontisto/3.0.4/css/fontisto/fontisto.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,-25">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0"> 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://tn2tn.github.io/podcast/assets/lightbox/jquery.fancybox.min.css">
-  </head>
-  <body>
-    <div class="top">
-      <div class="header">
-        <img width="55px" height="55px" src="Tn 2 Tn.png" style="border-radius: 15px;">
-        <button class="pag" onclick="openQuote()" style="color: #234970; border-width: 0px; font-weight: 900;">Show Today's Quote</button>
-        <a href="/" class="pag" style="color: #234970; margin-right: 10px;"><span class="material-symbols-rounded">home</span></a>
-      </div>
+    <title>Lishmor VeLaasos - Tn 2 Tn Network</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body, html {
+            height: 100%;
+            background-color: #121212;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Back to Main Site Button */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.2s ease;
+        }
+        .back-home:hover {
+            background: rgba(0, 255, 204, 0.1);
+            border-color: #00ffcc;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+        }
+
+        /* Vertical Scrolling Container */
+        .shorts-container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scrollbar-width: none; /* Hide scrollbar for Firefox */
+        }
+        .shorts-container::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for Chrome, Safari, Edge */
+        }
+
+        /* Individual Short Card */
+        .short-card {
+            height: 100vh;
+            width: 100vw;
+            scroll-snap-align: start;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #181824, #121212);
+        }
+
+        /* Rotating Image Vinyl Art */
+        .audio-art {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+        .album-disc {
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            border: 6px solid #1a1a1a;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 25px rgba(0, 255, 204, 0.15);
+            animation: spin 10s linear infinite;
+            animation-play-state: paused;
+        }
+        .album-disc.playing {
+            animation-play-state: running;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 35px rgba(0, 255, 204, 0.4);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Content Overlay (Title, Description, Player Controls) */
+        .short-content {
+            position: relative;
+            z-index: 2;
+            max-width: 500px;
+            margin: 0 auto;
+            width: 100%;
+            background: rgba(18, 18, 18, 0.75);
+            backdrop-filter: blur(12px);
+            padding: 22px;
+            border-radius: 18px;
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .audio-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #ffffff;
+        }
+
+        .audio-desc {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            margin-bottom: 16px;
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Neon Styled Play Button */
+        .play-btn {
+            background: linear-gradient(135deg, #00ffcc, #00b386);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            color: #121212;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .play-btn:hover {
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.7);
+        }
+        .play-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Neon Styled Speed Button */
+        .speed-btn {
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            color: #00ffcc;
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .speed-btn:hover {
+            background: rgba(0, 255, 204, 0.25);
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+        }
+
+        .progress-bar-container {
+            flex-grow: 1;
+            background: rgba(255, 255, 255, 0.15);
+            height: 6px;
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #00ffcc;
+            width: 0%;
+            border-radius: 3px;
+            box-shadow: 0 0 10px #00ffcc;
+            transition: width 0.1s linear;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-home">← Back to Home</a>
+
+    <div class="shorts-container" id="shortsContainer">
+        <!-- Short Item 1 -->
+        <div class="short-card" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+            <div class="audio-art">
+                <img src="logo.png" alt="Vinyl Art" class="album-disc">
+            </div>
+            <div class="short-content">
+                <div class="audio-title">Snippet 1: Daily Insight</div>
+                <div class="audio-desc">A quick audio thought and reflection.</div>
+                <div class="audio-controls">
+                    <button class="play-btn">▶</button>
+                    <button class="speed-btn">1x</button>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Short Item 2 -->
+        <div class="short-card" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
+            <div class="audio-art">
+                <img src="logo.png" alt="Vinyl Art" class="album-disc">
+            </div>
+            <div class="short-content">
+                <div class="audio-title">Snippet 2: Podcast Highlight</div>
+                <div class="audio-desc">Key takeaway from this week's episode.</div>
+                <div class="audio-controls">
+                    <button class="play-btn">▶</button>
+                    <button class="speed-btn">1x</button>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Short Item 3 -->
+        <div class="short-card" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">
+            <div class="audio-art">
+                <img src="logo.png" alt="Vinyl Art" class="album-disc">
+            </div>
+            <div class="short-content">
+                <div class="audio-title">Snippet 3: Quick Lesson</div>
+                <div class="audio-desc">Short audio clip on practical life applications.</div>
+                <div class="audio-controls">
+                    <button class="play-btn">▶</button>
+                    <button class="speed-btn">1x</button>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="fade"></div>
+    <audio id="audioPlayer" preload="auto"></audio>
 
-    <button class="close-btn" onclick="closeQuote()">
-      <div id="quoteOverlay" class="modal-overlay">
-        <div class="modal-content">
-          <div class="bg">
-            <div></div>
-            <div></div>
-          </div>
+    <script>
+        const container = document.getElementById('shortsContainer');
+        const cards = document.querySelectorAll('.short-card');
+        const audioPlayer = document.getElementById('audioPlayer');
         
-          <div class="header-text" aria-hidden="true">
-            <span class="glow-filter" id="dailyQuote" data-text=""></span><br>
-          </div>
+        let currentCard = null;
+        let currentAudioSrc = null;
         
-          <svg class="filters" width="1440px" height="300px" viewBox="0 0 1440 300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <defs>
-              <filter id="glow-4" color-interpolation-filters="sRGB" x="-50%" y="-200%" width="200%" height="500%">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur4"/>
-                <feGaussianBlur in="SourceGraphic" stdDeviation="19" result="blur19"/>
-                <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="blur9"/>
-                <feGaussianBlur in="SourceGraphic" stdDeviation="30" result="blur30"/>
-                <feColorMatrix in="blur4" result="color-0-blur" type="matrix" values="1 0 0 0 0
-                          0 0.9803921568627451 0 0 0
-                          0 0 0.9647058823529412 0 0
-                          0 0 0 0.8 0"/>
-                <feOffset in="color-0-blur" result="layer-0-offsetted" dx="0" dy="0"/>
-                <feMerge>
-                  <feMergeNode in="layer-0-offsetted"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
-          </svg>
-        </div>
-      </div>
-    </button>
+        // Speeds: 1x, 1.25x, 1.5x, 2x, and 16x
+        const speeds = [1, 1.25, 1.5, 2, 16];
 
-    <div class="playing">
-      <div class="gallery-container" id="galleryContainer">
-        <div id="videoGallery" class="video-gallery">
-          <!-- Videos will be dynamically inserted here -->
-        </div>
-      </div>
+        cards.forEach(card => {
+            const playBtn = card.querySelector('.play-btn');
+            const speedBtn = card.querySelector('.speed-btn');
+            const progressContainer = card.querySelector('.progress-bar-container');
+            const disc = card.querySelector('.album-disc');
+            const audioSrc = card.getAttribute('data-src');
 
-      <!-- Audio Player -->
-      <div class="player">
-        <div class="container">
-          <figure class="podcast-banner">
-            <button class="open-btn" id="toggleBtn">
-              <span class="material-symbols-rounded">menu_open</span>
-            </button>
-            <img
-              src="assets/images/episode01.png"
-              width="800"
-              height="800"
-              alt="Tn2Tn Podcast click an episode to start"
-              class="img-cover lazyload"
-              data-player-banner
-            />
-          </figure>
-          
-          <div class="podcast-content">
-            <h2 class="headline-sm">
-              <span data-title>Loading...</span>
-            </h2>
-            <h2 class="headline-gue">
-              <span data-guest>Loading...</span>
-            </h2>
+            playBtn.addEventListener('click', () => {
+                if (currentAudioSrc !== audioSrc) {
+                    audioPlayer.src = audioSrc;
+                    currentAudioSrc = audioSrc;
+                    
+                    // Reset other cards
+                    cards.forEach(c => {
+                        c.querySelector('.play-btn').textContent = '▶';
+                        c.querySelector('.album-disc').classList.remove('playing');
+                    });
+                }
 
-            <p class="label-md artist">
-              <span data-summary>Loading...</span>
-              <div class="image-list" data-image-list></div>
-            </p>
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    playBtn.textContent = '⏸';
+                    disc.classList.add('playing');
+                    currentCard = card;
+                } else {
+                    audioPlayer.pause();
+                    playBtn.textContent = '▶';
+                    disc.classList.remove('playing');
+                }
+            });
 
-            <div class="seek-control">
-              <div>
-                <div class="range-wrapper" id="live-hide">
-                  <input type="range" step="1" max="60" value="0" class="range" data-range data-seek />
-                  <div class="range-fill" data-range-fill></div>
-                </div>
+            // Speed toggle functionality
+            speedBtn.addEventListener('click', () => {
+                let currentSpeed = audioPlayer.playbackRate;
+                let nextIndex = (speeds.indexOf(currentSpeed) + 1) % speeds.length;
+                let newSpeed = speeds[nextIndex];
+                
+                audioPlayer.playbackRate = newSpeed;
+                speedBtn.textContent = newSpeed + 'x';
+            });
 
-                <div class="duration-label wrapper">
-                  <span class="label-md" data-running-time>0:00</span>
-                  <button class="btn-icon skip" data-skip-btn>
-                    <span class="label-md">
-                      <span class="material-symbols-rounded">fast_forward</span> Skip Intro
-                    </span>
-                  </button>
-                  <span class="label-md" id="live-hide" data-duration>0:01</span>
-                  <span class="label-md" id="live-show">Live</span>
-                </div>
-              </div>
-            </div>
+            // Seek functionality
+            progressContainer.addEventListener('click', (e) => {
+                if (currentAudioSrc === audioSrc && !audioPlayer.paused) {
+                    const rect = progressContainer.getBoundingClientRect();
+                    const clickX = e.clientX - rect.left;
+                    audioPlayer.currentTime = (clickX / rect.width) * audioPlayer.duration;
+                }
+            });
+        });
 
-            <div class="player-control wrapper">
-              <button class="btn-icon" id="download-btn" data-download-btn>
-                <span class="material-symbols-rounded">file_download</span>
-              </button>
+        audioPlayer.addEventListener('timeupdate', () => {
+            if (currentCard && audioPlayer.duration) {
+                const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                currentCard.querySelector('.progress-bar').style.width = percent + '%';
+            }
+        });
 
-              <button class="btn-icon" id="live-hide" data-replay>
-                <span class="material-symbols-rounded">replay_10</span>
-              </button>
+        audioPlayer.addEventListener('ended', () => {
+            if (currentCard) {
+                currentCard.querySelector('.play-btn').textContent = '▶';
+                currentCard.querySelector('.album-disc').classList.remove('playing');
+                currentCard.querySelector('.progress-bar').style.width = '0%';
+            }
+        });
 
-              <button class="btn-icon play" data-play-btn>
-                <span class="material-symbols-rounded default-icon">play_arrow</span>
-                <span class="material-symbols-rounded active-icon">pause</span>
-              </button>
+        // Pause audio automatically when scrolling away from the card
+        let observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    const cardAudioSrc = entry.target.getAttribute('data-src');
+                    if (currentAudioSrc === cardAudioSrc && !audioPlayer.paused) {
+                        audioPlayer.pause();
+                        entry.target.querySelector('.play-btn').textContent = '▶';
+                        entry.target.querySelector('.album-disc').classList.remove('playing');
+                    }
+                }
+            });
+        }, { root: container, threshold: 0.6 });
 
-              <button class="btn-icon" id="live-hide" data-forward>
-                <span class="material-symbols-rounded">forward_30</span>
-              </button>
-
-              <div class="speed-container" id="live-hide">
-                <div id="speed-input">1x</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <script src="../qoutes.js"></script>
-    <script src="playlist.js"></script>
-    <script src="player.js"></script>
-    <script src="https://tn2tn.github.io/podcast/assets/lightbox/jquery-3.3.1.min.js"></script>
-    <script src="https://tn2tn.github.io/podcast/assets/lightbox/jquery.fancybox.min.js"></script>
-  </body>
+        cards.forEach(card => observer.observe(card));
+    </script>
+</body>
 </html>
