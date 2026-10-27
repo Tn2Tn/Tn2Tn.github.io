@@ -1,66 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- HolyClock.com <HEAD> code for tn2tn.github.io -->
+    <script>/*<![CDATA[*/_holyclock_id="d622d2a9997a0b9edf220b556c3a193c";_holyclock_tag='<s'+'cript src\x3d"//www.holyclock.com/holyclock.js?'+Math.floor(+new Date/864E5)+'">\x3c/script>';null!==document.cookie.match(/(?:^|;)\s*_holyclock_qr=\s*\w/)&&null===window.location.hash.match(/#holyclock=qr(?=#|$)/)&&document.write(_holyclock_tag);//]]></script>
+    <!-- HolyClock.com <HEAD> code for tn2tn.github.io -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>לישמור ולעשות - Tn²</title>
+    <link rel="icon" href="Tn 2 Tn.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontisto/3.0.4/css/fontisto/fontisto.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,-25">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#41494e">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+
     <style>
-        /* Exact Scrollbar Styling from Podcast Page */
         ::-webkit-scrollbar {
             width: 10px;
             height: 10px;
-            padding-top: 30px;
-            padding-bottom: 30px;
         }
-
         ::-webkit-scrollbar-thumb {
             background-color: #2c3e50;
-            border-radius: 2px;
+            border-radius: 5px;
         }
-
         :not(:hover)::-webkit-scrollbar-thumb {
             background-color: transparent;
             border: none;
         }
 
-        ::-webkit-scrollbar-track {
-            margin-top: 25px;
-            margin-bottom: 25px;
-        }
-
         @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
-        :root {
-            --background: #222;
-            --surface-variant: #2c3e50;
-            --primary: #d800ff;
-            --on-primary: #ffffff;
-            --on-surface-variant-hover: rgba(255, 255, 255, 0.1);
-            --on-surface-variant-focus: rgba(255, 255, 255, 0.15);
-        }
-
-        *,
-        *::after,
-        *::before {
-            margin: 0;
-            padding: 0;
+        
+        * {
             box-sizing: border-box;
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
             scroll-behavior: smooth;
         }
 
-        body, html {
-            height: 100vh;
-            background-color: var(--background);
-            color: white;
-            font-family: 'Poppins', Arial, sans-serif;
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
             overflow: hidden;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
             user-select: none;
             -webkit-user-select: none;
         }
 
-        /* Header matching podcast page (Borderless) */
+        /* EXACT HEADER STYLING FROM YOUR NORMAL PAGE */
+        .top {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
         .header {
             height: 55px;
             width: 80%;
@@ -70,29 +87,11 @@
             display: flex;
             align-items: center;
             position: fixed;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
             z-index: 1000;
             justify-content: space-between;
-            padding: 0 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             animation: slideDownZoomIn 1s ease-out forwards;
-        }
-
-        .title {
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .pages {
-            display: flex;
-            padding: 0 10px;
-            gap: 10px;
+            padding: 0 15px;
+            pointer-events: auto;
         }
 
         .pag {
@@ -101,30 +100,56 @@
             justify-content: center;
             align-items: center;
             display: flex;
-            padding: 8px 12px;
+            padding: 8px;
             transition: all 0.3s ease;
             text-decoration: none;
             font-size: 15px;
-            color: #ddd;
+            cursor: pointer;
         }
+
         .pag:hover {
             background-color: #000;
-            color: #fff;
             font-size: 18px;
         }
 
         @keyframes slideDownZoomIn {
             from {
-                transform: translate(-50%, -100%) scale(0.8);
+                transform: translateY(-100%) scale(0.8);
                 opacity: 0;
             }
             to {
-                transform: translate(-50%, 0) scale(1);
+                transform: translateY(0) scale(1);
                 opacity: 1;
             }
         }
 
-        /* Vertical Scrolling Container */
+        /* WORKING EQUALIZER SIDEBARS */
+        .eq-sidebar {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 5;
+            pointer-events: none;
+        }
+        .eq-left { left: 15px; }
+        .eq-right { right: 15px; }
+
+        .eq-bar {
+            width: 5px;
+            height: 8px;
+            background: linear-gradient(to top, #9c00b3, #d800ff);
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(216, 0, 255, 0.4);
+            transition: height 0.08s ease;
+        }
+
+        /* VERTICAL SCROLLING SHORTS CONTAINER */
         .shorts-container {
             height: 100vh;
             overflow-y: scroll;
@@ -135,7 +160,7 @@
             display: none;
         }
 
-        /* Individual Short Card */
+        /* INDIVIDUAL SHORT CARD */
         .short-card {
             height: 100vh;
             width: 100vw;
@@ -148,7 +173,7 @@
             background: linear-gradient(135deg, #1b1f23, #121212);
         }
 
-        /* Rotating Image Vinyl Art with Purple Glow (Borderless) */
+        /* ROTATING VINYL ART (8k_3.jpg) */
         .audio-art {
             position: absolute;
             top: 0;
@@ -180,7 +205,7 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Content Overlay (Borderless) */
+        /* CONTENT OVERLAY (Borderless) */
         .short-content {
             position: relative;
             z-index: 2;
@@ -214,7 +239,7 @@
             gap: 16px;
         }
 
-        /* Podcast Page Button Style */
+        /* BUTTONS & CONTROLS */
         .btn-icon {
             width: 48px;
             height: 48px;
@@ -230,32 +255,16 @@
             flex-shrink: 0;
         }
 
-        .btn-icon:hover {
-            background: var(--on-surface-variant-hover);
-            transform: translateY(-2px);
-        }
-
-        .btn-icon:active {
-            transform: scale(0.95);
-            background: var(--on-surface-variant-focus);
-        }
-
-        /* Play Button specific podcast style with purple gradient */
         .btn-icon.play {
             width: 56px;
             height: 56px;
             background: linear-gradient(135deg, #d800ff, #9c00b3);
-            color: var(--on-primary);
+            color: #fff;
             box-shadow: 0 4px 12px rgba(216, 0, 255, 0.4);
             font-size: 1.2rem;
             font-weight: bold;
         }
 
-        .btn-icon.play:hover {
-            box-shadow: 0 6px 16px rgba(216, 0, 255, 0.6);
-        }
-
-        /* Speed Control matching podcast `#speed-input` */
         #speed-input {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 50%;
@@ -272,16 +281,8 @@
             border: none;
             flex-shrink: 0;
         }
-        #speed-input:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
-        #speed-input:active {
-            transform: scale(0.95);
-            background: rgba(255, 255, 255, 0.2);
-        }
 
-        /* Seek / Progress Range Slider matching podcast page */
+        /* PROGRESS RANGE SLIDER */
         .seek-control {
             flex-grow: 1;
             margin-inline: 8px;
@@ -314,7 +315,7 @@
         .range-fill {
             content: "";
             width: 0%;
-            background-color: var(--primary);
+            background-color: #d800ff;
             border-radius: 2px;
             height: 4px;
             position: absolute;
@@ -337,29 +338,41 @@
             z-index: 3;
             border: none;
         }
-        .range::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
-            box-shadow: 0 0 0 8px rgba(216, 0, 255, 0.2);
+
+        @media (max-width: 900px) {
+            .eq-sidebar { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <div class="header">
-        <a href="https://tn2tn.github.io" class="title">Tn²</a>
-        <div class="pages">
-            <a href="https://tn2tn.github.io" class="pag">Home</a>
-            <a href="#" class="pag">לישמור ולעשות</a>
+    <!-- EXACT HEADER HTML FROM YOUR NORMAL PAGE -->
+    <div class="top">
+        <div class="header">
+            <a href="https://tn2tn.github.io" style="height: 55px;">
+                <img width="55px" height="55px" src="Tn 2 Tn.png" style="border-radius: 15px;" alt="Tn 2 Tn Logo">
+            </a>        
+            <button class="pag" onclick="openQuote()" style="color: #fff; border-width: 0px; font-weight: 900;">לישמור ולעשות</button>
+            <a href="https://tn2tn.github.io" class="pag" style="color: #fff; margin-right: 10px;"><span class="material-symbols-rounded">home</span></a>
         </div>
     </div>
 
-    <!-- Shorts Container -->
+    <!-- EQUALIZER SIDEBARS -->
+    <div class="eq-sidebar eq-left" id="eqLeft">
+        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+    </div>
+    <div class="eq-sidebar eq-right" id="eqRight">
+        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+    </div>
+
+    <!-- SHORTS CONTAINER WITH INFINITE SCROLL -->
     <div class="shorts-container" id="shortsContainer">
         <!-- Short Item 1 -->
         <div class="short-card" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
             <div class="audio-art">
-                <img src="8k-3_2.jpg" alt="Vinyl Art" class="album-disc">
+                <img src="8k_3.jpg" alt="Vinyl Art" class="album-disc">
             </div>
             <div class="short-content">
                 <div class="audio-title">Episode 1</div>
@@ -380,7 +393,7 @@
         <!-- Short Item 2 -->
         <div class="short-card" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
             <div class="audio-art">
-                <img src="8k-3_2.jpg" alt="Vinyl Art" class="album-disc">
+                <img src="8k_3.jpg" alt="Vinyl Art" class="album-disc">
             </div>
             <div class="short-content">
                 <div class="audio-title">Episode 2</div>
@@ -401,7 +414,7 @@
         <!-- Short Item 3 -->
         <div class="short-card" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">
             <div class="audio-art">
-                <img src="8k-3_2.jpg" alt="Vinyl Art" class="album-disc">
+                <img src="8k_3.jpg" alt="Vinyl Art" class="album-disc">
             </div>
             <div class="short-content">
                 <div class="audio-title">Episode 3</div>
@@ -422,9 +435,14 @@
 
     <audio id="audioPlayer" preload="auto"></audio>
 
+    <!-- HolyClock.com <BODY> code -->
+    <script>document.write(typeof _holyclock_tag=="string"?_holyclock_tag:'HolyClock \x26lt;head\x26gt; tag missing!');</script>
+
     <script>
         const container = document.getElementById('shortsContainer');
         const audioPlayer = document.getElementById('audioPlayer');
+        const eqLeftBars = document.querySelectorAll('#eqLeft .eq-bar');
+        const eqRightBars = document.querySelectorAll('#eqRight .eq-bar');
         
         // Setup infinite loop cloning matching original cards
         const originalCards = Array.from(container.querySelectorAll('.short-card'));
@@ -505,8 +523,7 @@
                 const selectedSpeed = speeds[speedIdx];
                 audioPlayer.playbackRate = selectedSpeed;
                 speedBtn.textContent = selectedSpeed + "x";
-
-                speedBtn.style.color = selectedSpeed === 1 ? "#fff" : "var(--primary)";
+                speedBtn.style.color = selectedSpeed === 1 ? "#fff" : "#d800ff";
 
                 if (currentCard === card && !audioPlayer.paused) {
                     audioPlayer.playbackRate = selectedSpeed;
@@ -538,6 +555,25 @@
             }
         });
 
+        // Equalizer animation loop
+        function animateEQ() {
+            if (!audioPlayer.paused) {
+                eqLeftBars.forEach(bar => {
+                    const randomHeight = Math.floor(Math.random() * 55) + 10;
+                    bar.style.height = randomHeight + 'px';
+                });
+                eqRightBars.forEach(bar => {
+                    const randomHeight = Math.floor(Math.random() * 55) + 10;
+                    bar.style.height = randomHeight + 'px';
+                });
+            } else {
+                eqLeftBars.forEach(bar => bar.style.height = '8px');
+                eqRightBars.forEach(bar => bar.style.height = '8px');
+            }
+            requestAnimationFrame(animateEQ);
+        }
+        requestAnimationFrame(animateEQ);
+
         let observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -562,5 +598,7 @@
 
         cards.forEach(card => observer.observe(card));
     </script>
+    <script src="quotes.js"></script>
+    <script src="signup.js"></script>
 </body>
 </html>
