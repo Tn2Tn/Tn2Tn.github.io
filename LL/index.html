@@ -97,6 +97,7 @@
             padding: 0 15px;
             pointer-events: auto;
             border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
 
         .pag {
@@ -129,7 +130,7 @@
             }
         }
 
-        /* EQUALIZER SIDEBARS (Extending towards center) */
+        /* EQUALIZER SIDEBARS (Light Blue Theme) */
         .eq-sidebar {
             position: fixed;
             top: 50%;
@@ -154,9 +155,9 @@
         .eq-bar {
             height: 5px;
             width: 8px;
-            background: linear-gradient(90deg, #9c00b3, #d800ff);
+            background: linear-gradient(90deg, #00568c, #0097d9);
             border-radius: 3px;
-            box-shadow: 0 0 10px rgba(216, 0, 255, 0.4);
+            box-shadow: 0 0 10px rgba(0, 151, 217, 0.4);
             transition: width 0.08s ease;
         }
 
@@ -171,7 +172,7 @@
             display: none;
         }
 
-        /* INDIVIDUAL SHORT CARD (Borderless) */
+        /* INDIVIDUAL SHORT CARD */
         .short-card {
             height: 100vh;
             width: 100vw;
@@ -201,15 +202,15 @@
             width: 240px;
             height: 240px;
             border-radius: 50%;
-            border: none;
+            border: 6px solid #1a1a1a;
             object-fit: cover;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 25px rgba(216, 0, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 25px rgba(0, 151, 217, 0.2);
             animation: spin 10s linear infinite;
             animation-play-state: paused;
         }
         .album-disc.playing {
             animation-play-state: running;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 35px rgba(216, 0, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 35px rgba(0, 151, 217, 0.5);
         }
 
         @keyframes spin {
@@ -217,14 +218,14 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* CONTENT OVERLAY (Borderless) */
+        /* CONTENT OVERLAY */
         .short-content {
             position: relative;
             z-index: 2;
             max-width: 500px;
             margin: 0 auto;
             width: 100%;
-            background: rgba(30, 20, 40, 0.85);
+            background: rgba(20, 30, 40, 0.85);
             backdrop-filter: blur(12px);
             padding: 24px;
             border-radius: 24px;
@@ -271,9 +272,9 @@
         .btn-icon.play {
             width: 56px;
             height: 56px;
-            background: linear-gradient(135deg, #d800ff, #9c00b3);
+            background: linear-gradient(135deg, #0097d9, #00568c);
             color: #fff;
-            box-shadow: 0 4px 12px rgba(216, 0, 255, 0.4);
+            box-shadow: 0 4px 12px rgba(0, 151, 217, 0.4);
             font-size: 1.2rem;
             font-weight: bold;
             border: none;
@@ -329,7 +330,7 @@
         .range-fill {
             content: "";
             width: 0%;
-            background-color: #d800ff;
+            background-color: #0097d9;
             border-radius: 2px;
             height: 4px;
             position: absolute;
@@ -353,6 +354,51 @@
             border: none;
         }
 
+        /* Quote Modal Overlay Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+            color: white;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+
+        .fade {
+            z-index: 100;
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(to bottom, #222 50%, transparent 100%);
+        }
+
         @media (max-width: 900px) {
             .eq-sidebar { display: none; }
         }
@@ -360,7 +406,7 @@
 </head>
 <body>
 
-    <!-- EXACT HEADER HTML FROM YOUR NORMAL PAGE -->
+    <!-- EXACT HEADER HTML WITH "Show Today's Quote" BUTTON -->
     <div class="top">
         <div class="header">
             <a href="https://tn2tn.github.io" style="height: 55px;">
@@ -368,6 +414,14 @@
             </a>        
             <button class="pag" onclick="openQuote()" style="color: #fff; border-width: 0px; font-weight: 900;">Show Today's Quote</button>
             <a href="https://tn2tn.github.io" class="pag" style="color: #fff; margin-right: 10px;"><span class="material-symbols-rounded">home</span></a>
+        </div>
+    </div>
+
+    <!-- QUOTE MODAL OVERLAY -->
+    <div id="quoteOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeQuote()">×</button>
+            <span class="glow-filter" id="dailyQuote" style="font-size: 1.8rem; font-weight: bold;"></span>
         </div>
     </div>
 
@@ -458,7 +512,7 @@
         const eqLeftBars = document.querySelectorAll('#eqLeft .eq-bar');
         const eqRightBars = document.querySelectorAll('#eqRight .eq-bar');
         
-        // Setup infinite loop cloning matching original cards
+        // Setup seamless infinite loop cloning matching original cards
         const originalCards = Array.from(container.querySelectorAll('.short-card'));
         const firstClone = originalCards[0].cloneNode(true);
         const lastClone = originalCards[originalCards.length - 1].cloneNode(true);
@@ -472,24 +526,35 @@
         let currentAudioSrc = null;
         const speeds = [1, 1.25, 1.5, 1.75, 2, 16];
 
-        // Start initial view on the first real card (index 1)
+        // Start initial view precisely on the first real card (index 1)
         window.addEventListener('load', () => {
             container.scrollTop = window.innerHeight;
         });
 
-        // Infinite scroll loop repositioning logic
+        // Seamless infinite scroll loop repositioning logic
         container.addEventListener('scroll', () => {
             const cardHeight = window.innerHeight;
             const totalOriginals = originalCards.length;
 
-            if (container.scrollTop >= (totalOriginals + 1) * cardHeight - 10) {
+            if (container.scrollTop >= (totalOriginals + 1) * cardHeight - 5) {
                 container.style.scrollSnapType = 'none';
                 container.scrollTop = cardHeight;
-                setTimeout(() => { container.style.scrollSnapType = 'y mandatory'; }, 50);
+                requestAnimationFrame(() => { container.style.scrollSnapType = 'y mandatory'; });
             } else if (container.scrollTop <= 5) {
                 container.style.scrollSnapType = 'none';
                 container.scrollTop = totalOriginals * cardHeight;
-                setTimeout(() => { container.style.scrollSnapType = 'y mandatory'; }, 50);
+                requestAnimationFrame(() => { container.style.scrollSnapType = 'y mandatory'; });
+            }
+        });
+
+        // Keyboard navigation (Up / Down arrows)
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                container.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                container.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
             }
         });
 
@@ -537,7 +602,7 @@
                 const selectedSpeed = speeds[speedIdx];
                 audioPlayer.playbackRate = selectedSpeed;
                 speedBtn.textContent = selectedSpeed + "x";
-                speedBtn.style.color = selectedSpeed === 1 ? "#fff" : "#d800ff";
+                speedBtn.style.color = selectedSpeed === 1 ? "#fff" : "#0097d9";
 
                 if (currentCard === card && !audioPlayer.paused) {
                     audioPlayer.playbackRate = selectedSpeed;
@@ -568,6 +633,17 @@
                 audioPlayer.play();
             }
         });
+
+        // Quote Modal Functions
+        function openQuote() {
+            const overlay = document.getElementById('quoteOverlay');
+            if (overlay) overlay.style.display = 'flex';
+        }
+
+        function closeQuote() {
+            const overlay = document.getElementById('quoteOverlay');
+            if (overlay) overlay.style.display = 'none';
+        }
 
         // Equalizer horizontal animation loop (extending towards center)
         function animateEQ() {
