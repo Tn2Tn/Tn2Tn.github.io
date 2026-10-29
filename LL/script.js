@@ -1,49 +1,176 @@
 /*
- * Tn² LL / Audio Shorts
+ * Tn² LL — Audio Shorts
  *
- * Edit the SHORTS list to change your audio clips.
- * The supplied audio URLs are demonstration tracks.
+ * Features:
+ * - Seamless looping scroll
+ * - Keyboard, touch, mouse wheel and trackpad scrolling
+ * - Shared audio player
+ * - Speed-adjusted vinyl rotation
+ * - Original daily quotes and glow effect
  */
+
+
+/* =====================================
+   SHORTS PLAYLIST
+===================================== */
 
 const SHORTS = [
   {
     title: "Episode 1",
-    description: "Sample audio short — replace this clip with your own.",
+    description: "Audio short 1",
     audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-    artwork: "8k_3.jpg"
+    artwork: "2L.png"
   },
   {
     title: "Episode 2",
-    description: "A second demo clip. Edit this text in script.js.",
+    description: "Audio short 2",
     audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-    artwork: "8k_3.jpg"
+    artwork: "2L.png"
   },
   {
     title: "Episode 3",
-    description: "A third demo clip. Add more shorts by copying an item in SHORTS.",
+    description: "Audio short 3",
     audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-    artwork: "8k_3.jpg"
+    artwork: "2L.png"
   }
 ];
 
 
-/* ---------------------------------
-   DAILY QUOTES
---------------------------------- */
+/* =====================================
+   ORIGINAL DAILY QUOTES
+===================================== */
 
-const DAILY_QUOTES = [
-  "Small steps, repeated consistently, can lead to big changes.",
-  "Make what you do today something your future self will thank you for.",
-  "A little progress each day adds up to a lot over time.",
-  "Listen carefully, speak thoughtfully, and keep learning.",
-  "Great things are often built one small decision at a time.",
-  "Let your actions make your good intentions real."
+const quotes = [
+  {
+    text: "Whether you think you can or think you can't, you're right.",
+    highlight: "you're right."
+  },
+  {
+    text: "You miss 100% of the shots you don't take.",
+    highlight: "the shots you don't take."
+  },
+  {
+    text: "Live With Less.",
+    highlight: "Live"
+  },
+  {
+    text: "Accept And Embrace All Experiences.",
+    highlight: "Accept And Embrace"
+  },
+  {
+    text: "Do The Things You Love.",
+    highlight: "Things You Love."
+  },
+  {
+    text: "You Are Awesome.",
+    highlight: "Awesome."
+  },
+  {
+    text: "Plan For Victory, Learn From Defeat.",
+    highlight: "Victory"
+  },
+  {
+    text: "Open Your Heart.",
+    highlight: "Heart."
+  },
+  {
+    text: "Whether you think you can, or you can think Power on.",
+    highlight: "Power on"
+  },
+  {
+    text: "Find Joy In The Ordinary.",
+    highlight: "Find Joy"
+  },
+  {
+    text: "Be Yourself.",
+    highlight: "Yourself."
+  },
+  {
+    text: "Persistence Powers Passion.",
+    highlight: "Powers Passion."
+  },
+  {
+    text: "A bad worker blames his tools, a bad Tn Does not exist.",
+    highlight: "Does not exist."
+  },
+  {
+    text: "Be A Victor, Not A Victim.",
+    highlight: "A Victor"
+  },
+  {
+    text: "Be A Magnet For Joy, Love And Abundance.",
+    highlight: "Magnet"
+  },
+  {
+    text: "Illuminate The Beauty In Others.",
+    highlight: "Illuminate"
+  },
+  {
+    text: "Light is needed to create a shadow.",
+    highlight: "Light is needed."
+  },
+  {
+    text: "Create Every Day.",
+    highlight: "Every Day."
+  },
+  {
+    text: "Invest In Yourself.",
+    highlight: "Yourself."
+  },
+  {
+    text: "Run Your Own Race.",
+    highlight: "Run"
+  },
+  {
+    text: "Maintain Your Balance.",
+    highlight: "Your Balance."
+  },
+  {
+    text: "Empty Your Cup.",
+    highlight: "Your Cup."
+  },
+  {
+    text: "Be Fearless.",
+    highlight: "Fearless."
+  },
+  {
+    text: "Be Kind To Yourself.",
+    highlight: "Yourself."
+  },
+  {
+    text: "Knowing yourself is the beginning of all wisdom.",
+    highlight: "all wisdom."
+  },
+  {
+    text: "Every Day Is Another Chance.",
+    highlight: "Another Chance."
+  },
+  {
+    text: "Because You Can.",
+    highlight: "You Can."
+  },
+  {
+    text: "Live Less Out Of Habit And More Out Of Intent.",
+    highlight: "More Out Of Intent."
+  },
+  {
+    text: "Baby Steps.",
+    highlight: "Baby Steps."
+  },
+  {
+    text: "Keep Moving Forward.",
+    highlight: "Moving Forward."
+  },
+  {
+    text: "Create The Life You Want.",
+    highlight: "Life."
+  }
 ];
 
 
-/* ---------------------------------
+/* =====================================
    ELEMENTS
---------------------------------- */
+===================================== */
 
 const container = document.getElementById("shortsContainer");
 const audioPlayer = document.getElementById("audioPlayer");
@@ -57,24 +184,27 @@ const quoteTrigger = document.getElementById("quoteTrigger");
 const quoteClose = document.getElementById("quoteClose");
 
 
-/* ---------------------------------
+/* =====================================
    PLAYER STATE
---------------------------------- */
+===================================== */
 
 const SPEEDS = [1, 1.25, 1.5, 1.75, 2, 16];
 
 let allCards = [];
+
 let activeCard = null;
-let activeIndex = 0;
+let activeIndex = -1;
 let currentAudioIndex = -1;
+
 let currentSpeedIndex = 0;
+
 let scrollFrame = 0;
 let isRepositioning = false;
 
 
-/* ---------------------------------
-   HTML ESCAPING
---------------------------------- */
+/* =====================================
+   SAFE HTML TEXT
+===================================== */
 
 function escapeHTML(value) {
   return String(value).replace(/[&<>"']/g, character => ({
@@ -87,45 +217,138 @@ function escapeHTML(value) {
 }
 
 
-/* ---------------------------------
-   CREATE ONE SHORT CARD
---------------------------------- */
+/* =====================================
+   FORMAT TIME
+===================================== */
 
-function makeCard(clip, logicalIndex, cloneType = "") {
+function formatTime(value) {
+  if (!Number.isFinite(value) || value < 0) {
+    return "0:00";
+  }
+
+  const minutes = Math.floor(value / 60);
+  const seconds = Math.floor(value % 60);
+
+  return `${minutes}:${String(seconds).padStart(2, "0")}`;
+}
+
+
+function getCardHeight() {
+  return (
+    allCards[0]?.getBoundingClientRect().height ||
+    container.clientHeight ||
+    window.innerHeight
+  );
+}
+
+
+/* =====================================
+   FIND REPEATED CARDS
+===================================== */
+
+function cardsForIndex(index) {
+  return allCards.filter(
+    card => Number(card.dataset.logicalIndex) === index
+  );
+}
+
+
+function canonicalCard(index) {
+  return allCards[SHORTS.length + index];
+}
+
+
+/* =====================================
+   STATUS MESSAGE
+===================================== */
+
+function setStatus(index, message) {
+  cardsForIndex(index).forEach(card => {
+    card.querySelector(".player-status").textContent = message;
+  });
+}
+
+
+/* =====================================
+   VINYL SPEED
+===================================== */
+
+function updateVinylSpeed(index, speed) {
+  /*
+   * Normal speed: one rotation every 10 seconds.
+   *
+   * 2x speed: one rotation every 5 seconds.
+   *
+   * 16x speed: one rotation every 0.625 seconds.
+   */
+
+  const rotationDuration = 10 / speed;
+
+  cardsForIndex(index).forEach(card => {
+    const disc = card.querySelector(".album-disc");
+
+    disc.style.animationDuration = `${rotationDuration}s`;
+  });
+}
+
+
+function updateSpeedButtons(index, speed) {
+  cardsForIndex(index).forEach(card => {
+    const button = card.querySelector(".speed-btn");
+
+    button.textContent = `${speed}x`;
+
+    button.classList.toggle("fast", speed !== 1);
+
+    button.setAttribute(
+      "aria-label",
+      `Playback speed, currently ${speed}x`
+    );
+  });
+
+  updateVinylSpeed(index, speed);
+}
+
+
+/* =====================================
+   CREATE A SHORT CARD
+===================================== */
+
+function makeCard(clip, logicalIndex, copyNumber) {
   const card = document.createElement("section");
 
   card.className = "short-card";
-  card.dataset.logicalIndex = String(logicalIndex);
 
-  if (cloneType) {
-    card.dataset.clone = cloneType;
-  }
+  card.dataset.logicalIndex = String(logicalIndex);
+  card.dataset.copyNumber = String(copyNumber);
 
   card.setAttribute(
     "aria-label",
-    `${clip.title}, audio short ${logicalIndex + 1} of ${SHORTS.length}`
+    `${clip.title}, short ${logicalIndex + 1}`
   );
 
   const title = escapeHTML(clip.title);
   const description = escapeHTML(clip.description);
+  const artwork = escapeHTML(clip.artwork || "2L.png");
 
   card.innerHTML = `
     <div class="audio-art" aria-hidden="true">
       <div class="disc-shell">
+
         <img
           class="album-disc"
+          src="${artwork}"
           alt=""
-          src="${escapeHTML(clip.artwork || "8k_3.jpg")}"
         >
-        <div class="disc-fallback">Tn²</div>
+
+        <div class="disc-fallback">
+          Tn²
+        </div>
+
       </div>
     </div>
 
     <div class="short-content">
-
-      <div class="episode-kicker">
-        Tn² · AUDIO SHORT
-      </div>
 
       <h1 class="audio-title">${title}</h1>
 
@@ -162,8 +385,8 @@ function makeCard(clip, logicalIndex, cloneType = "") {
               max="100"
               step="0.1"
               value="0"
-              aria-label="Seek through ${title}"
               disabled
+              aria-label="Seek through ${title}"
             >
 
           </div>
@@ -189,307 +412,258 @@ function makeCard(clip, logicalIndex, cloneType = "") {
   `;
 
 
-  /* Artwork fallbacks */
+  /* Artwork fallback handling */
 
   const image = card.querySelector(".album-disc");
   const shell = card.querySelector(".disc-shell");
 
-  const candidates = [
-    clip.artwork || "8k_3.jpg",
+  image.dataset.fallbacks = JSON.stringify([
+    "../2L.png",
+    "/2L.png",
+    "8k_3.jpg",
     "../8k_3.jpg",
     "/8k_3.jpg",
-    "Tn 2 Tn.png",
     "../Tn 2 Tn.png",
     "/Tn%202%20Tn.png"
-  ].filter((value, index, list) => list.indexOf(value) === index);
-
-  image.dataset.fallbacks = JSON.stringify(candidates.slice(1));
+  ]);
 
   image.addEventListener("error", () => {
-    let fallbacks;
+    let fallbackList;
 
     try {
-      fallbacks = JSON.parse(image.dataset.fallbacks || "[]");
+      fallbackList = JSON.parse(image.dataset.fallbacks || "[]");
     } catch {
-      fallbacks = [];
+      fallbackList = [];
     }
 
-    if (fallbacks.length) {
-      const next = fallbacks.shift();
+    if (fallbackList.length > 0) {
+      image.src = fallbackList.shift();
 
-      image.dataset.fallbacks = JSON.stringify(fallbacks);
-      image.src = next;
+      image.dataset.fallbacks = JSON.stringify(fallbackList);
     } else {
       shell.classList.add("art-missing");
     }
   });
 
 
-  /* Play / pause */
+  /* Play/pause */
 
   card.querySelector(".play-btn").addEventListener("click", () => {
-    togglePlayback(card);
+    togglePlayback(logicalIndex);
   });
 
 
   /* Playback speed */
 
   card.querySelector(".speed-btn").addEventListener("click", () => {
-    cycleSpeed(card);
+    cycleSpeed(logicalIndex);
   });
 
 
-  /* Seeking */
+  /* Seek bar */
 
-  const range = card.querySelector(".player-seek");
-
-  range.addEventListener("input", () => {
+  card.querySelector(".player-seek").addEventListener("input", event => {
     if (
-      card !== activeCard ||
+      logicalIndex !== activeIndex ||
       currentAudioIndex !== logicalIndex ||
       !Number.isFinite(audioPlayer.duration)
     ) {
       return;
     }
 
-    audioPlayer.currentTime = Number(range.value);
+    audioPlayer.currentTime = Number(event.target.value);
 
     updateProgressUI();
   });
+
 
   return card;
 }
 
 
-/* ---------------------------------
-   BUILD THE SHORTS LIST
---------------------------------- */
+/* =====================================
+   BUILD THREE COPIES FOR LOOPING
+===================================== */
 
 function renderCards() {
   container.innerHTML = "";
 
+  allCards = [];
+
   /*
-   * The extra first and last cards create
-   * the effect of endless scrolling.
+   * The three copies let the user scroll infinitely.
+   * The viewport starts on the middle copy.
    */
 
-  const lastClone = makeCard(
-    SHORTS[SHORTS.length - 1],
-    SHORTS.length - 1,
-    "last"
-  );
+  for (let copy = 0; copy < 3; copy++) {
+    SHORTS.forEach((clip, index) => {
+      const card = makeCard(clip, index, copy);
 
-  container.appendChild(lastClone);
-
-  SHORTS.forEach((clip, index) => {
-    container.appendChild(makeCard(clip, index));
-  });
-
-  const firstClone = makeCard(
-    SHORTS[0],
-    0,
-    "first"
-  );
-
-  container.appendChild(firstClone);
-
-  allCards = Array.from(
-    container.querySelectorAll(".short-card")
-  );
-}
-
-
-/* ---------------------------------
-   FORMAT PLAYBACK TIME
---------------------------------- */
-
-function formatTime(value) {
-  if (!Number.isFinite(value) || value < 0) {
-    return "0:00";
+      container.appendChild(card);
+      allCards.push(card);
+    });
   }
-
-  const minutes = Math.floor(value / 60);
-  const seconds = Math.floor(value % 60);
-
-  return `${minutes}:${String(seconds).padStart(2, "0")}`;
 }
 
 
-/* ---------------------------------
-   UPDATE PLAYING APPEARANCE
---------------------------------- */
+/* =====================================
+   PLAYING UI
+===================================== */
 
 function setPlayingUI(playing) {
-  const isPlayingCurrent = Boolean(
+  const playingNow = Boolean(
     playing &&
     !audioPlayer.paused &&
     currentAudioIndex === activeIndex
   );
 
-  if (activeCard) {
-    activeCard.classList.toggle(
-      "is-playing",
-      isPlayingCurrent
-    );
+  if (activeIndex >= 0) {
+    cardsForIndex(activeIndex).forEach(card => {
+      card.classList.toggle("is-playing", playingNow);
 
-    const button = activeCard.querySelector(".play-btn");
+      const button = card.querySelector(".play-btn");
 
-    if (button) {
       button.innerHTML = `
         <span class="material-symbols-rounded" aria-hidden="true">
-          ${isPlayingCurrent ? "pause" : "play_arrow"}
+          ${playingNow ? "pause" : "play_arrow"}
         </span>
       `;
 
       button.setAttribute(
         "aria-label",
-        `${isPlayingCurrent ? "Pause" : "Play"} ${SHORTS[activeIndex].title}`
+        `${playingNow ? "Pause" : "Play"} ${SHORTS[activeIndex].title}`
       );
 
       button.setAttribute(
         "aria-pressed",
-        String(isPlayingCurrent)
+        String(playingNow)
       );
-    }
+    });
   }
 
-  eqLeft.classList.toggle("is-playing", isPlayingCurrent);
-  eqRight.classList.toggle("is-playing", isPlayingCurrent);
+  eqLeft.classList.toggle("is-playing", playingNow);
+  eqRight.classList.toggle("is-playing", playingNow);
 }
 
 
-/* ---------------------------------
-   SET ACTIVE SHORT
---------------------------------- */
+/* =====================================
+   SELECT ACTIVE SHORT
+===================================== */
 
-function setActiveCard(card) {
-  const nextIndex = Number(card.dataset.logicalIndex);
-
-  if (
-    activeCard === card &&
-    activeIndex === nextIndex
-  ) {
+function setActiveCard(index) {
+  if (index < 0 || index >= SHORTS.length) {
     return;
+  }
+
+  if (activeIndex === index && activeCard) {
+    return;
+  }
+
+  if (activeIndex >= 0) {
+    cardsForIndex(activeIndex).forEach(card => {
+      card.classList.remove("is-playing");
+    });
   }
 
   if (!audioPlayer.paused) {
     audioPlayer.pause();
   }
 
-  if (activeCard) {
-    activeCard.classList.remove("is-playing");
-
-    const oldButton = activeCard.querySelector(".play-btn");
-
-    if (oldButton) {
-      oldButton.innerHTML = `
-        <span class="material-symbols-rounded" aria-hidden="true">
-          play_arrow
-        </span>
-      `;
-
-      oldButton.setAttribute("aria-pressed", "false");
-    }
-  }
-
-  activeCard = card;
-  activeIndex = nextIndex;
+  activeIndex = index;
+  activeCard = canonicalCard(index);
 
   currentSpeedIndex = 0;
+
   audioPlayer.playbackRate = 1;
 
-  const speedBtn = activeCard.querySelector(".speed-btn");
+  updateSpeedButtons(index, 1);
 
-  speedBtn.textContent = "1x";
-  speedBtn.classList.remove("fast");
-
-  speedBtn.setAttribute(
-    "aria-label",
-    "Playback speed, currently 1x"
-  );
-
-  activeCard.querySelector(".player-status").textContent = "";
+  setStatus(index, "");
 
   setPlayingUI(false);
+
   updateProgressUI();
 }
 
 
-/* ---------------------------------
-   SCROLL POSITION
---------------------------------- */
-
-function getSlotFromScroll() {
-  const height = container.clientHeight || window.innerHeight;
-
-  return Math.round(container.scrollTop / height);
-}
-
-
-/* ---------------------------------
-   INFINITE SCROLL
---------------------------------- */
+/* =====================================
+   SEAMLESS LOOPING
+===================================== */
 
 function syncActiveCard() {
   scrollFrame = 0;
 
-  if (isRepositioning || !allCards.length) {
+  if (!allCards.length || isRepositioning) {
     return;
   }
 
-  const height = container.clientHeight || window.innerHeight;
+  const count = SHORTS.length;
+  const height = getCardHeight();
+  const sequenceHeight = count * height;
 
-  let slot = getSlotFromScroll();
+  let top = container.scrollTop;
 
-  const lastSlot = SHORTS.length + 1;
+  /*
+   * At the beginning of the first copy, jump
+   * forward by one full sequence.
+   *
+   * The cards are identical, so this is invisible.
+   */
 
-
-  /* Scrolled past the last real card */
-
-  if (slot <= 0) {
+  if (top < sequenceHeight) {
     isRepositioning = true;
 
     container.style.scrollSnapType = "none";
 
-    container.scrollTop = SHORTS.length * height;
-
-    slot = SHORTS.length;
+    container.scrollTop = top + sequenceHeight;
 
     requestAnimationFrame(() => {
       container.style.scrollSnapType = "y mandatory";
+
       isRepositioning = false;
+
+      syncActiveCard();
     });
+
+    return;
   }
 
 
-  /* Scrolled past the first real card */
+  /*
+   * At the beginning of the third copy, jump
+   * backward by one full sequence.
+   */
 
-  else if (slot >= lastSlot) {
+  if (top >= sequenceHeight * 2) {
     isRepositioning = true;
 
     container.style.scrollSnapType = "none";
 
-    container.scrollTop = height;
-
-    slot = 1;
+    container.scrollTop = top - sequenceHeight;
 
     requestAnimationFrame(() => {
       container.style.scrollSnapType = "y mandatory";
+
       isRepositioning = false;
+
+      syncActiveCard();
     });
+
+    return;
   }
 
 
-  const card = allCards[
-    Math.min(
-      Math.max(slot, 1),
-      SHORTS.length
-    )
-  ];
+  /*
+   * Identify the visible short, including
+   * changes caused by swipes or fast scrolling.
+   */
 
-  if (card) {
-    setActiveCard(card);
-  }
+  const slot = Math.round(top / height);
+
+  const logicalIndex =
+    ((slot % count) + count) % count;
+
+  setActiveCard(logicalIndex);
 }
 
 
@@ -500,39 +674,33 @@ function onScroll() {
 }
 
 
-/* ---------------------------------
-   UPDATE AUDIO PROGRESS
---------------------------------- */
+/* =====================================
+   PROGRESS BAR
+===================================== */
 
 function updateProgressUI() {
-  const isCurrentAudioActive =
+  const duration =
     currentAudioIndex === activeIndex &&
-    Number.isFinite(audioPlayer.duration) &&
-    audioPlayer.duration > 0;
+    Number.isFinite(audioPlayer.duration)
+      ? audioPlayer.duration
+      : 0;
 
-  const duration = isCurrentAudioActive
-    ? audioPlayer.duration
-    : 0;
+  const current =
+    duration > 0
+      ? audioPlayer.currentTime
+      : 0;
 
-  const current = isCurrentAudioActive
-    ? audioPlayer.currentTime
-    : 0;
+  const percentage =
+    duration > 0
+      ? current / duration * 100
+      : 0;
 
-  const percent = duration > 0
-    ? (current / duration) * 100
-    : 0;
-
-
-  allCards.forEach(card => {
-    if (Number(card.dataset.logicalIndex) !== activeIndex) {
-      return;
-    }
-
+  cardsForIndex(activeIndex).forEach(card => {
     const range = card.querySelector(".player-seek");
 
     range.max = duration || 100;
-    range.value = duration ? current : 0;
-    range.disabled = !duration;
+    range.value = current;
+    range.disabled = duration <= 0;
 
     card.querySelector(".current-time").textContent =
       formatTime(current);
@@ -541,28 +709,21 @@ function updateProgressUI() {
       formatTime(duration);
 
     card.querySelector(".range-fill").style.width =
-      `${percent}%`;
+      `${percentage}%`;
   });
 }
 
 
-/* ---------------------------------
-   PLAY / PAUSE AUDIO
---------------------------------- */
+/* =====================================
+   PLAY / PAUSE
+===================================== */
 
-async function togglePlayback(card) {
-  if (card !== activeCard) {
-    setActiveCard(card);
+async function togglePlayback(index) {
+  if (index !== activeIndex) {
+    setActiveCard(index);
   }
 
-  const index = Number(card.dataset.logicalIndex);
-
-  const status = card.querySelector(".player-status");
-
-  status.textContent = "";
-
-
-  /* Pause current clip */
+  setStatus(index, "");
 
   if (
     currentAudioIndex === index &&
@@ -575,33 +736,14 @@ async function togglePlayback(card) {
     return;
   }
 
-
-  /* Load a new clip */
-
   if (currentAudioIndex !== index) {
     currentAudioIndex = index;
 
     audioPlayer.src = SHORTS[index].audio;
-    audioPlayer.currentTime = 0;
+    audioPlayer.load();
 
-    currentSpeedIndex = 0;
-    audioPlayer.playbackRate = 1;
-
-    const speedBtn = activeCard.querySelector(".speed-btn");
-
-    speedBtn.textContent = "1x";
-    speedBtn.classList.remove("fast");
-
-    speedBtn.setAttribute(
-      "aria-label",
-      "Playback speed, currently 1x"
-    );
-
-    updateProgressUI();
+    audioPlayer.playbackRate = SPEEDS[currentSpeedIndex];
   }
-
-
-  /* Start playback */
 
   try {
     await audioPlayer.play();
@@ -610,21 +752,23 @@ async function togglePlayback(card) {
   } catch (error) {
     setPlayingUI(false);
 
-    status.textContent =
-      "This audio could not be loaded. Check the clip URL in script.js.";
+    setStatus(
+      index,
+      "Audio could not load. Check the audio URL in script.js."
+    );
 
     console.error("Audio playback failed:", error);
   }
 }
 
 
-/* ---------------------------------
+/* =====================================
    PLAYBACK SPEED
---------------------------------- */
+===================================== */
 
-function cycleSpeed(card) {
-  if (card !== activeCard) {
-    setActiveCard(card);
+function cycleSpeed(index) {
+  if (index !== activeIndex) {
+    setActiveCard(index);
   }
 
   currentSpeedIndex =
@@ -632,46 +776,67 @@ function cycleSpeed(card) {
 
   const speed = SPEEDS[currentSpeedIndex];
 
-  if (currentAudioIndex === activeIndex) {
+  if (currentAudioIndex === index) {
     audioPlayer.playbackRate = speed;
   }
 
-  const button = card.querySelector(".speed-btn");
+  /*
+   * Update the vinyl and speed label together.
+   */
 
-  button.textContent = `${speed}x`;
-
-  button.classList.toggle(
-    "fast",
-    speed !== 1
-  );
-
-  button.setAttribute(
-    "aria-label",
-    `Playback speed, currently ${speed}x`
-  );
+  updateSpeedButtons(index, speed);
 }
 
 
-/* ---------------------------------
-   DAILY QUOTE POPUP
---------------------------------- */
+/* =====================================
+   TODAY'S QUOTE
+===================================== */
 
 function openQuote() {
-  const now = new Date();
+  /*
+   * Same selection logic as your original quotes.js:
+   * today's date number determines the quote.
+   */
 
-  const dayNumber = Math.floor(
-    new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate()
-    ).getTime() / 86400000
+  const today = new Date().getDate();
+
+  const todayQuote = quotes[(today - 1) % quotes.length];
+
+  const text = todayQuote.text;
+  const highlightedPart = todayQuote.highlight;
+
+  /*
+   * Escape the highlight phrase for regular expressions.
+   */
+
+  const escapedHighlight = highlightedPart.replace(
+    /[.*+?^${}()|[\]\\]/g,
+    "\\$&"
   );
 
-  const quoteIndex =
-    ((dayNumber % DAILY_QUOTES.length) + DAILY_QUOTES.length)
-    % DAILY_QUOTES.length;
+  const regex = new RegExp(
+    `(${escapedHighlight})`,
+    "gi"
+  );
 
-  dailyQuote.textContent = DAILY_QUOTES[quoteIndex];
+
+  /*
+   * Highlight the matching phrase safely.
+   */
+
+  const formattedQuote = text.replace(regex, match => {
+    const safeText = escapeHTML(match);
+
+    return `
+      <span
+        class="glow-filter"
+        data-text="${safeText}"
+      >${safeText}</span>
+    `;
+  });
+
+  dailyQuote.innerHTML = formattedQuote;
+  dailyQuote.dataset.text = text;
 
   quoteOverlay.hidden = false;
 
@@ -686,39 +851,44 @@ function closeQuote() {
 }
 
 
-/* ---------------------------------
-   LOGO FALLBACKS
---------------------------------- */
+/* =====================================
+   HEADER LOGO FALLBACK
+===================================== */
 
-function setLogoFallback() {
+function setupLogoFallback() {
   const logo = document.getElementById("siteLogo");
 
-  const candidates = [
-    "../Tn 2 Tn.png",
+  if (!logo) {
+    return;
+  }
+
+  const fallbacks = [
+    "Tn 2 Tn.png",
     "/Tn%202%20Tn.png"
   ];
 
   logo.addEventListener("error", () => {
-    const next = candidates.shift();
-
-    if (next) {
-      logo.src = next;
-    } else {
-      logo.style.visibility = "hidden";
+    if (fallbacks.length > 0) {
+      logo.src = fallbacks.shift();
     }
   });
 }
 
 
-/* ---------------------------------
-   KEYBOARD CONTROLS
---------------------------------- */
+/* =====================================
+   SCROLLING CONTROLS
+===================================== */
 
-function setupKeyboardShortcuts() {
+function moveByCard(direction) {
+  container.scrollBy({
+    top: direction * getCardHeight(),
+    behavior: "smooth"
+  });
+}
+
+
+function setupKeyboardControls() {
   document.addEventListener("keydown", event => {
-
-    /* Close quote with Escape */
-
     if (!quoteOverlay.hidden) {
       if (event.key === "Escape") {
         closeQuote();
@@ -727,72 +897,108 @@ function setupKeyboardShortcuts() {
       return;
     }
 
-    const tagName =
-      event.target && event.target.tagName;
+    const target = event.target;
 
-    const isTypingOrControl = [
-      "INPUT",
-      "TEXTAREA",
-      "BUTTON",
-      "A"
-    ].includes(tagName);
+    /*
+     * Keep the arrow keys available for operating
+     * the seek slider itself.
+     */
 
-    if (isTypingOrControl) {
+    if (target.matches("input[type='range']")) {
       return;
     }
 
 
-    /* Up and down arrows */
+    /* Down / Page Down */
 
     if (
-      event.code === "ArrowDown" ||
-      event.code === "ArrowUp"
+      event.key === "ArrowDown" ||
+      event.key === "PageDown"
     ) {
       event.preventDefault();
 
-      container.scrollBy({
-        top:
-          (event.code === "ArrowDown" ? 1 : -1) *
-          container.clientHeight,
-        behavior: "smooth"
-      });
+      moveByCard(1);
+
+      return;
     }
 
 
-    /* Spacebar toggles audio */
+    /* Up / Page Up */
 
-    else if (event.code === "Space") {
+    if (
+      event.key === "ArrowUp" ||
+      event.key === "PageUp"
+    ) {
       event.preventDefault();
 
-      if (activeCard) {
-        togglePlayback(activeCard);
+      moveByCard(-1);
+
+      return;
+    }
+
+
+    /* Home */
+
+    if (event.key === "Home") {
+      event.preventDefault();
+
+      container.scrollTo({
+        top: SHORTS.length * getCardHeight(),
+        behavior: "smooth"
+      });
+
+      return;
+    }
+
+
+    /* End */
+
+    if (event.key === "End") {
+      event.preventDefault();
+
+      container.scrollTo({
+        top: (2 * SHORTS.length - 1) * getCardHeight(),
+        behavior: "smooth"
+      });
+
+      return;
+    }
+
+
+    /* Spacebar playback */
+
+    if (
+      event.code === "Space" &&
+      !target.closest("button, a, input, select, textarea")
+    ) {
+      event.preventDefault();
+
+      if (activeIndex >= 0) {
+        togglePlayback(activeIndex);
       }
     }
   });
 }
 
 
-/* ---------------------------------
-   INITIALISE EVERYTHING
---------------------------------- */
+/* =====================================
+   INITIALISE
+===================================== */
 
 function init() {
-  if (!SHORTS.length) {
+  if (!container || !audioPlayer || SHORTS.length === 0) {
     return;
   }
 
   renderCards();
 
-  setLogoFallback();
-
-
-  /* One shared audio player */
+  setupLogoFallback();
 
   audioPlayer.loop = true;
   audioPlayer.preload = "metadata";
 
 
-  /* Playback events */
+  /* Audio events */
 
   audioPlayer.addEventListener("play", () => {
     setPlayingUI(true);
@@ -809,23 +1015,25 @@ function init() {
   audioPlayer.addEventListener("durationchange", updateProgressUI);
 
   audioPlayer.addEventListener("error", () => {
-    if (
-      activeCard &&
-      currentAudioIndex === activeIndex
-    ) {
-      activeCard.querySelector(".player-status").textContent =
-        "Audio failed to load. Check the URL or your connection.";
+    if (currentAudioIndex === activeIndex && activeIndex >= 0) {
+      setStatus(
+        activeIndex,
+        "Audio failed to load. Check the URL or your connection."
+      );
 
       setPlayingUI(false);
     }
   });
 
 
-  /* Scroll and quote events */
+  /* Scrolling */
 
   container.addEventListener("scroll", onScroll, {
     passive: true
   });
+
+
+  /* Quote popup */
 
   quoteTrigger.addEventListener("click", openQuote);
 
@@ -838,41 +1046,44 @@ function init() {
   });
 
 
-  /* Keyboard support */
+  /* Keyboard controls */
 
-  setupKeyboardShortcuts();
+  setupKeyboardControls();
 
 
-  /* Start on the first real short */
+  /*
+   * Start at the first short in the middle copy,
+   * leaving room to loop in both directions.
+   */
 
   requestAnimationFrame(() => {
-    container.scrollTop =
-      container.clientHeight || window.innerHeight;
+    container.scrollTop = SHORTS.length * getCardHeight();
 
-    syncActiveCard();
+    setActiveCard(0);
   });
 
 
-  /* Keep the current card correctly positioned after resizing */
+  /* Resize and device rotation */
 
   window.addEventListener("resize", () => {
-    const slot = Math.min(
-      Math.max(getSlotFromScroll(), 1),
-      SHORTS.length
-    );
+    requestAnimationFrame(() => {
+      const height = getCardHeight();
 
-    container.scrollTop =
-      slot * (container.clientHeight || window.innerHeight);
+      const index = Math.max(0, activeIndex);
 
-    requestAnimationFrame(syncActiveCard);
+      container.style.scrollSnapType = "none";
+
+      container.scrollTop =
+        (SHORTS.length + index) * height;
+
+      requestAnimationFrame(() => {
+        container.style.scrollSnapType = "y mandatory";
+
+        syncActiveCard();
+      });
+    });
   });
 }
 
 
 document.addEventListener("DOMContentLoaded", init);
-
-
-
-
-
-
