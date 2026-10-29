@@ -1,3 +1,7 @@
+/* =====================================
+   Tn² LL — AUDIO SHORTS
+===================================== */
+
 :root {
   color-scheme: dark;
 
@@ -13,14 +17,14 @@
 
   --shadow: 0 12px 34px rgba(0, 0, 0, .48);
 
-  --bar-max: 76px;
   --header-height: 56px;
+  --bar-max: 76px;
 }
 
 
-/* ---------------------------------
+/* =====================================
    RESET
---------------------------------- */
+===================================== */
 
 *,
 *::before,
@@ -32,7 +36,9 @@ html,
 body {
   width: 100%;
   height: 100%;
+
   margin: 0;
+  padding: 0;
 
   background: var(--background);
   color: var(--text);
@@ -67,15 +73,15 @@ a {
 }
 
 
-/* ---------------------------------
+/* =====================================
    MATERIAL ICONS
---------------------------------- */
+===================================== */
 
 .material-symbols-rounded {
   font-family: "Material Symbols Rounded";
-
   font-weight: normal;
   font-style: normal;
+
   font-size: 24px;
   line-height: 1;
 
@@ -84,21 +90,18 @@ a {
 
   display: inline-block;
   white-space: nowrap;
-  overflow-wrap: normal;
 
   direction: ltr;
-
   font-feature-settings: "liga";
-  -webkit-font-feature-settings: "liga";
-  -webkit-font-smoothing: antialiased;
 
+  -webkit-font-smoothing: antialiased;
   user-select: none;
 }
 
 
-/* ---------------------------------
+/* =====================================
    HEADER
---------------------------------- */
+===================================== */
 
 .top-bar-wrap {
   position: fixed;
@@ -137,7 +140,7 @@ a {
 
   pointer-events: auto;
 
-  animation: slideDownZoomIn .75s cubic-bezier(.2, .7, .2, 1) both;
+  animation: slideDownZoomIn .75s ease-out both;
 
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -145,14 +148,17 @@ a {
 
 .brand {
   display: flex;
-  flex: 0 0 auto;
   align-items: center;
+
+  flex: 0 0 auto;
 
   width: 46px;
   height: 46px;
 }
 
 .brand img {
+  display: block;
+
   width: 46px;
   height: 46px;
 
@@ -168,8 +174,6 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  gap: 6px;
 
   border: 0;
   border-radius: 10px;
@@ -191,18 +195,9 @@ a {
   font-weight: 700;
 }
 
-.quote-trigger .material-symbols-rounded {
-  font-size: 20px;
-  color: #8bdcff;
-}
-
 .home-link {
   flex: 0 0 40px;
   width: 40px;
-}
-
-.home-link .material-symbols-rounded {
-  font-size: 24px;
 }
 
 .quote-trigger:hover,
@@ -224,9 +219,9 @@ a {
 }
 
 
-/* ---------------------------------
-   TOP GRADIENT
---------------------------------- */
+/* =====================================
+   TOP FADE
+===================================== */
 
 .top-fade {
   position: fixed;
@@ -248,27 +243,29 @@ a {
 }
 
 
-/* ---------------------------------
+/* =====================================
    SHORTS CONTAINER
---------------------------------- */
+===================================== */
 
 .shorts-container {
   position: fixed;
   inset: 0;
 
+  width: 100%;
+
   height: 100vh;
   height: 100dvh;
 
-  width: 100%;
-
+  overflow-x: hidden;
   overflow-y: auto;
 
-  overscroll-behavior-y: contain;
-
   scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
 
+  overscroll-behavior-y: contain;
   scrollbar-width: none;
 
+  touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -277,12 +274,13 @@ a {
 }
 
 
-/* ---------------------------------
-   INDIVIDUAL SHORT CARD
---------------------------------- */
+/* =====================================
+   SHORT CARD
+===================================== */
 
 .short-card {
   position: relative;
+  isolation: isolate;
 
   width: 100%;
 
@@ -301,8 +299,6 @@ a {
     max(24px, env(safe-area-inset-bottom));
 
   overflow: hidden;
-
-  isolation: isolate;
 
   scroll-snap-align: start;
   scroll-snap-stop: always;
@@ -328,7 +324,6 @@ a {
   inset: 0;
 
   pointer-events: none;
-  opacity: .48;
 
   background:
     radial-gradient(
@@ -339,13 +334,14 @@ a {
 }
 
 
-/* ---------------------------------
-   VINYL ART
---------------------------------- */
+/* =====================================
+   VINYL
+===================================== */
 
 .audio-art {
   position: absolute;
   z-index: 0;
+
   inset: 0;
 
   display: grid;
@@ -374,9 +370,7 @@ a {
     0 15px 40px rgba(0, 0, 0, .6),
     0 0 30px rgba(0, 151, 217, .14);
 
-  transition:
-    box-shadow .35s ease,
-    transform .35s ease;
+  transition: box-shadow .35s ease;
 }
 
 .album-disc {
@@ -404,7 +398,7 @@ a {
 }
 
 
-/* Vinyl fallback if artwork cannot be found */
+/* Fallback if 2L.png is missing */
 
 .disc-fallback {
   display: none;
@@ -424,8 +418,6 @@ a {
   font-size: 1.5rem;
   font-weight: 800;
 
-  letter-spacing: -.06em;
-
   background:
     repeating-radial-gradient(
       circle,
@@ -443,9 +435,9 @@ a {
 }
 
 
-/* ---------------------------------
-   AUDIO INFORMATION PANEL
---------------------------------- */
+/* =====================================
+   PLAYER PANEL
+===================================== */
 
 .short-content {
   position: relative;
@@ -454,7 +446,6 @@ a {
   width: min(500px, 100%);
 
   margin: 0 auto;
-
   padding: 21px 22px 20px;
 
   border: 1px solid rgba(255, 255, 255, .055);
@@ -466,36 +457,6 @@ a {
 
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-
-  animation: contentRise .65s ease-out both;
-}
-
-.episode-kicker {
-  display: flex;
-  align-items: center;
-
-  gap: 8px;
-
-  margin-bottom: 7px;
-
-  color: #7bd4ff;
-
-  font-size: .68rem;
-  font-weight: 700;
-
-  letter-spacing: .15em;
-  text-transform: uppercase;
-}
-
-.episode-kicker::before {
-  content: "";
-
-  width: 18px;
-  height: 2px;
-
-  border-radius: 2px;
-
-  background: var(--primary);
 }
 
 .audio-title {
@@ -521,9 +482,9 @@ a {
 }
 
 
-/* ---------------------------------
-   AUDIO CONTROLS
---------------------------------- */
+/* =====================================
+   CONTROLS
+===================================== */
 
 .audio-controls {
   display: grid;
@@ -574,9 +535,6 @@ a {
   transform: scale(.95);
 }
 
-
-/* Play button */
-
 .play-btn {
   width: 52px;
   height: 52px;
@@ -602,9 +560,6 @@ a {
   box-shadow: 0 6px 20px rgba(0, 151, 217, .4);
 }
 
-
-/* Playback speed */
-
 .speed-btn {
   width: 48px;
   height: 48px;
@@ -620,9 +575,9 @@ a {
 }
 
 
-/* ---------------------------------
-   SEEKBAR
---------------------------------- */
+/* =====================================
+   SEEK BAR
+===================================== */
 
 .seek-control {
   min-width: 0;
@@ -639,7 +594,6 @@ a {
   color: #aeb4bb;
 
   font-size: .7rem;
-
   font-variant-numeric: tabular-nums;
 }
 
@@ -667,23 +621,22 @@ a {
   background: transparent;
 
   cursor: pointer;
-
   touch-action: pan-y;
+}
+
+.player-seek:disabled {
+  cursor: default;
 }
 
 .player-seek::-webkit-slider-runnable-track {
   height: 4px;
-
   border-radius: 10px;
-
   background: rgba(255, 255, 255, .14);
 }
 
 .player-seek::-moz-range-track {
   height: 4px;
-
   border-radius: 10px;
-
   background: rgba(255, 255, 255, .14);
 }
 
@@ -749,9 +702,9 @@ a {
 }
 
 
-/* ---------------------------------
-   EQUALIZER SIDEBARS
---------------------------------- */
+/* =====================================
+   EQUALIZERS
+===================================== */
 
 .eq-sidebar {
   --bar-max: 76px;
@@ -771,7 +724,6 @@ a {
   pointer-events: none;
 
   transform: translateY(-50%);
-
   opacity: .95;
 }
 
@@ -827,10 +779,6 @@ a {
   animation-duration: 680ms;
 }
 
-.eq-sidebar.is-playing .eq-bar {
-  animation-play-state: running;
-}
-
 .eq-left .eq-bar:nth-child(2n) {
   animation-delay: -170ms;
 }
@@ -839,13 +787,17 @@ a {
   animation-delay: -300ms;
 }
 
+.eq-sidebar.is-playing .eq-bar {
+  animation-play-state: running;
+}
 
-/* ---------------------------------
-   QUOTE MODAL
---------------------------------- */
+
+/* =====================================
+   QUOTE POPUP
+===================================== */
 
 .quote-overlay[hidden] {
-  display: none;
+  display: none !important;
 }
 
 .quote-overlay {
@@ -868,9 +820,10 @@ a {
 
 .quote-panel {
   position: relative;
+  isolation: isolate;
 
-  width: min(780px, 100%);
-  min-height: 250px;
+  width: min(800px, 100%);
+  min-height: 300px;
 
   display: flex;
   flex-direction: column;
@@ -878,11 +831,12 @@ a {
   align-items: center;
   justify-content: center;
 
-  padding: 48px 30px 34px;
+  padding: 55px 25px 35px;
 
+  overflow: hidden;
   text-align: center;
 
-  border: 1px solid rgba(0, 151, 217, .22);
+  border: 1px solid rgba(159, 168, 218, .18);
   border-radius: 26px;
 
   background:
@@ -894,13 +848,14 @@ a {
 
   box-shadow:
     0 20px 70px rgba(0, 0, 0, .5),
-    0 0 38px rgba(0, 151, 217, .1);
+    0 0 35px rgba(159, 168, 218, .1);
 
-  animation: contentRise .35s ease-out both;
+  animation: quotePanelIn .35s ease-out both;
 }
 
 .quote-close {
   position: absolute;
+  z-index: 3;
 
   top: 10px;
   right: 15px;
@@ -926,53 +881,143 @@ a {
   background: rgba(255, 255, 255, .09);
 }
 
-.quote-mark {
-  color: var(--primary);
-  font-size: 34px;
+.quote-panel .bg {
+  position: absolute;
+  z-index: -1;
+
+  inset: 0;
+
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.quote-panel .bg > div {
+  position: absolute;
+
+  left: -10%;
+  width: 120%;
+  height: 60%;
+
+  border-radius: 100em;
+
+  opacity: .6;
+
+  box-shadow:
+    inset 0 0 4em 3em rgba(175, 200, 238, .13),
+    inset 0 0 2em .4em rgba(175, 200, 238, .15),
+    0 0 .1em .1em rgba(175, 200, 238, .2),
+    0 0 1em .4em rgba(175, 200, 238, .2);
+}
+
+.quote-panel .bg > div:nth-child(1) {
+  top: -42%;
+  animation: quoteGlowTop 1s ease-in-out forwards;
+}
+
+.quote-panel .bg > div:nth-child(2) {
+  bottom: -42%;
+  animation: quoteGlowBottom 1s ease-in-out forwards;
 }
 
 .quote-kicker {
-  margin: 7px 0 14px;
+  position: relative;
+  z-index: 1;
 
-  color: #85d9ff;
+  margin: 0 0 20px;
+
+  color: #9fa8da;
 
   font-size: .72rem;
-  letter-spacing: .2em;
   font-weight: 700;
+
+  letter-spacing: .2em;
+  text-align: center;
 }
 
-.quote-text {
-  max-width: 650px;
+.header-text {
+  position: relative;
+  z-index: 1;
 
-  margin: 0;
+  width: 100%;
+  max-width: 800px;
 
-  color: #fff;
+  color: #d4d8f0;
 
-  font-size: clamp(1.25rem, 3.3vw, 2rem);
+  font-size: clamp(1.7rem, 5.4vw, 3.4rem);
   font-weight: 600;
-  line-height: 1.5;
+
+  letter-spacing: -.009em;
+  line-height: 1.25;
+
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.glow-filter {
+  position: relative;
+  display: inline;
+}
+
+.glow-filter::before {
+  content: attr(data-text);
+
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  color: #9fa8da;
+
+  background:
+    linear-gradient(
+      0deg,
+      #9fa8da 0%,
+      #d4d8f0 50%
+    );
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  filter: url(#glow-4);
+
+  opacity: 0;
+
+  animation: quoteTextGlow 1s ease-out forwards;
+}
+
+.quote-panel .filters {
+  position: absolute;
+
+  width: 0;
+  height: 0;
 }
 
 .quote-accent {
-  width: 56px;
+  position: relative;
+  z-index: 1;
+
+  width: 55px;
   height: 3px;
 
-  margin-top: 24px;
+  margin-top: 27px;
 
   border-radius: 4px;
 
   background:
     linear-gradient(
       90deg,
-      var(--primary-dark),
-      var(--primary)
+      #00568c,
+      #9fa8da
     );
+
+  box-shadow: 0 0 15px rgba(159, 168, 218, .25);
 }
 
 
-/* ---------------------------------
+/* =====================================
    ANIMATIONS
---------------------------------- */
+===================================== */
 
 @keyframes spin {
   from {
@@ -996,18 +1041,6 @@ a {
   }
 }
 
-@keyframes contentRise {
-  from {
-    transform: translateY(10px);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 @keyframes eqPulse {
   from {
     width: 8px;
@@ -1020,10 +1053,52 @@ a {
   }
 }
 
+@keyframes quoteTextGlow {
+  from {
+    opacity: 0;
+  }
 
-/* ---------------------------------
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes quoteGlowTop {
+  from {
+    opacity: .2;
+  }
+
+  to {
+    opacity: .8;
+  }
+}
+
+@keyframes quoteGlowBottom {
+  from {
+    opacity: .2;
+  }
+
+  to {
+    opacity: .8;
+  }
+}
+
+@keyframes quotePanelIn {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+/* =====================================
    TABLETS AND PHONES
---------------------------------- */
+===================================== */
 
 @media (max-width: 900px) {
   :root {
@@ -1079,7 +1154,6 @@ a {
     width: min(480px, calc(100% - 10px));
 
     padding: 18px 17px 15px;
-
     border-radius: 21px;
   }
 
@@ -1092,18 +1166,10 @@ a {
     gap: 10px;
   }
 
-  .play-btn {
-    width: 46px;
-    height: 46px;
-  }
-
+  .play-btn,
   .control-btn {
     width: 43px;
     height: 43px;
-  }
-
-  .speed-btn {
-    font-size: .82rem;
   }
 
   .time-row {
@@ -1113,19 +1179,14 @@ a {
 }
 
 
-/* ---------------------------------
+/* =====================================
    SMALL PHONES
---------------------------------- */
+===================================== */
 
 @media (max-width: 420px) {
   .quote-trigger {
-    gap: 4px;
     padding: 6px 7px;
     font-size: 11px;
-  }
-
-  .quote-trigger .material-symbols-rounded {
-    font-size: 18px;
   }
 
   .home-link {
@@ -1134,19 +1195,12 @@ a {
     flex-basis: 36px;
   }
 
-  .brand,
-  .brand img {
-    width: 42px;
-    height: 42px;
-  }
-
   .short-card {
     padding-inline: 8px;
   }
 
   .short-content {
     width: calc(100% - 8px);
-
     padding: 16px 13px 13px;
   }
 
@@ -1165,16 +1219,8 @@ a {
 
   .play-btn,
   .control-btn {
-    width: 42px;
-    height: 42px;
-  }
-
-  .play-btn .material-symbols-rounded {
-    font-size: 22px;
-  }
-
-  .speed-btn {
-    font-size: .76rem;
+    width: 40px;
+    height: 40px;
   }
 
   .eq-sidebar {
@@ -1182,12 +1228,30 @@ a {
     --bar-max: 19px;
     opacity: .48;
   }
+
+  .quote-overlay {
+    padding: 16px;
+  }
+
+  .quote-panel {
+    min-height: 240px;
+    padding: 45px 18px 28px;
+    border-radius: 22px;
+  }
+
+  .quote-kicker {
+    margin-bottom: 16px;
+  }
+
+  .header-text {
+    font-size: clamp(1.55rem, 7vw, 2.2rem);
+  }
 }
 
 
-/* ---------------------------------
-   SHORT SCREENS
---------------------------------- */
+/* =====================================
+   SHORT LANDSCAPE SCREENS
+===================================== */
 
 @media (max-height: 640px) {
   .short-card {
@@ -1220,18 +1284,16 @@ a {
 }
 
 
-/* ---------------------------------
-   REDUCED MOTION ACCESSIBILITY
---------------------------------- */
+/* =====================================
+   REDUCED MOTION
+===================================== */
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
+  .site-header,
+  .quote-panel,
+  .quote-panel .bg > div,
+  .glow-filter::before {
+    animation: none;
   }
 
   .short-card.is-playing .album-disc {
