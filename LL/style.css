@@ -260,7 +260,8 @@ a {
   overflow-y: auto;
 
   scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
+  /* Keep loop repositioning instant; smooth scroll is set explicitly by controls. */
+  scroll-behavior: auto;
 
   overscroll-behavior-y: contain;
   scrollbar-width: none;
