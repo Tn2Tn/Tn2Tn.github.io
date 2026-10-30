@@ -794,120 +794,86 @@ a {
 
 
 /* =====================================
-   QUOTE POPUP
+   FULL-SCREEN DAILY QUOTE
 ===================================== */
 
-.quote-overlay[hidden] {
-  display: none !important;
-}
+.quote-overlay[hidden] { display: none !important; }
 
 .quote-overlay {
   position: fixed;
   z-index: 100;
-
   inset: 0;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  padding: 24px;
-
-  background: rgba(0, 0, 0, .78);
-
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  padding: 0;
+  overflow: hidden;
+  background: rgba(0, 0, 0, .8);
 }
 
 .quote-panel {
   position: relative;
   isolation: isolate;
-
-  width: min(800px, 100%);
-  min-height: 300px;
-
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
-  flex-direction: column;
-
   align-items: center;
   justify-content: center;
-
-  padding: 55px 25px 35px;
-
+  padding: 24px;
   overflow: hidden;
   text-align: center;
-
-  border: 1px solid rgba(159, 168, 218, .18);
-  border-radius: 26px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(30, 40, 49, .97),
-      rgba(16, 20, 24, .97)
-    );
-
-  box-shadow:
-    0 20px 70px rgba(0, 0, 0, .5),
-    0 0 35px rgba(159, 168, 218, .1);
-
-  animation: quotePanelIn .35s ease-out both;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  animation: none;
 }
 
 .quote-close {
   position: absolute;
   z-index: 3;
-
-  top: 10px;
-  right: 15px;
-
-  width: 40px;
-  height: 40px;
-
+  top: max(18px, env(safe-area-inset-top));
+  right: max(20px, env(safe-area-inset-right));
+  width: 44px;
+  height: 44px;
   padding: 0;
-
-  border: 0;
+  border: 1px solid rgba(255, 255, 255, .22);
   border-radius: 50%;
-
-  background: transparent;
-  color: white;
-
+  background: rgba(0, 0, 0, .25);
+  color: #fff;
   font-size: 32px;
   line-height: 1;
-
   cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
 }
 
 .quote-close:hover {
-  background: rgba(255, 255, 255, .09);
+  background: rgba(255, 255, 255, .12);
+  transform: scale(1.05);
 }
 
 .quote-panel .bg {
   position: absolute;
   z-index: -1;
-
   inset: 0;
-
   overflow: hidden;
   pointer-events: none;
 }
 
 .quote-panel .bg > div {
   position: absolute;
-
   left: -10%;
   width: 120%;
-  height: 60%;
-
+  height: 60vh;
   border-radius: 100em;
-
   opacity: .6;
-
   box-shadow:
-    inset 0 0 4em 3em rgba(175, 200, 238, .13),
-    inset 0 0 2em .4em rgba(175, 200, 238, .15),
+    inset 0 0 4em 3em rgba(175, 200, 238, .2),
+    inset 0 0 2em .4em rgba(175, 200, 238, .2),
     0 0 .1em .1em rgba(175, 200, 238, .2),
-    0 0 1em .4em rgba(175, 200, 238, .2);
+    0 0 1em .4em rgba(175, 200, 238, .3);
 }
 
 .quote-panel .bg > div:nth-child(1) {
@@ -920,101 +886,73 @@ a {
   animation: quoteGlowBottom 1s ease-in-out forwards;
 }
 
-.quote-kicker {
-  position: relative;
-  z-index: 1;
-
-  margin: 0 0 20px;
-
-  color: #9fa8da;
-
-  font-size: .72rem;
-  font-weight: 700;
-
-  letter-spacing: .2em;
-  text-align: center;
-}
-
 .header-text {
   position: relative;
   z-index: 1;
-
   width: 100%;
-  max-width: 800px;
-
-  color: #d4d8f0;
-
-  font-size: clamp(1.7rem, 5.4vw, 3.4rem);
+  max-width: 1200px;
+  color: #63687d;
+  font-size: min(13vw, 11vh);
   font-weight: 600;
-
   letter-spacing: -.009em;
-  line-height: 1.25;
-
+  line-height: 1.0625;
   text-align: center;
   overflow-wrap: anywhere;
 }
 
 .glow-filter {
   position: relative;
-  display: inline;
+  display: inline-grid;
+  scale: 1;
+  animation: onloadscale 1s ease-out forwards;
+  justify-items: center;
 }
 
 .glow-filter::before {
   content: attr(data-text);
-
   position: absolute;
-  inset: 0;
-
   pointer-events: none;
-
-  color: #9fa8da;
-
-  background:
-    linear-gradient(
-      0deg,
-      #9fa8da 0%,
-      #d4d8f0 50%
-    );
-
+  color: #63687d;
+  background: linear-gradient(0deg, #9FA8DA 0%, #d4d8f0 50%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
   filter: url(#glow-4);
-
   opacity: 0;
-
-  animation: quoteTextGlow 1s ease-out forwards;
+  animation: onloadopacity 1s ease-out forwards;
 }
 
 .quote-panel .filters {
   position: absolute;
-
   width: 0;
   height: 0;
 }
 
-.quote-accent {
-  position: relative;
-  z-index: 1;
-
-  width: 55px;
-  height: 3px;
-
-  margin-top: 27px;
-
-  border-radius: 4px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #00568c,
-      #9fa8da
-    );
-
-  box-shadow: 0 0 15px rgba(159, 168, 218, .25);
+@keyframes onloadscale {
+  24% { scale: 1; }
+  100% { scale: 1.02; }
 }
 
+@keyframes onloadopacity {
+  24% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes quoteGlowTop {
+  from { opacity: .2; }
+  to { opacity: .8; }
+}
+
+@keyframes quoteGlowBottom {
+  from { opacity: .2; }
+  to { opacity: .8; }
+}
+
+@media (max-width: 600px) {
+  .header-text {
+    font-size: clamp(2rem, 10vw, 4rem);
+  }
+}
 
 /* =====================================
    ANIMATIONS
