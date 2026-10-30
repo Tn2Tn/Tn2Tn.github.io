@@ -1168,23 +1168,6 @@ a {
     opacity: .48;
   }
 
-  .quote-overlay {
-    padding: 16px;
-  }
-
-  .quote-panel {
-    min-height: 240px;
-    padding: 45px 18px 28px;
-    border-radius: 22px;
-  }
-
-  .quote-kicker {
-    margin-bottom: 16px;
-  }
-
-  .header-text {
-    font-size: clamp(1.55rem, 7vw, 2.2rem);
-  }
 }
 
 
