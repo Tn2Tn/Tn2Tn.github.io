@@ -956,7 +956,6 @@ function openQuote() {
   });
 
   dailyQuote.innerHTML = formattedQuote;
-  dailyQuote.dataset.text = text;
 
   quoteOverlay.hidden = false;
 
