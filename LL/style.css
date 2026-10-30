@@ -152,15 +152,15 @@ a {
 
   flex: 0 0 auto;
 
-  width: 46px;
-  height: 46px;
+  width: 55px;
+  height: 55px;
 }
 
 .brand img {
   display: block;
 
-  width: 46px;
-  height: 46px;
+  width: 55px;
+  height: 55px;
 
   object-fit: cover;
 
@@ -1057,8 +1057,8 @@ a {
 
   .brand,
   .brand img {
-    width: 44px;
-    height: 44px;
+    width: 55px;
+    height: 55px;
   }
 
   .eq-sidebar {
