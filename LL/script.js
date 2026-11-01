@@ -1158,11 +1158,8 @@ function init() {
 
   quoteClose.addEventListener("click", closeQuote);
 
-  quoteOverlay.addEventListener("click", event => {
-    if (event.target === quoteOverlay) {
-      closeQuote();
-    }
-  });
+  // Close the quote whenever any part of the overlay is clicked.
+  quoteOverlay.addEventListener("click", closeQuote);
 
 
   /* Keyboard controls */
