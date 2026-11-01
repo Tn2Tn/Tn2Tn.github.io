@@ -1101,7 +1101,7 @@ function init() {
 
   setupLogoFallback();
 
-  audioPlayer.loop = false;
+  audioPlayer.loop = true;
   audioPlayer.preload = "metadata";
 
 
