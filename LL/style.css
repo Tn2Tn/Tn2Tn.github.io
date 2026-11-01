@@ -336,7 +336,7 @@ a {
 
 /* VINYL + LIVE EQ ANIMATIONS */
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-@keyframes eqPulse { from { height: 5px; } to { height: var(--bar-max, 76px); } }
+@keyframes eqPulse { from { width: 5px; } to { width: var(--bar-max, 76px); } }
 
 /* =====================================
    VINYL
@@ -744,10 +744,10 @@ a {
 .eq-bar {
   display: block;
 
-  width: 8px;
-  height: 5px;
-  min-height: 3px;
-  will-change: height;
+  width: 5px;
+  height: 8px;
+  min-width: 3px;
+  will-change: width;
 
   border-radius: 0 4px 4px 0;
 
@@ -949,6 +949,7 @@ a {
 
   .eq-bar {
     height: 4px;
+    width: 4px;
   }
 
   .short-card {
