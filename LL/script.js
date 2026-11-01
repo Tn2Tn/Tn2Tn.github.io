@@ -316,12 +316,8 @@ let activeIndex = -1;
 let currentAudioIndex = -1;
 
 let currentSpeedIndex = 0;
-let audioContext = null;
-let audioAnalyser = null;
-let audioSourceNode = null;
-let eqAnimationFrame = 0;
-let eqFrequencyData = null;
 let eqBars = [];
+let playRequestId = 0;
 
 
 
@@ -412,6 +408,7 @@ function updateVinylSpeed(index, speed) {
     const disc = card.querySelector(".album-disc");
 
     disc.style.animationDuration = `${rotationDuration}s`;
+    disc.style.setProperty("--vinyl-duration", `${rotationDuration}s`);
   });
 }
 
@@ -658,64 +655,6 @@ function setPlayingUI(playing) {
 
   eqLeft.classList.toggle("is-playing", playingNow);
   eqRight.classList.toggle("is-playing", playingNow);
-  if (playingNow) startEqualizer();
-  else stopEqualizer();
-}
-
-
-/* =====================================
-   LIVE AUDIO EQUALIZER
-===================================== */
-
-function setupAudioAnalyser() {
-  if (audioAnalyser) return true;
-  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-  if (!AudioContextClass) return false;
-
-  try {
-    audioContext = new AudioContextClass();
-    audioAnalyser = audioContext.createAnalyser();
-    audioAnalyser.fftSize = 256;
-    audioAnalyser.smoothingTimeConstant = 0.72;
-    audioSourceNode = audioContext.createMediaElementSource(audioPlayer);
-    audioSourceNode.connect(audioAnalyser);
-    audioAnalyser.connect(audioContext.destination);
-    eqFrequencyData = new Uint8Array(audioAnalyser.frequencyBinCount);
-    return true;
-  } catch (error) {
-    console.warn("Live equalizer unavailable:", error);
-    return false;
-  }
-}
-
-function startEqualizer() {
-  if (!audioAnalyser || !eqBars.length) return;
-  cancelAnimationFrame(eqAnimationFrame);
-
-  const draw = () => {
-    if (audioPlayer.paused || audioPlayer.ended) return;
-    audioAnalyser.getByteFrequencyData(eqFrequencyData);
-    const bins = eqFrequencyData.length;
-
-    eqBars.forEach((bar, index) => {
-      const bin = Math.min(bins - 1, Math.floor(index / eqBars.length * bins));
-      const energy = eqFrequencyData[bin] / 255;
-      const nextEnergy = eqFrequencyData[Math.min(bins - 1, bin + 1)] / 255;
-      const level = Math.max(0.035, Math.pow(energy * 0.72 + nextEnergy * 0.28, 0.82));
-      const maxHeight = window.innerWidth <= 420 ? 19 : window.innerWidth <= 900 ? 30 : 76;
-      bar.style.height = `${Math.max(3, 3 + level * maxHeight)}px`;
-    });
-
-    eqAnimationFrame = requestAnimationFrame(draw);
-  };
-
-  eqAnimationFrame = requestAnimationFrame(draw);
-}
-
-function stopEqualizer() {
-  cancelAnimationFrame(eqAnimationFrame);
-  eqAnimationFrame = 0;
-  eqBars.forEach(bar => { bar.style.height = ""; });
 }
 
 
@@ -828,42 +767,52 @@ async function togglePlayback(index) {
     setActiveCard(index);
   }
 
-  setStatus(index, "");
-
-  if (
-    currentAudioIndex === index &&
-    !audioPlayer.paused
-  ) {
+  if (currentAudioIndex === index && !audioPlayer.paused) {
     audioPlayer.pause();
-
     setPlayingUI(false);
-
     return;
   }
 
-  if (currentAudioIndex !== index) {
+  const requestId = ++playRequestId;
+  const needsReload =
+    currentAudioIndex !== index ||
+    Boolean(audioPlayer.error) ||
+    audioPlayer.networkState === HTMLMediaElement.NETWORK_NO_SOURCE;
+
+  setStatus(index, "Loading audio…");
+
+  if (needsReload) {
     currentAudioIndex = index;
-    audioPlayer.crossOrigin = "anonymous";
+    audioPlayer.pause();
+    audioPlayer.removeAttribute("src");
+    audioPlayer.load();
     audioPlayer.src = SHORTS[index].audio;
     audioPlayer.load();
-
-    audioPlayer.playbackRate = SPEEDS[currentSpeedIndex];
   }
 
+  audioPlayer.loop = true;
+  audioPlayer.playbackRate = SPEEDS[currentSpeedIndex];
+
   try {
-    setupAudioAnalyser();
-    if (audioContext && audioContext.state === "suspended") await audioContext.resume();
+    // Do not route the media through Web Audio: cross-origin audio hosts
+    // can block that path and leave the player silent.
     await audioPlayer.play();
 
+    if (requestId !== playRequestId || index !== activeIndex) {
+      audioPlayer.pause();
+      return;
+    }
+
+    setStatus(index, "");
     setPlayingUI(true);
   } catch (error) {
+    if (requestId !== playRequestId) return;
+
     setPlayingUI(false);
-
-    setStatus(
-      index,
-      "Audio could not load. Check the audio URL in script.js."
-    );
-
+    const message = error && error.name === "NotAllowedError"
+      ? "Your browser blocked playback. Press Play again."
+      : "Audio didn't load. Check your connection or try Play again.";
+    setStatus(index, message);
     console.error("Audio playback failed:", error);
   }
 }
@@ -1101,13 +1050,15 @@ function init() {
 
   setupLogoFallback();
 
-  audioPlayer.loop = true;
   audioPlayer.preload = "metadata";
+  audioPlayer.loop = true;
+  audioPlayer.loop = true;
 
 
   /* Audio events */
 
   audioPlayer.addEventListener("play", () => {
+    if (activeIndex >= 0) setStatus(activeIndex, "");
     setPlayingUI(true);
   });
 
@@ -1115,19 +1066,29 @@ function init() {
     setPlayingUI(false);
   });
 
+  audioPlayer.addEventListener("waiting", () => {
+    if (currentAudioIndex === activeIndex && activeIndex >= 0) {
+      setStatus(activeIndex, "Buffering audio…");
+    }
+  });
+
+  audioPlayer.addEventListener("playing", () => {
+    if (currentAudioIndex === activeIndex && activeIndex >= 0) {
+      setStatus(activeIndex, "");
+    }
+  });
+
   audioPlayer.addEventListener("timeupdate", updateProgressUI);
-
   audioPlayer.addEventListener("loadedmetadata", updateProgressUI);
-
   audioPlayer.addEventListener("durationchange", updateProgressUI);
 
   audioPlayer.addEventListener("error", () => {
     if (currentAudioIndex === activeIndex && activeIndex >= 0) {
-      setStatus(
-        activeIndex,
-        "Audio failed to load. Check the URL or your connection."
-      );
-
+      const code = audioPlayer.error?.code;
+      const message = code === 4
+        ? "This audio file or format is unavailable."
+        : "Audio couldn't load. Check your connection, then press Play to retry.";
+      setStatus(activeIndex, message);
       setPlayingUI(false);
     }
   });

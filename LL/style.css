@@ -760,9 +760,7 @@ a {
 
   box-shadow: 0 0 10px rgba(0, 151, 217, .25);
 
-  animation: eqPulse 620ms ease-in-out infinite alternate;
-  animation-duration: var(--eq-duration, 620ms);
-
+  animation: eqPulse var(--eq-duration, 620ms) ease-in-out infinite alternate;
   animation-play-state: paused;
 }
 
@@ -1101,6 +1099,6 @@ a {
   }
 
   .short-card.is-playing .album-disc {
-    animation: none;
+    animation: spin var(--vinyl-duration, 10s) linear infinite;
   }
 }
