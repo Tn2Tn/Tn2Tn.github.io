@@ -2,7 +2,7 @@
  * Tn² LL — Audio Shorts
  *
  * Features:
- * - Seamless looping scroll
+ * - Finite, non-looping shorts list
  * - Keyboard, touch, mouse wheel and trackpad scrolling
  * - Shared audio player
  * - Speed-adjusted vinyl rotation
@@ -250,8 +250,8 @@ const quotes = [
     highlight: "Your Cup."
   },
   {
-    text: "Be Fearless.",
-    highlight: "Fearless."
+    text: "I have my patience, I just don’t use it before coffee.",
+    highlight: "before coffee."
   },
   {
     text: "Be Kind To Yourself.",
@@ -266,24 +266,24 @@ const quotes = [
     highlight: "Another Chance."
   },
   {
-    text: "Because You Can.",
-    highlight: "You Can."
+    text: "The early bird gets the worm, but the second mouse gets the cheese.",
+    highlight: "the second mouse gets the cheese."
   },
   {
     text: "Live Less Out Of Habit And More Out Of Intent.",
     highlight: "More Out Of Intent."
   },
   {
-    text: "Baby Steps.",
-    highlight: "Baby Steps."
+    text: "I’m not arguing. I’m just explaining why I’m right.",
+    highlight: "why I’m right."
   },
   {
-    text: "Keep Moving Forward.",
-    highlight: "Moving Forward."
+    text: "If at first you don’t succeed, look in the instructions.",
+    highlight: "look in the instructions."
   },
   {
-    text: "Create The Life You Want.",
-    highlight: "Life."
+    text: "Some days you’re the pigeon. Some days you’re the statue.",
+    highlight: "the statue."
   }
 ];
 
@@ -301,7 +301,6 @@ const eqRight = document.getElementById("eqRight");
 const quoteOverlay = document.getElementById("quoteOverlay");
 const dailyQuote = document.getElementById("dailyQuote");
 const quoteTrigger = document.getElementById("quoteTrigger");
-const quoteClose = document.getElementById("quoteClose");
 
 
 /* =====================================
@@ -318,8 +317,6 @@ let currentAudioIndex = -1;
 
 let currentSpeedIndex = 0;
 
-let scrollFrame = 0;
-let isRepositioning = false;
 
 
 /* =====================================
@@ -374,7 +371,7 @@ function cardsForIndex(index) {
 
 
 function canonicalCard(index) {
-  return allCards[SHORTS.length + index];
+  return allCards[index];
 }
 
 
@@ -607,22 +604,13 @@ function makeCard(clip, logicalIndex, copyNumber) {
 
 function renderCards() {
   container.innerHTML = "";
-
   allCards = [];
 
-  /*
-   * The three copies let the user scroll infinitely.
-   * The viewport starts on the middle copy.
-   */
-
-  for (let copy = 0; copy < 3; copy++) {
-    SHORTS.forEach((clip, index) => {
-      const card = makeCard(clip, index, copy);
-
-      container.appendChild(card);
-      allCards.push(card);
-    });
-  }
+  SHORTS.forEach((clip, index) => {
+    const card = makeCard(clip, index, 0);
+    container.appendChild(card);
+    allCards.push(card);
+  });
 }
 
 
@@ -711,86 +699,18 @@ function setActiveCard(index) {
 ===================================== */
 
 function syncActiveCard() {
-  scrollFrame = 0;
+  if (!allCards.length) return;
 
-  if (!allCards.length || isRepositioning) {
-    return;
-  }
-
-  const count = SHORTS.length;
   const height = getCardHeight();
-  const sequenceHeight = count * height;
-
-  let top = container.scrollTop;
-
-  /*
-   * At the beginning of the first copy, jump
-   * forward by one full sequence.
-   *
-   * The cards are identical, so this is invisible.
-   */
-
-  if (top < sequenceHeight) {
-    isRepositioning = true;
-
-    container.style.scrollSnapType = "none";
-
-    container.scrollTop = top + sequenceHeight;
-
-    requestAnimationFrame(() => {
-      container.style.scrollSnapType = "y mandatory";
-
-      isRepositioning = false;
-
-      syncActiveCard();
-    });
-
-    return;
-  }
-
-
-  /*
-   * At the beginning of the third copy, jump
-   * backward by one full sequence.
-   */
-
-  if (top >= sequenceHeight * 2) {
-    isRepositioning = true;
-
-    container.style.scrollSnapType = "none";
-
-    container.scrollTop = top - sequenceHeight;
-
-    requestAnimationFrame(() => {
-      container.style.scrollSnapType = "y mandatory";
-
-      isRepositioning = false;
-
-      syncActiveCard();
-    });
-
-    return;
-  }
-
-
-  /*
-   * Identify the visible short, including
-   * changes caused by swipes or fast scrolling.
-   */
-
-  const slot = Math.round(top / height);
-
-  const logicalIndex =
-    ((slot % count) + count) % count;
+  const slot = Math.round(container.scrollTop / height);
+  const logicalIndex = Math.max(0, Math.min(SHORTS.length - 1, slot));
 
   setActiveCard(logicalIndex);
 }
 
 
 function onScroll() {
-  if (!scrollFrame) {
-    scrollFrame = requestAnimationFrame(syncActiveCard);
-  }
+  syncActiveCard();
 }
 
 
@@ -959,7 +879,7 @@ function openQuote() {
 
   quoteOverlay.hidden = false;
 
-  quoteClose.focus();
+  quoteTrigger.focus();
 }
 
 
@@ -1062,7 +982,7 @@ function setupKeyboardControls() {
       event.preventDefault();
 
       container.scrollTo({
-        top: SHORTS.length * getCardHeight(),
+        top: 0,
         behavior: "smooth"
       });
 
@@ -1076,7 +996,7 @@ function setupKeyboardControls() {
       event.preventDefault();
 
       container.scrollTo({
-        top: (2 * SHORTS.length - 1) * getCardHeight(),
+        top: (SHORTS.length - 1) * getCardHeight(),
         behavior: "smooth"
       });
 
@@ -1113,7 +1033,7 @@ function init() {
 
   setupLogoFallback();
 
-  audioPlayer.loop = true;
+  audioPlayer.loop = false;
   audioPlayer.preload = "metadata";
 
 
@@ -1156,8 +1076,6 @@ function init() {
 
   quoteTrigger.addEventListener("click", openQuote);
 
-  quoteClose.addEventListener("click", closeQuote);
-
   // Close the quote whenever any part of the overlay is clicked.
   quoteOverlay.addEventListener("click", closeQuote);
 
@@ -1167,14 +1085,9 @@ function init() {
   setupKeyboardControls();
 
 
-  /*
-   * Start at the first short in the middle copy,
-   * leaving room to loop in both directions.
-   */
-
+  /* Start at the first short; the list ends at the final short. */
   requestAnimationFrame(() => {
-    container.scrollTop = SHORTS.length * getCardHeight();
-
+    container.scrollTop = 0;
     setActiveCard(0);
   });
 
@@ -1187,16 +1100,8 @@ function init() {
 
       const index = Math.max(0, activeIndex);
 
-      container.style.scrollSnapType = "none";
-
-      container.scrollTop =
-        (SHORTS.length + index) * height;
-
-      requestAnimationFrame(() => {
-        container.style.scrollSnapType = "y mandatory";
-
-        syncActiveCard();
-      });
+      container.scrollTop = index * height;
+      syncActiveCard();
     });
   });
 }
