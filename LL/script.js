@@ -316,6 +316,12 @@ let activeIndex = -1;
 let currentAudioIndex = -1;
 
 let currentSpeedIndex = 0;
+let audioContext = null;
+let audioAnalyser = null;
+let audioSourceNode = null;
+let eqAnimationFrame = 0;
+let eqFrequencyData = null;
+let eqBars = [];
 
 
 
@@ -400,6 +406,7 @@ function updateVinylSpeed(index, speed) {
    */
 
   const rotationDuration = 10 / speed;
+  document.documentElement.style.setProperty("--eq-duration", `${620 / speed}ms`);
 
   cardsForIndex(index).forEach(card => {
     const disc = card.querySelector(".album-disc");
@@ -651,6 +658,64 @@ function setPlayingUI(playing) {
 
   eqLeft.classList.toggle("is-playing", playingNow);
   eqRight.classList.toggle("is-playing", playingNow);
+  if (playingNow) startEqualizer();
+  else stopEqualizer();
+}
+
+
+/* =====================================
+   LIVE AUDIO EQUALIZER
+===================================== */
+
+function setupAudioAnalyser() {
+  if (audioAnalyser) return true;
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContextClass) return false;
+
+  try {
+    audioContext = new AudioContextClass();
+    audioAnalyser = audioContext.createAnalyser();
+    audioAnalyser.fftSize = 256;
+    audioAnalyser.smoothingTimeConstant = 0.72;
+    audioSourceNode = audioContext.createMediaElementSource(audioPlayer);
+    audioSourceNode.connect(audioAnalyser);
+    audioAnalyser.connect(audioContext.destination);
+    eqFrequencyData = new Uint8Array(audioAnalyser.frequencyBinCount);
+    return true;
+  } catch (error) {
+    console.warn("Live equalizer unavailable:", error);
+    return false;
+  }
+}
+
+function startEqualizer() {
+  if (!audioAnalyser || !eqBars.length) return;
+  cancelAnimationFrame(eqAnimationFrame);
+
+  const draw = () => {
+    if (audioPlayer.paused || audioPlayer.ended) return;
+    audioAnalyser.getByteFrequencyData(eqFrequencyData);
+    const bins = eqFrequencyData.length;
+
+    eqBars.forEach((bar, index) => {
+      const bin = Math.min(bins - 1, Math.floor(index / eqBars.length * bins));
+      const energy = eqFrequencyData[bin] / 255;
+      const nextEnergy = eqFrequencyData[Math.min(bins - 1, bin + 1)] / 255;
+      const level = Math.max(0.035, Math.pow(energy * 0.72 + nextEnergy * 0.28, 0.82));
+      const maxHeight = window.innerWidth <= 420 ? 19 : window.innerWidth <= 900 ? 30 : 76;
+      bar.style.height = `${Math.max(3, 3 + level * maxHeight)}px`;
+    });
+
+    eqAnimationFrame = requestAnimationFrame(draw);
+  };
+
+  eqAnimationFrame = requestAnimationFrame(draw);
+}
+
+function stopEqualizer() {
+  cancelAnimationFrame(eqAnimationFrame);
+  eqAnimationFrame = 0;
+  eqBars.forEach(bar => { bar.style.height = ""; });
 }
 
 
@@ -778,7 +843,7 @@ async function togglePlayback(index) {
 
   if (currentAudioIndex !== index) {
     currentAudioIndex = index;
-
+    audioPlayer.crossOrigin = "anonymous";
     audioPlayer.src = SHORTS[index].audio;
     audioPlayer.load();
 
@@ -786,6 +851,8 @@ async function togglePlayback(index) {
   }
 
   try {
+    setupAudioAnalyser();
+    if (audioContext && audioContext.state === "suspended") await audioContext.resume();
     await audioPlayer.play();
 
     setPlayingUI(true);
@@ -1030,6 +1097,7 @@ function init() {
   }
 
   renderCards();
+  eqBars = [...document.querySelectorAll(".eq-bar")];
 
   setupLogoFallback();
 

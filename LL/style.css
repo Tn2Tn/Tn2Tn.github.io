@@ -334,6 +334,10 @@ a {
 }
 
 
+/* VINYL + LIVE EQ ANIMATIONS */
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes eqPulse { from { height: 5px; } to { height: var(--bar-max, 76px); } }
+
 /* =====================================
    VINYL
 ===================================== */
@@ -742,6 +746,8 @@ a {
 
   width: 8px;
   height: 5px;
+  min-height: 3px;
+  will-change: height;
 
   border-radius: 0 4px 4px 0;
 
@@ -755,28 +761,13 @@ a {
   box-shadow: 0 0 10px rgba(0, 151, 217, .25);
 
   animation: eqPulse 620ms ease-in-out infinite alternate;
+  animation-duration: var(--eq-duration, 620ms);
 
   animation-play-state: paused;
 }
 
 .eq-right .eq-bar {
   border-radius: 4px 0 0 4px;
-}
-
-.eq-bar:nth-child(2n) {
-  animation-duration: 430ms;
-}
-
-.eq-bar:nth-child(3n) {
-  animation-duration: 760ms;
-}
-
-.eq-bar:nth-child(4n) {
-  animation-duration: 530ms;
-}
-
-.eq-bar:nth-child(5n) {
-  animation-duration: 680ms;
 }
 
 .eq-left .eq-bar:nth-child(2n) {
