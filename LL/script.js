@@ -392,6 +392,20 @@ function setStatus(index, message) {
    VINYL SPEED
 ===================================== */
 
+function randomizeEqBars() {
+  eqBars.forEach(bar => {
+    // Give every bar its own rhythm, phase, and peak length.
+    const randomSpeed = 0.65 + Math.random() * 1.15;
+    const randomDelay = -Math.random() * 1.8;
+    const randomMax = 18 + Math.random() * 58;
+
+    bar.style.setProperty("--eq-random-speed", randomSpeed.toFixed(2));
+    bar.style.setProperty("--eq-bar-max", `${randomMax.toFixed(0)}px`);
+    bar.style.animationDelay = `${randomDelay.toFixed(2)}s`;
+  });
+}
+
+
 function updateVinylSpeed(index, speed) {
   /*
    * Normal speed: one rotation every 10 seconds.
@@ -1047,6 +1061,7 @@ function init() {
 
   renderCards();
   eqBars = [...document.querySelectorAll(".eq-bar")];
+  randomizeEqBars();
 
   setupLogoFallback();
 
