@@ -30,16 +30,13 @@ const podcastData = [
 
   ];
   
-  // Start with the newest episode by date, without changing playlist order.
-  const newestPodcastIndex = podcastData.reduce((newestIndex, podcast, index) => {
-    const podcastDate = Date.parse(podcast.date.replace(/(\\d+)(st|nd|rd|th)/i, "$1"));
-    const newestDate = Date.parse(podcastData[newestIndex].date.replace(/(\\d+)(st|nd|rd|th)/i, "$1"));
-    return podcastDate > newestDate ? index : newestIndex;
-  }, 0);
+  // Keep the playlist in newest-to-oldest date order.
+  const parsePodcastDate = (date) => Date.parse(date.replace(/\b(\d+)(st|nd|rd|th)\b/gi, "$1"));
+  podcastData.sort((a, b) => parsePodcastDate(b.date) - parsePodcastDate(a.date));
 
   // Global variables for tracking current podcast
-  let currentMusic = newestPodcastIndex;
-  let lastPlayedMusic = newestPodcastIndex;
+  let currentMusic = 0;
+  let lastPlayedMusic = 0;
   let audioSource;
   
   //playlist porgress
