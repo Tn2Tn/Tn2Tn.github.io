@@ -1,92 +1,92 @@
 const podcastData = [
   {
-    "posterUrl": "../podcast/assets/images/episode01.png",
-    "title": "Baal Musar",
-    "guest": "Eliezer Kahn",
-    "date": "March 1st 2024",
-    "summary": "Listen to Eliezer give life musar to all listeners under 90 years young and list 16/21 nicknames. Thank you to MGS for making this episode come out late",
-    "podcastPath": "../podcast/assets/audio/Eliezer Podcast.mp3"
-  },
+      "posterUrl": "../podcast/assets/images/episode10.png",
+      "title": "Wheres Wally",
+      "guest": "Yehoshua Sayagh",
+      "date": "November 7th 2024",
+      "summary": "Thank You Hashem Ep. 10 Is Out. Discussing where Yehoshua works, Jtrade and freebees' & why this podcast's Episodes aren't more than 45min (around)",
+      "podcastPath": "../podcast/assets/audio/Yehoshua Sayagh.mp3"
+    },
   {
-    "posterUrl": "../podcast/assets/images/episode02.png",
-    "title": "Daily Quota",
-    "guest": "Shloimy Blun & Surprise Guest",
-    "date": "March 7th 2024",
-    "summary": "An interview with Shloimy Blum discussing his daily Quote, many jokes, his revolution and controversial debates. (07565954248)x∞  P.S. NOT ALL RESPONSES ARE ENDORSED BY MECHANCHIM",
-    "podcastPath": "../podcast/assets/audio/Sloimy Blun & surprise.mp3"
-  },
+      "posterUrl": "../podcast/assets/images/episode09.png",
+      "title": "Cholent Of Topics",
+      "guest": "Shmuli Stimler & Lael Tam",
+      "date": "September 22nd 2024",
+      "summary": "I don't even know how to describe this comedy sketch (dont worry its not all funny)",
+      "podcastPath": "../podcast/assets/audio/Shmuli Stimler & Lael Tam.mp3",
+      "images": "../podcast/assets/images/podcast 9/",
+      "imagesNum": 2
+    },
   {
-    "posterUrl": "../podcast/assets/images/episode03.png",
-    "title": "Chassidish Wikipedia",
-    "guest": "Ahron Cowen",
-    "date": "April 4th 2024",
-    "summary": "Listen to Ahron Cowen speak about chassidim sharing a small percentage of his large knowledge about them. Litvaks Don't Have To Agree.",
-    "podcastPath": "../podcast/assets/audio/Ahron Cowen.mp3"
-  },
+      "posterUrl": "../podcast/assets/images/episode08.png",
+      "title": "Simcha Dynamics",
+      "guest": "Eli Netzer",
+      "date": "July 12th 2024",
+      "summary": "listen to us discuss the funny things that happen in simchas and kiddushim across the board.",
+      "podcastPath": "../podcast/assets/audio/Eli Netser.mp3",
+      "images": "../podcast/assets/images/podcast 8/",
+      "imagesNum": 1
+    },
   {
-    "posterUrl": "../podcast/assets/images/episode04.png",
-    "title": "Jaaayson For The Naaation",
-    "guest": "Binyomin Jayson & Yehuda Stone",
-    "date": "April 11th 2024",
-    "summary": "Listen to Binyomin Jayson speak about politics and who knows what, sing (like a Chazon) and give shout outs to everyone who lives on earth well almost. Keep an ear out for Yehuda Stones short words every now and then.",
-    "podcastPath": "../podcast/assets/audio/Stone_&_Jayson.mp3"
-  },
+      "posterUrl": "../podcast/assets/images/episode07.png",
+      "title": "Travel and more",
+      "guest": "Ari Hirsch & Gershy Bambeger",
+      "date": "June 20th 2024",
+      "summary": "Ari's child like obsession with stuffed animals, jet setting and gershy bamberger clapping when compleatly needed",
+      "podcastPath": "../podcast/assets/audio/Ari Hirsch & Gershy Bambeger.mp3",
+      "images": "../podcast/assets/images/podcast 7/",
+      "imagesNum": 5
+    },
   {
-    "posterUrl": "../podcast/assets/images/episode05.png",
-    "title": "Therapy Problems (Solved)",
-    "guest": "Nosson Perl & Ari Gutwirth",
-    "date": "April 18th 2024",
-    "summary": "Just sit and listen to Nosson Perl discuss the problems of therapy, find a solution for it theoretically and Shmuze about who knows what.",
-    "podcastPath": "../podcast/assets/audio/Nosson_Perl_&_Ari_Gutwirth.mp3",
-    "images": "../podcast/assets/images/podcast 5/",
-    "imagesNum": 3
-  },
+      "posterUrl": "../podcast/assets/images/episode06.png",
+      "title": "Inspiration with Chaim Morgan",
+      "guest": "Chaim Morgan",
+      "date": "May 10th 2024",
+      "summary": "Keep calm and listen to Chaim Morgan who joined us to discuss his inspiring thoughts on the world and give so much inspiration to the nation. (This Podcast Is Serious)",
+      "podcastPath": "../podcast/assets/audio/Chaim Morgan.mp3"
+    },
   {
-    "posterUrl": "../podcast/assets/images/episode06.png",
-    "title": "Inspiration with Chaim Morgan",
-    "guest": "Chaim Morgan",
-    "date": "May 10th 2024",
-    "summary": "Keep calm and listen to Chaim Morgan who joined us to discuss his inspiring thoughts on the world and give so much inspiration to the nation. (This Podcast Is Serious)",
-    "podcastPath": "../podcast/assets/audio/Chaim Morgan.mp3"
-  },
+      "posterUrl": "../podcast/assets/images/episode05.png",
+      "title": "Therapy Problems (Solved)",
+      "guest": "Nosson Perl & Ari Gutwirth",
+      "date": "April 18th 2024",
+      "summary": "Just sit and listen to Nosson Perl discuss the problems of therapy, find a solution for it theoretically and Shmuze about who knows what.",
+      "podcastPath": "../podcast/assets/audio/Nosson_Perl_&_Ari_Gutwirth.mp3",
+      "images": "../podcast/assets/images/podcast 5/",
+      "imagesNum": 3
+    },
   {
-    "posterUrl": "../podcast/assets/images/episode07.png",
-    "title": "Travel and more",
-    "guest": "Ari Hirsch & Gershy Bambeger",
-    "date": "June 20th 2024",
-    "summary": "Ari's child like obsession with stuffed animals, jet setting and gershy bamberger clapping when compleatly needed",
-    "podcastPath": "../podcast/assets/audio/Ari Hirsch & Gershy Bambeger.mp3",
-    "images": "../podcast/assets/images/podcast 7/",
-    "imagesNum": 5
-  },
+      "posterUrl": "../podcast/assets/images/episode04.png",
+      "title": "Jaaayson For The Naaation",
+      "guest": "Binyomin Jayson & Yehuda Stone",
+      "date": "April 11th 2024",
+      "summary": "Listen to Binyomin Jayson speak about politics and who knows what, sing (like a Chazon) and give shout outs to everyone who lives on earth well almost. Keep an ear out for Yehuda Stones short words every now and then.",
+      "podcastPath": "../podcast/assets/audio/Stone_&_Jayson.mp3"
+    },
   {
-    "posterUrl": "../podcast/assets/images/episode08.png",
-    "title": "Simcha Dynamics",
-    "guest": "Eli Netzer",
-    "date": "July 12th 2024",
-    "summary": "listen to us discuss the funny things that happen in simchas and kiddushim across the board.",
-    "podcastPath": "../podcast/assets/audio/Eli Netser.mp3",
-    "images": "../podcast/assets/images/podcast 8/",
-    "imagesNum": 1
-  },
+      "posterUrl": "../podcast/assets/images/episode03.png",
+      "title": "Chassidish Wikipedia",
+      "guest": "Ahron Cowen",
+      "date": "April 4th 2024",
+      "summary": "Listen to Ahron Cowen speak about chassidim sharing a small percentage of his large knowledge about them. Litvaks Don't Have To Agree.",
+      "podcastPath": "../podcast/assets/audio/Ahron Cowen.mp3"
+    },
   {
-    "posterUrl": "../podcast/assets/images/episode09.png",
-    "title": "Cholent Of Topics",
-    "guest": "Shmuli Stimler & Lael Tam",
-    "date": "September 22nd 2024",
-    "summary": "I don't even know how to describe this comedy sketch (dont worry its not all funny)",
-    "podcastPath": "../podcast/assets/audio/Shmuli Stimler & Lael Tam.mp3",
-    "images": "../podcast/assets/images/podcast 9/",
-    "imagesNum": 2
-  },
+      "posterUrl": "../podcast/assets/images/episode02.png",
+      "title": "Daily Quota",
+      "guest": "Shloimy Blun & Surprise Guest",
+      "date": "March 7th 2024",
+      "summary": "An interview with Shloimy Blum discussing his daily Quote, many jokes, his revolution and controversial debates. (07565954248)x∞  P.S. NOT ALL RESPONSES ARE ENDORSED BY MECHANCHIM",
+      "podcastPath": "../podcast/assets/audio/Sloimy Blun & surprise.mp3"
+    },
   {
-    "posterUrl": "../podcast/assets/images/episode10.png",
-    "title": "Wheres Wally",
-    "guest": "Yehoshua Sayagh",
-    "date": "November 7th 2024",
-    "summary": "Thank You Hashem Ep. 10 Is Out. Discussing where Yehoshua works, Jtrade and freebees' & why this podcast's Episodes aren't more than 45min (around)",
-    "podcastPath": "../podcast/assets/audio/Yehoshua Sayagh.mp3"
-  }
+      "posterUrl": "../podcast/assets/images/episode01.png",
+      "title": "Baal Musar",
+      "guest": "Eliezer Kahn",
+      "date": "March 1st 2024",
+      "summary": "Listen to Eliezer give life musar to all listeners under 90 years young and list 16/21 nicknames. Thank you to MGS for making this episode come out late",
+      "podcastPath": "../podcast/assets/audio/Eliezer Podcast.mp3"
+    }
 ];
   
   // Keep the asset playlist in its supplied order; no dates are encoded in the filenames.
