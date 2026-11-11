@@ -18,6 +18,9 @@ const podcastData = [
   date: "October 12th 2026",
   summary: "Everything about the TLM, dolphins ,Ramizz and much more with our highly trained hashkofo pannelists",
   podcastPath: "assets/audio/Not Hashkofo Podcast.mp3", 
+  "images": "../podcast/assets/images/podcast 11/",
+  "imagesNum": 1
+       
 },
     {
   posterUrl: "assets/images/episode13.png",
@@ -26,6 +29,8 @@ const podcastData = [
   date: "October 22nd 2026",
   summary: "Politics, music and a bunch more shtusim, Honestly not sure what went on in this podcast ;)",
   podcastPath: "assets/audio/Musical.mp3", 
+  "images": "../podcast/assets/images/podcast 13/",
+  "imagesNum": 1
 },
 
   ];
