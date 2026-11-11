@@ -59,7 +59,7 @@ body {
 .gallery-container {
   box-shadow: inset #000e0b 0px 0px 12px 0px;
   border-radius: 15px;
-  background: #d9563b;
+  background: #30080087;
   left: 0;
   z-index: 10;
   position: absolute;
@@ -95,7 +95,7 @@ body {
   right: 10px;
   bottom: 10px;
   background-color: transparent; 
-  background-color: #d9563b; 
+  background-color: #30080087; 
   color: #fff; 
   border: 2px solid #d9563b; 
   padding: 7px 25px;
