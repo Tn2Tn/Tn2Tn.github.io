@@ -95,9 +95,9 @@ body {
   right: 10px;
   bottom: 10px;
   background-color: transparent; 
-  background-color: #00b188; 
+  background-color: #d9563b; 
   color: #fff; 
-  border: 2px solid #00b188; 
+  border: 2px solid #d9563b; 
   padding: 7px 25px;
   border-radius: 5px 20px 20px 5px;
   cursor: pointer;
@@ -111,8 +111,8 @@ body {
   right: 10px;
   bottom: 10px;
   background-color: transparent; 
-  color: #00b188; 
-  border: 2px solid #00b188; 
+  color: #d9563b; 
+  border: 2px solid #d9563b; 
   padding: 7px 25px;
   border-radius: 5px 20px 20px 5px;
   cursor: pointer;
@@ -126,8 +126,8 @@ body {
   right: 85px;
   bottom: 10px;
   background-color: transparent; 
-  color: #00b188; 
-  border: 2px solid #00b188; 
+  color: #d9563b; 
+  border: 2px solid #d9563b; 
   padding: 7px 10px;
   border-radius: 20px 5px 5px 20px;
   cursor: pointer;
@@ -137,7 +137,7 @@ body {
 
 .episode-button:hover,
 .episode-button1:hover {
-  background-color: #00b188; 
+  background-color: #d9563b; 
   color: #fff; 
 }
 
@@ -165,7 +165,7 @@ body {
   opacity: 1;
 }
 .video-item.playing {
-  box-shadow: 0 0px 7px #00b188;
+  box-shadow: 0 0px 7px #d9563b;
   opacity: 1;
   background-color: #000;
   align-items: unset;
@@ -490,7 +490,7 @@ img {
   --on-surface-variant: var(--silver-sand);
   --on-surface-variant-hover: var(--light-sky-blue_a8);
   --on-surface-variant-focus: var(--light-sky-blue_a12);
-  --primary: #00b188;
+  --primary: #d9563b;
   --on-primary: var(--prussian-blue);
 
   /**
@@ -1055,7 +1055,7 @@ button {
 }
 .range::-webkit-slider-thumb:hover {
   transform: scale(1.2);
-  box-shadow: 0 0 0 8px rgba(0, 177, 136, 0.1);
+  box-shadow: 0 0 0 8px rgba(217, 86, 59, 0.1);
 }
 
 /* Player Controls */
@@ -1070,19 +1070,19 @@ button {
 .btn-icon.play {
   width: 64px;
   height: 64px;
-  background: #00b188;
-  box-shadow: 0 4px 12px rgba(0, 177, 136, 0.3);
+  background: #d9563b;
+  box-shadow: 0 4px 12px rgba(217, 86, 59, 0.3);
 }
 
 .btn-icon.play:hover {
-  background: #00d1a1;
-  box-shadow: 0 6px 16px rgba(0, 177, 136, 0.4);
+  background: #ef765d;
+  box-shadow: 0 6px 16px rgba(217, 86, 59, 0.4);
 }
 
 .btn-icon.play:active {
   transform: scale(0.95);
-  box-shadow: 0 2px 8px rgba(0, 177, 136, 0.5);
-  background: #009371;
+  box-shadow: 0 2px 8px rgba(217, 86, 59, 0.5);
+  background: #b7442e;
 }
 
 .duration-label {
@@ -1153,7 +1153,7 @@ button {
   position: relative;
   left: -50%;
   height: 5px;
-  background-color: #00b188;
+  background-color: #d9563b;
 }
 .complete.playing {
   width: 50%;
@@ -1161,7 +1161,7 @@ button {
   position: relative;
   left: -50%;
   height: 5px;
-  background-color: #00b188;
+  background-color: #d9563b;
 }
 
 .video-item:hover .readylistened {
@@ -1191,7 +1191,7 @@ button {
   position: relative;
   left: -50%;
   height: 3px;
-  background-color: #00b188;
+  background-color: #d9563b;
 }
 
 .video-item.playing .complete {
@@ -1200,5 +1200,5 @@ button {
   position: relative;
   left: -50%;
   height: 3px;
-  background-color: #00b188;
+  background-color: #d9563b;
 }
