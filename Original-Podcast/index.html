@@ -75,7 +75,7 @@
   <div class="playing">
       <div class="gallery-container" id="galleryContainer">
       <div id="videoGallery" class="video-gallery">
-        <p class="empty-playlist">No episodes yet</p>
+        
       </div>
     </div>
     <!-- Audio Player -->
@@ -92,7 +92,7 @@
             src="assets/images/episode01.png"
             width="800"
             height="800"
-            alt="Original Podcast — no episodes yet"
+            alt="Tn 2 Tn Podcast"
             class="img-cover lazyload"
             data-player-banner
             />
@@ -100,14 +100,14 @@
           
           <div class="podcast-content" >
             <h2 class="headline-sm">
-              <span data-title>No episodes yet</span>
+              <span data-title>Loading...</span>
             </h2>
           <h2 class="headline-gue">
-              <span data-guest>Original Podcast</span>
+              <span data-guest>Loading...</span>
             </h2>
 
             <p class="label-md artist">
-              <span data-summary>New episodes will appear here.</span>
+              <span data-summary>Loading...</span>
               <div class="image-list" data-image-list></div>
             </p>
             
@@ -115,7 +115,7 @@
             <div class="seek-control " >
               <div>
                 <div class="range-wrapper" id="live-hide">
-                  <input type="range" step="1" max="60" value="0" class="range" data-range data-seek disabled />
+                  <input type="range" step="1" max="60" value="0" class="range" data-range data-seek />
 
                   <div class="range-fill" data-range-fill></div>
                 </div>
@@ -150,11 +150,11 @@
                 <span class="material-symbols-rounded active-icon">repeat_one</span>
               </button> -->
 
-              <button class="btn-icon" id="download-btn" data-download-btn disabled>
+              <button class="btn-icon" id="download-btn" data-download-btn>
                 <span class="material-symbols-rounded">file_download</span>
               </button>
 
-              <button class="btn-icon" id="live-hide" data-replay disabled>
+              <button class="btn-icon" id="live-hide" data-replay>
                 <span class="material-symbols-rounded">replay_10</span>
               </button>
 
@@ -162,7 +162,7 @@
                 <span class="material-symbols-rounded">skip_previous</span>
               </button> -->
 
-              <button class="btn-icon play" data-play-btn disabled>
+              <button class="btn-icon play" data-play-btn>
                 <span class="material-symbols-rounded default-icon">play_arrow</span>
                 <span class="material-symbols-rounded active-icon">pause</span>
               </button>
@@ -171,7 +171,7 @@
                 <span class="material-symbols-rounded">skip_next</span>
               </button> -->
 
-              <button class="btn-icon" id="live-hide" data-forward disabled>
+              <button class="btn-icon" id="live-hide" data-forward>
                 <span class="material-symbols-rounded">forward_30</span>
               </button>
 
@@ -189,14 +189,10 @@
 
       <div id="videoGallery"></div>
     <script src="../qoutes.js"></script>
-    <script src="playlist.js"></script>
+    <script src="playlist.js?v=4"></script>
+    <script src="../podcast/player.js"></script>
 
     <style>
-      .empty-playlist { color: #888; padding: 24px 12px; text-align: center; direction: ltr; }
-      .podcast-banner img { opacity: .35; }
-      .player-control button:disabled { opacity: .35; cursor: not-allowed; }
-      #speed-input { opacity: .45; pointer-events: none; }
-      [data-range]:disabled { opacity: .35; }
     </style>
   </body>
 </html> 
