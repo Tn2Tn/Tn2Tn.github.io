@@ -1,129 +1,125 @@
 const quotes = [
     {
-        text: "Whether you think you can or think you can't, you're right.",
-        highlight: "you're right."
+        text: "Nobody's perfect. Except, of course, Tns.",
+        highlight: "Tns"
     },
     {
-        text: "You miss 100% of the shots you don't take.",
-        highlight: "the shots you don't take."
+        text: "Some people have brains. Others have Tn.",
+        highlight: "Tn"
     },
     {
-        text: "Live With Less.",
-        highlight: "Live"
+        text: "Behind every great achievement is a Tn taking the credit.",
+        highlight: "a Tn taking the credit"
     },
     {
-        text: "Accept And Embrace All Experiences.",
-        highlight: "Accept And Embrace"
+        text: "A bad worker blames his tools. A bad Tn does not exist.",
+        highlight: "A bad Tn does not exist"
     },
     {
-        text: "Do The Things You Love.",
-        highlight: "Things You Love."
+        text: "There's no such thing as a stupid question. Unless a Tn is asking it.",
+        highlight: "a Tn is asking it"
     },
     {
-        text: "You Are Awesome.",
-        highlight: "Awesome."
+        text: "They say pride comes before a fall. Tns have nothing to worry about.",
+        highlight: "Tns have nothing to worry about"
     },
     {
-        text: "Plan For Victory, Learn From Defeat.",
-        highlight: "Victory"
+        text: "Some people have potential. Others have Tn.",
+        highlight: "Tn"
     },
     {
-        text: "Open Your Heart.",
-        highlight: "Heart."
+        text: "The trouble with being the best is everyone else has to settle for second.",
+        highlight: "being the best"
     },
     {
-        text: "Whether you think you can, or you can think Power on.",
-        highlight: "Power on"
+        text: "Tns don't need a plan B. Plan A usually works.",
+        highlight: "Plan A usually works"
     },
     {
-        text: "Find Joy In The Ordinary.",
-        highlight: "Find Joy"
+        text: "Some people arrive fashionably late. Others make everyone glad they waited.",
+        highlight: "Others make everyone glad they waited"
     },
     {
-        text: "Be Yourself.",
-        highlight: "Yourself."
+        text: "Tns don't check the weather. The weather checks with them.",
+        highlight: "The weather checks with them"
     },
     {
-        text: "Persistence Powers Passion.",
-        highlight: "Powers Passion."
+        text: "Tns don't miss a beat. The beat waits for them.",
+        highlight: "The beat waits for them"
     },
     {
-        text: "A bad worker blames his tools, a bad Tn Does not exist.",
-        highlight: "Does not exist."
+        text: "A Tn doesn't run out of things to say. Everyone else runs out of time.",
+        highlight: "Everyone else runs out of time"
     },
     {
-        text: "Be A Victor, Not A Victim.",
-        highlight: "A Victor"
+        text: "Tns don't follow trends. Trends eventually catch up.",
+        highlight: "Trends eventually catch up"
     },
     {
-        text: "Be A Magnet For Joy, Love And Abundance.",
-        highlight: "Magnet"
+        text: "Some people have a way with words. Others have a way with everyone else's words.",
+        highlight: "a way with everyone else's words"
     },
     {
-        text: "Illuminate The Beauty In Others.",
-        highlight: "Illuminate"
+        text: "A Tn never loses an argument. Sometimes they just let the other person finish.",
+        highlight: "Sometimes they just let the other person finish"
     },
     {
-        text: "Light is needed to create a shadow.",
-        highlight: "Light is needed."
+        text: "A Tn's presence is like Wi-Fi. Everything works better when they're around.",
+        highlight: "Everything works better when they're around"
     },
     {
-        text: "Create Every Day.",
-        highlight: "Every Day."
+        text: "Tns have two speeds: fast and already finished.",
+        highlight: "fast"
     },
     {
-        text: "Invest In Yourself.",
-        highlight: "Yourself."
+        text: "Some people bring baggage. Tns bring the entire airport.",
+        highlight: "the entire airport"
     },
     {
-        text: "Run Your Own Race.",
-        highlight: "Run"
+        text: "They say money can't buy class. Tns clearly got lucky.",
+        highlight: "Tns clearly got lucky"
     },
     {
-        text: "Maintain Your Balance.",
-        highlight: "Your Balance."
+        text: "Some people are good company. Others are Tn company.",
+        highlight: "Tn company"
     },
     {
-        text: "Empty Your Cup.",
-        highlight: "Your Cup."
+        text: "Behind every great excuse is a Tn who saw it coming.",
+        highlight: "a Tn who saw it coming"
     },
     {
-        text: "Be Fearless.",
-        highlight: "Fearless."
+        text: "The best things in life are worth waiting for. Tns included.",
+        highlight: "Tns included"
     },
     {
-        text: "Be Kind To Yourself.",
-        highlight: "Yourself."
+        text: "They say the grass is always greener on the other side. Tns own the lawn.",
+        highlight: "Tns own the lawn"
     },
     {
-        text: "Knowing yourself is the beginning of all wisdom.",
-        highlight: "all wisdom."
+        text: "Some people have all the answers. Others have Tn.",
+        highlight: "Tn"
     },
     {
-        text: "Every Day Is Another Chance.",
-        highlight: "Another Chance."
+        text: "A little competition never hurt anyone. Unless they're competing with a Tn.",
+        highlight: "Unless they're competing with a Tn"
     },
     {
-        text: "Because You Can.",
-        highlight: "You Can."
+        text: "They say first impressions last. Tns make sure of it.",
+        highlight: "Tns make sure of it"
     },
     {
-        text: "Live Less Out Of Habit And More Out Of Intent.",
-        highlight: "More Out Of Intent."
+        text: "Some people just get it. The rest need a Tn.",
+        highlight: "The rest need a Tn"
     },
     {
-        text: "Baby Steps.",
-        highlight: "Baby Steps."
+        text: "You can't put a price on good taste. Or a Tn.",
+        highlight: "Or a Tn"
     },
     {
-        text: "Keep Moving Forward.",
-        highlight: "Moving Forward."
-    },
-    {
-        text: "Create The Life You Want.",
-        highlight: "Life."
+        text: "They say seeing is believing. Tns are living proof.",
+        highlight: "Tns are living proof"
     }
-];
+    ];
 
 
 // Set Today's Quote
