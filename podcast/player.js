@@ -423,36 +423,26 @@ anchor.remove();
 
 
 // Skip Button Visibility Check
-
 const checkSkipButtonVisibility = () => {
+  const duration = audioSource.duration;
+  const currentTime = audioSource.currentTime;
+  const visibleSeconds = Number(skipBtn.dataset.visibleSeconds || 15);
 
-const duration = audioSource.duration;
-
-const currentTime = audioSource.currentTime;
-
-
-// Show the skip button if the duration is greater than 20 minutes and current time is less than 25 seconds
-
-if (duration > 1200 && currentTime < 14) {
-
-skipBtn.classList.add('visible');
-
-skipBtn.classList.remove('fade-out');
-
-} else {
-
-skipBtn.classList.add('fade-out');
-
-}
-
-
-if (duration < 1200 || currentTime > 16) {
-
-skipBtn.classList.remove('visible');
-
-}
-
+  if (duration > 1200 && currentTime < visibleSeconds) {
+    skipBtn.classList.add('visible');
+    skipBtn.classList.remove('fade-out');
+  } else {
+    // Keep the button displayed while its opacity transition completes.
+    skipBtn.classList.add('fade-out');
+  }
 };
+
+// Hide the button only after the fade-out has finished.
+skipBtn.addEventListener('transitionend', (event) => {
+  if (event.propertyName === 'opacity' && skipBtn.classList.contains('fade-out')) {
+    skipBtn.classList.remove('visible');
+  }
+});
 
 
 
