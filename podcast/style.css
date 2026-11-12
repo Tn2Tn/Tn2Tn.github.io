@@ -1207,3 +1207,17 @@ button {
   height: 3px;
   background-color: #00b188;
 }
+
+
+/* Subtle interaction polish */
+.btn-icon:hover,
+#speed-input:hover,
+.pag:hover {
+  box-shadow: 0 4px 14px rgba(0, 177, 136, .16);
+}
+.video-item:not(.playing):hover,
+.podcast-banner:hover {
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .3), 0 0 14px rgba(0, 177, 136, .08);
+}
+#speed-input { transition: background-color 180ms ease, box-shadow 180ms ease; }
+.podcast-banner { transition: transform 0.3s ease, box-shadow 0.3s ease; }

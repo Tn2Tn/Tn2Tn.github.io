@@ -1100,3 +1100,14 @@ a {
     animation: spin var(--vinyl-duration, 10s) linear infinite;
   }
 }
+
+
+/* Subtle interaction polish */
+.control-btn:hover,
+.quote-trigger:hover,
+.home-link:hover {
+  box-shadow: 0 5px 16px rgba(0, 151, 217, .16);
+}
+.short-content:hover {
+  box-shadow: 0 14px 38px rgba(0, 0, 0, .52), 0 0 18px rgba(0, 151, 217, .07);
+}

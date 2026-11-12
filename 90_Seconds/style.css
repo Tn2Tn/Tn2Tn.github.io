@@ -733,3 +733,30 @@ body:hover::-webkit-scrollbar-thumb {
     gap: 28px;
   }
 }
+
+
+/* Subtle interaction polish */
+.btn-icon,
+#speed-input,
+.podcast-item,
+.podcast-banner {
+  transition: box-shadow 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+.btn-icon:hover,
+#speed-input:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(151, 45, 140, .18);
+}
+.podcast-item:is(:hover, :focus-visible) {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .28);
+}
+.podcast-banner:hover {
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .3), 0 0 14px rgba(151, 45, 140, .08);
+}
+:where(button, a, input):focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-icon, #speed-input, .podcast-item, .podcast-banner { transition: none; }
+}
