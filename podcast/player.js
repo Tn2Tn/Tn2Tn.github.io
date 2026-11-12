@@ -449,15 +449,15 @@ skipBtn.addEventListener('transitionend', (event) => {
 // Add event listener for the skip button
 
 skipBtn.addEventListener('click', () => {
+  const skipSeconds = Number(skipBtn.dataset.skipSeconds || 15);
 
-audioSource.currentTime = 15; // Skip to 30 seconds
+  audioSource.currentTime = skipSeconds;
 
-playerSeekRange.value = 15; // Update the seek range
+  playerSeekRange.value = skipSeconds;
 
-playerRunningTime.textContent = getTimecode(15); // Update the running time display
+  playerRunningTime.textContent = getTimecode(skipSeconds);
 
-updateRangeFill(); // Update the range fill
-
+  updateRangeFill();
 });
 
 
