@@ -29,7 +29,7 @@ const podcastData = [
   date: "October 22nd 2026",
   summary: "Politics, music and a bunch more shtusim, Honestly not sure what went on in this podcast ;)",
   podcastPath: "assets/audio/Musical.mp3", 
-  "images": "../podcast/assets/images/podcast 13/",
+  "images": "../podcast/assets/images/Podcast 13/",
   "imagesNum": 1
 },
 
