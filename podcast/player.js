@@ -460,13 +460,11 @@ skipBtn.classList.remove('visible');
 
 skipBtn.addEventListener('click', () => {
 
-const skipSeconds = Number(skipBtn.dataset.skipSeconds || 15);
+audioSource.currentTime = 15; // Skip to 30 seconds
 
-audioSource.currentTime = skipSeconds; // Skip the configured intro duration
+playerSeekRange.value = 15; // Update the seek range
 
-playerSeekRange.value = skipSeconds; // Update the seek range
-
-playerRunningTime.textContent = getTimecode(skipSeconds); // Update the running time display
+playerRunningTime.textContent = getTimecode(15); // Update the running time display
 
 updateRangeFill(); // Update the range fill
 

@@ -19,10 +19,10 @@
     - favicon
   -->
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg">
-  <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
   <link rel="manifest" href="/favicon/site.webmanifest">
-  <link rel="mask-icon" href="/favicon/favicon.svg" color="#41494e">
+  <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#41494e">
   <meta name="msapplication-TileColor" content="#ffc40d">
   <meta name="theme-color" content="#ffffff"> 
   </head>
@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="fade"></div>
-    <div class="quote-dismiss" onclick="closeQuote()">
+    <button class="close-btn" onclick="closeQuote()">
     <div id="quoteOverlay" class="modal-overlay">
       <div class="modal-content">
 
@@ -71,7 +71,7 @@
             </svg>
               </div>
     </div>
-  </div>
+  </button>
   <div class="playing">
       <div class="gallery-container" id="galleryContainer">
       <div id="videoGallery" class="video-gallery">
@@ -106,10 +106,10 @@
               <span data-guest>Loading...</span>
             </h2>
 
-            <div class="label-md artist">
+            <p class="label-md artist">
               <span data-summary>Loading...</span>
-            </div>
-            <div class="image-list" data-image-list></div>
+              <div class="image-list" data-image-list></div>
+            </p>
             
 
             <div class="seek-control " >
