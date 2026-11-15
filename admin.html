@@ -1,151 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Owner Admin | Tn 2 Tn</title>
-  <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; background: #222; color: #fff; font-family: Arial, sans-serif; }
-    main { width: min(560px, 100%); padding: 32px; border: 1px solid #46515c; border-radius: 16px; background: #31343c; text-align: center; }
-    h1 { color: #9fc5e8; margin-top: 0; }
-    p { line-height: 1.6; color: #d5dbe0; overflow-wrap: anywhere; }
-    button { padding: 12px 20px; border: 0; border-radius: 8px; background: #234970; color: white; cursor: pointer; font-size: 15px; }
-    button:disabled { opacity: .6; cursor: wait; }
-    #signout { margin-top: 12px; }
-    a { color: #9fc5e8; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Owner Admin | Tn 2 Tn</title>
+<style>
+:root{color-scheme:dark;--bg:#171b22;--panel:#222a35;--line:#3a4858;--blue:#9fc5e8;--accent:#315f89;--muted:#b8c3cf}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f5f7fa;font:15px/1.5 Arial,sans-serif}button,input,textarea{font:inherit}button{border:0;border-radius:9px;padding:10px 15px;background:var(--accent);color:white;cursor:pointer}button:disabled{opacity:.55;cursor:wait}.danger{background:#873f48}.secondary{background:#465363}.wrap{width:min(1160px,100%);margin:auto;padding:26px 20px 60px}.top{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:24px}.brand h1{margin:0;color:var(--blue);font-size:29px}.brand p{margin:3px 0;color:var(--muted)}.actions{display:flex;gap:9px;flex-wrap:wrap}.status{padding:12px 15px;border:1px solid var(--line);border-radius:10px;background:var(--panel);margin:0 0 18px;color:var(--muted)}.status.error{border-color:#874d53;color:#ffc0c0}.status.ok{border-color:#426e59;color:#b9f0cd}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:18px}.stat,.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}.stat small{color:var(--muted)}.stat strong{display:block;font-size:32px;margin-top:5px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel h2{font-size:19px;margin:0 0 13px;color:var(--blue)}.panel p.hint{color:var(--muted);font-size:13px;margin:-5px 0 14px}.section-row,.item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid var(--line)}.section-row:first-of-type,.item:first-of-type{border-top:0}.section-row span,.item .itemtext{min-width:0}.section-row small,.item small{display:block;color:var(--muted)}.switch{position:relative;width:48px;height:27px;flex:none}.switch input{opacity:0;width:0;height:0}.slider{position:absolute;inset:0;border-radius:30px;background:#566170;cursor:pointer;transition:.2s}.slider:before{content:"";position:absolute;width:19px;height:19px;left:4px;top:4px;background:white;border-radius:50%;transition:.2s}.switch input:checked+.slider{background:#39845b}.switch input:checked+.slider:before{transform:translateX(21px)}.field{margin:10px 0}.field label{display:block;color:var(--muted);font-size:13px;margin-bottom:5px}.field input,.field textarea{width:100%;background:#151b23;color:white;border:1px solid var(--line);border-radius:8px;padding:10px}.field textarea{min-height:100px;resize:vertical}.form-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.item-actions{display:flex;gap:6px;flex:none}.item-actions button{padding:7px 10px;font-size:13px}.empty{color:var(--muted);padding:10px 0}.wide{grid-column:1/-1}.maintenance{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.maintenance strong{display:block}.maintenance small{color:var(--muted)}.hidden{display:none!important}.foot{color:var(--muted);font-size:12px;text-align:center;margin-top:25px}a{color:var(--blue)}@media(max-width:720px){.stats{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.wide{grid-column:auto}.wrap{padding:18px 13px 40px}.brand h1{font-size:25px}}
+</style>
 </head>
 <body>
-  <main>
-    <h1>Owner Admin</h1>
-    <p id="status" role="status" aria-live="polite">Checking owner access…</p>
-    <button id="signout" type="button" hidden>Sign out</button>
-    <p><a href="/">Back to homepage</a></p>
-  </main>
-  <script>
-    const OWNER_EMAIL = "tn2tnpodcast@gmail.com";
-    const status = document.getElementById("status");
-    const signout = document.getElementById("signout");
-
-    // Save the OAuth response and immediately remove credentials from the address bar.
-    const callbackParams = new URLSearchParams(window.location.hash.slice(1));
-    const callbackAccessToken = callbackParams.get("access_token");
-    const callbackRefreshToken = callbackParams.get("refresh_token");
-    if (window.location.hash) {
-      window.history.replaceState(null, "", window.location.pathname + window.location.search);
-    }
-
-    function withTimeout(promise, label, milliseconds = 15000) {
-      let timer;
-      return Promise.race([
-        promise,
-        new Promise((_, reject) => {
-          timer = window.setTimeout(() => reject(new Error(label + " timed out. Please reload and try again.")), milliseconds);
-        })
-      ]).finally(() => window.clearTimeout(timer));
-    }
-
-    function loadSupabase() {
-      if (window.supabase && typeof window.supabase.createClient === "function") {
-        return Promise.resolve();
-      }
-
-      return new Promise((resolve, reject) => {
-        const script = document.createElement("script");
-        const timer = window.setTimeout(() => {
-          script.remove();
-          reject(new Error("Supabase did not load within 12 seconds. Check your connection or content blockers, then reload."));
-        }, 12000);
-
-        script.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
-        script.async = true;
-        script.onload = () => {
-          window.clearTimeout(timer);
-          if (window.supabase && typeof window.supabase.createClient === "function") {
-            resolve();
-          } else {
-            reject(new Error("Supabase loaded, but its client library was unavailable. Please reload."));
-          }
-        };
-        script.onerror = () => {
-          window.clearTimeout(timer);
-          reject(new Error("Could not download the Supabase library. Check your connection or content blockers."));
-        };
-        document.head.appendChild(script);
-      });
-    }
-
-    async function checkOwner() {
-      try {
-        status.textContent = "Loading secure sign-in service…";
-        await withTimeout(loadSupabase(), "Supabase library load", 13000);
-
-        const client = window.supabase.createClient(
-          "https://lnjeyqwteautkvwrkgbe.supabase.co",
-          "sb_publishable_T0lmc-JHGB-h9MXAVFEukQ_-oJ3NEpE",
-          {
-            auth: {
-              flowType: "implicit",
-              detectSessionInUrl: false,
-              persistSession: true,
-              autoRefreshToken: true
-            }
-          }
-        );
-
-        signout.hidden = false;
-        signout.addEventListener("click", async () => {
-          signout.disabled = true;
-          status.textContent = "Signing out…";
-          try {
-            const { error } = await withTimeout(client.auth.signOut(), "Sign out");
-            if (error) throw error;
-            window.location.replace("/");
-          } catch (error) {
-            status.textContent = "Could not sign out: " + (error.message || "Please try again.");
-            signout.disabled = false;
-          }
-        });
-
-        if (callbackAccessToken && callbackRefreshToken) {
-          status.textContent = "Finishing Google sign-in…";
-          const { error } = await withTimeout(
-            client.auth.setSession({
-              access_token: callbackAccessToken,
-              refresh_token: callbackRefreshToken
-            }),
-            "Google sign-in"
-          );
-          if (error) throw error;
-        }
-
-        status.textContent = "Verifying owner account…";
-        const sessionResult = await withTimeout(client.auth.getSession(), "Session check");
-        if (sessionResult.error) throw sessionResult.error;
-
-        if (!sessionResult.data.session) {
-          status.textContent = "No active sign-in found. Return to the homepage, type admin, and sign in again.";
-          return;
-        }
-
-        const userResult = await withTimeout(client.auth.getUser(), "Owner verification");
-        if (userResult.error) throw userResult.error;
-
-        const user = userResult.data.user;
-        if (!user || (user.email || "").toLowerCase() !== OWNER_EMAIL) {
-          await withTimeout(client.auth.signOut(), "Sign out");
-          status.textContent = "Access denied. This Google account is not authorised.";
-          return;
-        }
-
-        status.textContent = "Signed in as " + user.email + ". Owner access verified.";
-      } catch (error) {
-        status.textContent = "Could not verify owner access: " + (error.message || "Unknown error. Please reload and try again.");
-      }
-    }
-
-    checkOwner();
-  </script>
+<div class="wrap">
+<header class="top"><div class="brand"><h1>Owner Admin</h1><p id="ownerLine">Checking owner access…</p></div><div class="actions"><button id="refreshBtn" class="secondary" disabled>Refresh</button><button id="editModeBtn" class="secondary" disabled>Enable edit mode</button><button id="signoutBtn" class="danger" hidden>Sign out</button></div></header>
+<div id="status" class="status" role="status" aria-live="polite">Loading secure sign-in service…</div>
+<div id="dashboard" class="hidden">
+<section class="stats"><div class="stat"><small>Visitors online now</small><strong id="onlineCount">—</strong></div><div class="stat"><small>Tracked sessions (last 2 hours)</small><strong id="sessionCount">—</strong></div><div class="stat"><small>Pages currently active</small><strong id="pageCount">—</strong></div></section>
+<div class="grid">
+<section class="panel"><h2>Website controls</h2><p class="hint">Switch supported homepage sections on or off.</p><div id="sectionControls"><p class="empty">Loading controls…</p></div></section>
+<section class="panel"><h2>Emergency mode</h2><p class="hint">Temporarily replace the public site with a maintenance notice.</p><div class="maintenance"><div><strong id="maintenanceState">Checking…</strong><small>Changes apply when visitors load or refresh the site.</small></div><label class="switch"><input id="maintenanceToggle" type="checkbox" disabled><span class="slider"></span></label></div><div class="field"><label for="maintenanceMessage">Maintenance message</label><textarea id="maintenanceMessage" placeholder="The website is temporarily unavailable…"></textarea></div><button id="saveMaintenance" disabled>Save emergency settings</button></section>
+<section class="panel"><h2>Announcements</h2><p class="hint">Create notices for the public website. (Display placement still needs connecting.)</p><div id="announcementList"><p class="empty">Loading announcements…</p></div><div class="edit-only hidden" id="announcementEditor"><div class="field"><label for="announcementTitle">Title</label><input id="announcementTitle" maxlength="120"></div><div class="field"><label for="announcementBody">Message</label><textarea id="announcementBody" maxlength="3000"></textarea></div><label><input id="announcementActive" type="checkbox" checked> Publish announcement</label><div class="form-actions"><button id="saveAnnouncement">Save announcement</button><button id="cancelAnnouncement" class="secondary">Cancel</button></div></div><button class="edit-only hidden" id="newAnnouncement">+ New announcement</button></section>
+<section class="panel"><h2>Secret pages</h2><p class="hint">Manage records. Public /secret/ pages still need their page renderer.</p><div id="secretList"><p class="empty">Loading pages…</p></div><div class="edit-only hidden" id="secretEditor"><div class="field"><label for="secretTitle">Page title</label><input id="secretTitle" maxlength="120"></div><div class="field"><label for="secretSlug">URL slug (letters, numbers, hyphens)</label><input id="secretSlug" maxlength="80" placeholder="private-update"></div><div class="field"><label for="secretBody">Page content (plain text)</label><textarea id="secretBody" maxlength="12000"></textarea></div><label><input id="secretPublished" type="checkbox"> Publish page</label><div class="form-actions"><button id="saveSecret">Save page</button><button id="cancelSecret" class="secondary">Cancel</button></div></div><button class="edit-only hidden" id="newSecret">+ New secret page</button></section>
+<section class="panel wide"><h2>Visitor activity</h2><p class="hint">Approximate live sessions based on visitor heartbeat pings. Online = seen within the last 5 minutes.</p><div id="visitorList"><p class="empty">Loading visitor activity…</p></div></section>
+</div></div><p class="foot"><a href="/">Back to homepage</a> · Owner access only</p></div>
+<script>
+(()=>{"use strict";
+const OWNER_EMAIL="tn2tnpodcast@gmail.com",SUPABASE_URL="https://lnjeyqwteautkvwrkgbe.supabase.co",SUPABASE_KEY="sb_publishable_T0lmc-JHGB-h9MXAVFEukQ_-oJ3NEpE",$=id=>document.getElementById(id);
+let db,editMode=false,announcements=[],secretPages=[],editingAnnouncement=null,editingSecret=null;
+const timeout=(promise,label,ms=15000)=>{let timer;return Promise.race([promise,new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error(label+" timed out.")),ms)})]).finally(()=>clearTimeout(timer))};
+function setStatus(message,kind=""){ $("status").textContent=message;$("status").className="status"+(kind?" "+kind:"")}
+function loadSupabase(){if(window.supabase?.createClient)return Promise.resolve();return new Promise((resolve,reject)=>{const script=document.createElement("script"),timer=setTimeout(()=>{script.remove();reject(new Error("Supabase library did not load. Check your connection and reload."))},12000);script.src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";script.async=true;script.onload=()=>{clearTimeout(timer);window.supabase?.createClient?resolve():reject(new Error("Supabase client unavailable."))};script.onerror=()=>{clearTimeout(timer);reject(new Error("Could not load Supabase. Check your connection or content blockers."))};document.head.appendChild(script)})}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+async function run(p,label="Request"){const r=await timeout(p,label);if(r?.error)throw r.error;return r}
+function showEdit(){document.querySelectorAll(".edit-only").forEach(e=>e.classList.toggle("hidden",!editMode));$("editModeBtn").textContent=editMode?"Exit edit mode":"Enable edit mode"}
+async function loadVisitors(){const r=await run(db.from("visitor_sessions").select("session_id,page_path,last_seen").order("last_seen",{ascending:false}).limit(100),"Visitor tracker"),rows=r.data||[],cut=Date.now()-300000,online=rows.filter(x=>new Date(x.last_seen).getTime()>cut);$("onlineCount").textContent=online.length;$("sessionCount").textContent=rows.length;$("pageCount").textContent=new Set(online.map(x=>x.page_path)).size;$("visitorList").innerHTML=rows.length?rows.slice(0,30).map(x=>'<div class="item"><div class="itemtext"><strong>'+esc(x.page_path||"/")+'</strong><small>Last seen '+esc(new Date(x.last_seen).toLocaleString())+'</small></div><small>'+(new Date(x.last_seen).getTime()>cut?"Online":"Inactive")+'</small></div>').join(""):'<p class="empty">No visitor sessions recorded yet. Visit the homepage in another tab to test tracking.</p>'}
+async function loadSections(){const r=await run(db.from("section_settings").select("section_key,enabled").order("section_key"),"Section controls"),rows=r.data||[];$("sectionControls").innerHTML=rows.length?rows.map(x=>'<div class="section-row"><span><strong>'+esc(x.section_key.replaceAll("_"," "))+'</strong><small>'+(x.enabled?"Visible on website":"Hidden from website")+'</small></span><label class="switch"><input type="checkbox" data-section="'+esc(x.section_key)+'" '+(x.enabled?"checked":"")+'><span class="slider"></span></label></div>').join(""):'<p class="empty">No section controls configured.</p>';$("sectionControls").querySelectorAll("[data-section]").forEach(input=>input.addEventListener("change",async()=>{const previous=!input.checked;input.disabled=true;try{await run(db.from("section_settings").update({enabled:input.checked,updated_at:new Date().toISOString()}).eq("section_key",input.dataset.section),"Update section");setStatus("Website section updated.","ok");await loadSections()}catch(e){input.checked=previous;input.disabled=false;setStatus("Could not update section: "+e.message,"error")}}))}
+async function loadMaintenance(){const r=await run(db.from("site_settings").select("id,maintenance_mode,maintenance_message").limit(1),"Emergency settings"),row=r.data?.[0];if(!row)throw Error("Site settings row is missing.");$("maintenanceToggle").checked=!!row.maintenance_mode;$("maintenanceState").textContent=row.maintenance_mode?"Maintenance mode is ON":"Website is live";$("maintenanceMessage").value=row.maintenance_message||""}
+async function loadAnnouncements(){const r=await run(db.from("site_announcements").select("id,title,body,active,created_at").order("created_at",{ascending:false}),"Announcements");announcements=r.data||[];$("announcementList").innerHTML=announcements.length?announcements.map(a=>'<div class="item"><div class="itemtext"><strong>'+esc(a.title)+'</strong><small>'+(a.active?"Published":"Draft")+' · '+esc(new Date(a.created_at).toLocaleDateString())+'</small></div><div class="item-actions"><button class="secondary" data-edit-ann="'+a.id+'">Edit</button><button class="danger" data-delete-ann="'+a.id+'">Delete</button></div></div>').join(""):'<p class="empty">No announcements yet.</p>';$("announcementList").querySelectorAll("[data-edit-ann]").forEach(b=>b.onclick=()=>editAnnouncement(b.dataset.editAnn));$("announcementList").querySelectorAll("[data-delete-ann]").forEach(b=>b.onclick=()=>deleteAnnouncement(b.dataset.deleteAnn))}
+async function loadSecrets(){const r=await run(db.from("secret_pages").select("id,slug,title,body,published,created_at").order("created_at",{ascending:false}),"Secret pages");secretPages=r.data||[];$("secretList").innerHTML=secretPages.length?secretPages.map(p=>'<div class="item"><div class="itemtext"><strong>'+esc(p.title)+'</strong><small>/secret/'+esc(p.slug)+' · '+(p.published?"Published":"Draft")+'</small></div><div class="item-actions"><button class="secondary" data-edit-secret="'+p.id+'">Edit</button><button class="danger" data-delete-secret="'+p.id+'">Delete</button></div></div>').join(""):'<p class="empty">No secret pages yet.</p>';$("secretList").querySelectorAll("[data-edit-secret]").forEach(b=>b.onclick=()=>editSecret(b.dataset.editSecret));$("secretList").querySelectorAll("[data-delete-secret]").forEach(b=>b.onclick=()=>deleteSecret(b.dataset.deleteSecret))}
+async function refreshAll(){$("refreshBtn").disabled=true;try{const results=await Promise.allSettled([loadVisitors(),loadSections(),loadMaintenance(),loadAnnouncements(),loadSecrets()]),failed=results.filter(x=>x.status==="rejected");if(failed.length)throw Error(failed.map(x=>x.reason.message).join(" · "));setStatus("Dashboard is up to date.","ok")}catch(e){setStatus("Some dashboard data could not load: "+e.message,"error")}finally{$("refreshBtn").disabled=false}}
+function resetAnn(){editingAnnouncement=null;$("announcementTitle").value="";$("announcementBody").value="";$("announcementActive").checked=true;$("announcementEditor").classList.add("hidden")}
+function editAnnouncement(id){const a=announcements.find(x=>x.id===id);if(!a)return;editingAnnouncement=id;$("announcementTitle").value=a.title;$("announcementBody").value=a.body;$("announcementActive").checked=a.active;$("announcementEditor").classList.remove("hidden");$("announcementEditor").scrollIntoView({behavior:"smooth",block:"center"})}
+async function deleteAnnouncement(id){if(!confirm("Delete this announcement?"))return;try{await run(db.from("site_announcements").delete().eq("id",id),"Delete announcement");await loadAnnouncements();setStatus("Announcement deleted.","ok")}catch(e){setStatus("Delete failed: "+e.message,"error")}}
+function resetSecret(){editingSecret=null;$("secretTitle").value="";$("secretSlug").value="";$("secretBody").value="";$("secretPublished").checked=false;$("secretEditor").classList.add("hidden")}
+function editSecret(id){const p=secretPages.find(x=>x.id===id);if(!p)return;editingSecret=id;$("secretTitle").value=p.title;$("secretSlug").value=p.slug;$("secretBody").value=p.body;$("secretPublished").checked=p.published;$("secretEditor").classList.remove("hidden");$("secretEditor").scrollIntoView({behavior:"smooth",block:"center"})}
+async function deleteSecret(id){if(!confirm("Delete this secret page?"))return;try{await run(db.from("secret_pages").delete().eq("id",id),"Delete page");await loadSecrets();setStatus("Secret page deleted.","ok")}catch(e){setStatus("Delete failed: "+e.message,"error")}}
+$("refreshBtn").onclick=refreshAll;$("editModeBtn").onclick=()=>{editMode=!editMode;showEdit();setStatus(editMode?"Edit mode enabled.":"Edit mode disabled.")};
+$("saveMaintenance").onclick=async()=>{const b=$("saveMaintenance");b.disabled=true;try{await run(db.from("site_settings").update({maintenance_mode:$("maintenanceToggle").checked,maintenance_message:$("maintenanceMessage").value.trim()||"The website is temporarily unavailable while we carry out maintenance.",updated_at:new Date().toISOString()}).eq("id",true),"Save emergency settings");await loadMaintenance();setStatus("Emergency settings saved.","ok")}catch(e){setStatus("Could not save emergency settings: "+e.message,"error")}finally{b.disabled=false}};
+$("newAnnouncement").onclick=()=>{resetAnn();$("announcementEditor").classList.remove("hidden")};$("cancelAnnouncement").onclick=resetAnn;
+$("saveAnnouncement").onclick=async()=>{const title=$("announcementTitle").value.trim(),body=$("announcementBody").value.trim();if(!title||!body){setStatus("Enter both an announcement title and message.","error");return}const data={title,body,active:$("announcementActive").checked,updated_at:new Date().toISOString()};try{if(editingAnnouncement)await run(db.from("site_announcements").update(data).eq("id",editingAnnouncement),"Save announcement");else await run(db.from("site_announcements").insert(data),"Create announcement");resetAnn();await loadAnnouncements();setStatus("Announcement saved.","ok")}catch(e){setStatus("Could not save announcement: "+e.message,"error")}};
+$("newSecret").onclick=()=>{resetSecret();$("secretEditor").classList.remove("hidden")};$("cancelSecret").onclick=resetSecret;
+$("saveSecret").onclick=async()=>{const title=$("secretTitle").value.trim(),slug=$("secretSlug").value.trim().toLowerCase(),body=$("secretBody").value.trim();if(!title||!body||! /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)){setStatus("Enter a title, content and a valid URL slug.","error");return}const data={title,slug,body,published:$("secretPublished").checked,updated_at:new Date().toISOString()};try{if(editingSecret)await run(db.from("secret_pages").update(data).eq("id",editingSecret),"Save secret page");else await run(db.from("secret_pages").insert(data),"Create secret page");resetSecret();await loadSecrets();setStatus("Secret page saved.","ok")}catch(e){setStatus("Could not save page: "+e.message,"error")}};
+async function start(){try{await timeout(loadSupabase(),"Supabase library load",13000);db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{flowType:"implicit",detectSessionInUrl:false,persistSession:true,autoRefreshToken:true}});const params=new URLSearchParams(location.hash.slice(1)),at=params.get("access_token"),rt=params.get("refresh_token");if(location.hash)history.replaceState(null,"",location.pathname+location.search);if(at&&rt)await run(db.auth.setSession({access_token:at,refresh_token:rt}),"Google sign-in");const s=await run(db.auth.getSession(),"Session check");if(!s.data.session){setStatus("You are not signed in. Return to the homepage, type admin, and sign in with the owner Google account.","error");$("ownerLine").textContent="Not signed in";return}const u=await run(db.auth.getUser(),"Owner verification"),user=u.data.user;if(!user||String(user.email||"").toLowerCase()!==OWNER_EMAIL){await db.auth.signOut();throw Error("Access denied. This Google account is not authorised.")}$("ownerLine").textContent="Signed in as "+user.email;$("dashboard").classList.remove("hidden");$("signoutBtn").hidden=false;$("refreshBtn").disabled=false;$("editModeBtn").disabled=false;$("maintenanceToggle").disabled=false;$("saveMaintenance").disabled=false;$("signoutBtn").onclick=async()=>{if(!confirm("Sign out of Owner Admin?"))return;await db.auth.signOut();location.replace("/")};setStatus("Owner access verified. Loading dashboard…");await refreshAll();showEdit();setInterval(()=>loadVisitors().catch(e=>setStatus("Visitor refresh failed: "+e.message,"error")),30000)}catch(e){setStatus("Could not open Owner Admin: "+(e.message||"Unknown error"),"error");$("ownerLine").textContent="Owner verification failed"}}
+start();
+})();
+</script>
 </body>
 </html>
