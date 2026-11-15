@@ -29,13 +29,22 @@
     const status = document.getElementById("status");
     const signout = document.getElementById("signout");
 
+    // Capture the OAuth response, then remove the sensitive fragment immediately,
+    // before loading or initializing the Supabase client.
+    const callbackParams = new URLSearchParams(window.location.hash.slice(1));
+    const callbackAccessToken = callbackParams.get("access_token");
+    const callbackRefreshToken = callbackParams.get("refresh_token");
+    if (window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+
     const supabase = window.supabase.createClient(
-      "https://lnjeyqwteautkvwrkgbe.supabase.co",
+      "https://lnjeyqwteautkvwrkgzbe.supabase.co",
       "sb_publishable_T0lmc-JHGB-h9MXAVFEukQ_-oJ3NEpE",
       {
         auth: {
           flowType: "implicit",
-          detectSessionInUrl: true,
+          detectSessionInUrl: false,
           persistSession: true,
           autoRefreshToken: true
         }
@@ -59,16 +68,18 @@
       try {
         if (!window.supabase) throw new Error("The sign-in service did not load. Please reload this page.");
 
+        if (callbackAccessToken && callbackRefreshToken) {
+          const { error } = await supabase.auth.setSession({
+            access_token: callbackAccessToken,
+            refresh_token: callbackRefreshToken
+          });
+          if (error) throw error;
+        }
+
         const sessionResult = await Promise.race([
           supabase.auth.getSession(),
           new Promise((_, reject) => setTimeout(() => reject(new Error("The login check timed out. Please reload the page.")), 12000))
         ]);
-
-        // Supabase has now had the opportunity to process the OAuth callback.
-        // Remove access and refresh tokens from the visible address bar.
-        if (window.location.hash) {
-          window.history.replaceState(null, "", window.location.pathname + window.location.search);
-        }
 
         if (sessionResult.error) throw sessionResult.error;
         if (!sessionResult.data.session) {
@@ -87,9 +98,6 @@
 
         status.textContent = "Signed in as " + user.email + ". Owner access verified.";
       } catch (error) {
-        if (window.location.hash) {
-          window.history.replaceState(null, "", window.location.pathname + window.location.search);
-        }
         status.textContent = "Could not verify owner access: " + (error.message || "Please reload and try again.");
       }
     }
