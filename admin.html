@@ -15,7 +15,6 @@
     #signout { margin-top: 12px; }
     a { color: #9fc5e8; }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <main>
@@ -47,11 +46,40 @@
       ]).finally(() => window.clearTimeout(timer));
     }
 
+    function loadSupabase() {
+      if (window.supabase && typeof window.supabase.createClient === "function") {
+        return Promise.resolve();
+      }
+
+      return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        const timer = window.setTimeout(() => {
+          script.remove();
+          reject(new Error("Supabase did not load within 12 seconds. Check your connection or content blockers, then reload."));
+        }, 12000);
+
+        script.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+        script.async = true;
+        script.onload = () => {
+          window.clearTimeout(timer);
+          if (window.supabase && typeof window.supabase.createClient === "function") {
+            resolve();
+          } else {
+            reject(new Error("Supabase loaded, but its client library was unavailable. Please reload."));
+          }
+        };
+        script.onerror = () => {
+          window.clearTimeout(timer);
+          reject(new Error("Could not download the Supabase library. Check your connection or content blockers."));
+        };
+        document.head.appendChild(script);
+      });
+    }
+
     async function checkOwner() {
       try {
-        if (!window.supabase || typeof window.supabase.createClient !== "function") {
-          throw new Error("The sign-in service did not load. Check your connection and reload this page.");
-        }
+        status.textContent = "Loading secure sign-in service…";
+        await withTimeout(loadSupabase(), "Supabase library load", 13000);
 
         const client = window.supabase.createClient(
           "https://lnjeyqwteautkvwrkgbe.supabase.co",
