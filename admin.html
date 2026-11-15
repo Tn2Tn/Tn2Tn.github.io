@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Owner Admin | Tn 2 Tn</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; background: #222; color: #fff; font-family: Arial, sans-serif; }
+    main { width: min(560px, 100%); padding: 32px; border: 1px solid #46515c; border-radius: 16px; background: #31343c; text-align: center; }
+    h1 { color: #9fc5e8; margin-top: 0; }
+    p { line-height: 1.6; color: #d5dbe0; }
+    button { padding: 12px 20px; border: 0; border-radius: 8px; background: #234970; color: white; cursor: pointer; font-size: 15px; }
+    #status { min-height: 24px; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <main>
+    <h1>Owner Admin</h1>
+    <p id="status">Checking owner access…</p>
+    <button id="signout" hidden>Sign out</button>
+  </main>
+  <script>
+    const OWNER_EMAIL = "tn2tnpodcast@gmail.com";
+    const supabase = window.supabase.createClient(
+      "https://lnjeyqwteautkvwrkgbe.supabase.co",
+      "sb_publishable_T0lmc-JHGB-h9MXAVFEukQ_-oJ3NEpE"
+    );
+    const status = document.getElementById("status");
+    const signout = document.getElementById("signout");
+
+    async function checkOwner() {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (error || !user) {
+        window.location.replace("/");
+        return;
+      }
+      if ((user.email || "").toLowerCase() !== OWNER_EMAIL) {
+        await supabase.auth.signOut();
+        status.textContent = "Access denied. This Google account is not authorised.";
+        setTimeout(() => window.location.replace("/"), 1800);
+        return;
+      }
+      status.textContent = "Signed in as " + user.email + ". Owner access verified.";
+      signout.hidden = false;
+    }
+    signout.addEventListener("click", async () => {
+      await supabase.auth.signOut();
+      window.location.replace("/");
+    });
+    checkOwner();
+  </script>
+</body>
+</html>
