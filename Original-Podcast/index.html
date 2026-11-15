@@ -41,15 +41,8 @@ html.password-locked,html.password-locked body{overflow:hidden}
 @media(prefers-reduced-motion:reduce){#passwordGate,#passwordGate *{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
     <script>
-      try {
-        if (sessionStorage.getItem("ogPodcastAccess") === "granted") {
-          document.documentElement.classList.remove("password-locked");
-        } else {
-          document.documentElement.classList.add("password-locked");
-        }
-      } catch (error) {
-        document.documentElement.classList.add("password-locked");
-      }
+      // Always require the access code whenever this page is loaded.
+      document.documentElement.classList.add("password-locked");
     </script>
 
         <!-- 
@@ -270,11 +263,6 @@ html.password-locked,html.password-locked body{overflow:hidden}
             submit.textContent = "Access granted";
             gate.classList.add("is-success");
             error.textContent = "";
-            try {
-              sessionStorage.setItem("ogPodcastAccess", "granted");
-            } catch (storageError) {
-              // Access remains available for this page load if storage is unavailable.
-            }
             window.setTimeout(function () {
               gate.classList.add("is-exiting");
               window.setTimeout(function () {
