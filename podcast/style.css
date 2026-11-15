@@ -1210,7 +1210,7 @@ button {
 
 
 /* Subtle interaction polish */
-.btn-icon:hover,
+.btn-icon:hover:not(.skip),
 #speed-input:hover,
 .pag:hover {
   box-shadow: 0 4px 14px rgba(0, 177, 136, .16);
