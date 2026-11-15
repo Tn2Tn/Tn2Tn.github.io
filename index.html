@@ -402,7 +402,18 @@ border: 1px solid #0000;
   outline-offset: 3px;
 }
 
-</style>
+
+      /* Optional Supabase account panel */
+      .account-overlay { display:none; position:fixed; inset:0; z-index:2000; background:rgba(0,0,0,.78); align-items:center; justify-content:center; padding:20px; }
+      .account-panel { width:100%; max-width:390px; background:#31343c; color:#fff; border:1px solid #555b66; border-radius:16px; padding:26px; box-shadow:0 12px 40px #0009; font-family:Arial,sans-serif; }
+      .account-panel h2 { color:#fff; margin:0 0 18px; }
+      .account-panel input { width:100%; padding:12px; margin:7px 0; border:1px solid #626875; border-radius:8px; background:#22252b; color:#fff; font-size:15px; }
+      .account-actions { display:flex; flex-wrap:wrap; gap:9px; margin-top:12px; }
+      .account-actions button { border:0; border-radius:8px; padding:10px 13px; cursor:pointer; background:#234970; color:white; font-size:14px; }
+      .account-actions button.secondary { background:#50545d; }
+      #accountMessage { min-height:20px; margin-top:12px; color:#c8d6e5; font-size:13px; line-height:1.4; }
+      #accountClose { float:right; border:0; background:transparent; color:#fff; font-size:24px; cursor:pointer; }
+\n</style>
   </head>
   <body>
     <div class="top">
@@ -410,7 +421,7 @@ border: 1px solid #0000;
 <a href="https://tn2tn.github.io" style="height: 55px;">
   <img width="55px" height="55px" src="Tn 2 Tn.png" style="border-radius: 15px;" alt="Tn 2 Tn Logo">
 </a>        <button class="pag" onclick="openQuote()" style="color: #234970; border-width: 0px; font-weight: 900;">Show Today's Quote</button>
-          <a href="/" class="pag" style="color: #234970; margin-right: 10px;"><span class="material-symbols-rounded">home</span></a>
+          <button id="accountButton" class="pag" type="button" aria-label="Account" title="Account" style="color: #234970; margin-right: 10px; border: 0; cursor: pointer;"><span class="material-symbols-rounded">account_circle</span></button>
         </div>
       </div>
     </div>
@@ -529,6 +540,81 @@ function createVideoGallery() {
 // Initialize gallery
 createVideoGallery();
 
+    </script>
+
+    <div id="accountOverlay" class="account-overlay" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
+      <div class="account-panel">
+        <button id="accountClose" type="button" aria-label="Close account panel">×</button>
+        <h2 id="accountTitle">Your account</h2>
+        <div id="accountSignedOut">
+          <input id="accountEmail" type="email" autocomplete="email" placeholder="Email address" aria-label="Email address">
+          <input id="accountPassword" type="password" autocomplete="current-password" placeholder="Password" aria-label="Password">
+          <div class="account-actions">
+            <button id="accountLogin" type="button">Log in</button>
+            <button id="accountSignup" type="button" class="secondary">Sign up</button>
+            <button id="accountForgot" type="button" class="secondary">Forgot password?</button>
+          </div>
+        </div>
+        <div id="accountSignedIn" hidden>
+          <p id="accountUserEmail"></p>
+          <div class="account-actions"><button id="accountLogout" type="button">Log out</button></div>
+        </div>
+        <p id="accountMessage" role="status" aria-live="polite">You can keep browsing without an account.</p>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      (function () {
+        const SUPABASE_URL = "https://lnjeyqwteautkvwrkgbe.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_T0lmc-JHGB-h9MXAVFEukQ_-oJ3NEpE";
+        const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        const overlay = document.getElementById("accountOverlay");
+        const message = document.getElementById("accountMessage");
+        const signedOut = document.getElementById("accountSignedOut");
+        const signedIn = document.getElementById("accountSignedIn");
+        const emailInput = document.getElementById("accountEmail");
+        const passwordInput = document.getElementById("accountPassword");
+        const setMessage = (text) => { message.textContent = text; };
+        const showUser = (user) => {
+          signedOut.hidden = !!user;
+          signedIn.hidden = !user;
+          document.getElementById("accountUserEmail").textContent = user ? user.email : "";
+          document.getElementById("accountButton").setAttribute("aria-label", user ? "Account: " + user.email : "Account");
+        };
+        const openPanel = async () => {
+          overlay.style.display = "flex";
+          const { data } = await client.auth.getUser();
+          showUser(data.user);
+          setMessage(data.user ? "You are signed in." : "You can keep browsing without an account.");
+        };
+        document.getElementById("accountButton").addEventListener("click", openPanel);
+        document.getElementById("accountClose").addEventListener("click", () => overlay.style.display = "none");
+        overlay.addEventListener("click", (event) => { if (event.target === overlay) overlay.style.display = "none"; });
+        document.getElementById("accountLogin").addEventListener("click", async () => {
+          const { data, error } = await client.auth.signInWithPassword({ email: emailInput.value.trim(), password: passwordInput.value });
+          if (error) return setMessage(error.message);
+          showUser(data.user); setMessage("You are now logged in.");
+        });
+        document.getElementById("accountSignup").addEventListener("click", async () => {
+          const { data, error } = await client.auth.signUp({ email: emailInput.value.trim(), password: passwordInput.value });
+          if (error) return setMessage(error.message);
+          if (data.session) { showUser(data.user); setMessage("Your account has been created."); }
+          else setMessage("Check your email for a confirmation link to finish creating your account.");
+        });
+        document.getElementById("accountForgot").addEventListener("click", async () => {
+          const email = emailInput.value.trim();
+          if (!email) return setMessage("Enter your email address first.");
+          const { error } = await client.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin });
+          setMessage(error ? error.message : "If an account exists for that email, a password reset link has been sent.");
+        });
+        document.getElementById("accountLogout").addEventListener("click", async () => {
+          const { error } = await client.auth.signOut();
+          if (error) return setMessage(error.message);
+          showUser(null); passwordInput.value = ""; setMessage("You have been logged out.");
+        });
+        client.auth.onAuthStateChange((_event, session) => showUser(session && session.user));
+      })();
     </script>
     <script src="qoutes.js"></script>
     <script src="signup.js"></script>
