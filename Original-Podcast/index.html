@@ -28,32 +28,48 @@
         align-items: center;
         justify-content: center;
         padding: 24px;
+        overflow: hidden;
         background:
-          radial-gradient(ellipse at 50% 35%, rgba(217, 86, 59, .16), transparent 55%),
-          #171717;
+          radial-gradient(ellipse at 50% 48%, rgba(112, 31, 20, .38), transparent 62%),
+          repeating-linear-gradient(125deg, rgba(255,255,255,.012) 0 1px, transparent 1px 5px),
+          repeating-linear-gradient(35deg, rgba(0,0,0,.08) 0 1px, transparent 1px 6px),
+          #211916;
         font-family: Arial, sans-serif;
         opacity: 1;
         transition: opacity .65s ease;
       }
+      #passwordGate::before {
+        content: "";
+        position: absolute;
+        inset: 10px;
+        border: 1px solid rgba(160, 65, 43, .16);
+        border-radius: 19px;
+        box-shadow: inset 0 0 48px rgba(111, 35, 22, .16);
+        pointer-events: none;
+      }
       #passwordGate .password-card {
-        width: min(100%, 390px);
-        padding: 38px 30px;
-        border: 1px solid rgba(217, 86, 59, .38);
-        border-radius: 18px;
-        background: rgba(39, 34, 33, .96);
-        box-shadow: 0 18px 60px rgba(0, 0, 0, .5);
+        position: relative;
+        z-index: 1;
+        width: min(100%, 465px);
+        padding: 36px 30px 28px;
+        border: 1px solid rgba(194, 75, 48, .72);
+        border-radius: 13px;
+        background: #080707;
+        box-shadow: 0 0 0 1px rgba(120, 39, 26, .2), 0 0 25px rgba(180, 61, 37, .35), 0 15px 45px rgba(0,0,0,.55);
         text-align: center;
         transition: border-color .35s ease, box-shadow .35s ease;
       }
       #passwordGate h1 {
         margin: 0 0 10px;
         color: #fff;
-        font-size: 27px;
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -.4px;
       }
       #passwordGate p {
         margin: 0 0 24px;
-        color: #bbb;
-        font-size: 14px;
+        color: #c8c2c0;
+        font-size: 15px;
       }
       #passwordGate .password-input-wrap {
         position: relative;
@@ -61,15 +77,16 @@
       #podcastPassword {
         display: block;
         width: 100%;
-        height: 48px;
+        height: 49px;
         padding: 0 48px 0 14px;
-        border: 1px solid #65504b;
-        border-radius: 9px;
+        border: 1px solid #63372e;
+        border-radius: 8px;
         outline: none;
-        background: #171717;
+        background: #171313;
         color: #fff;
         text-align: center;
         font-size: 16px;
+        transition: border-color .2s ease, box-shadow .2s ease;
       }
       #podcastPassword:focus {
         border-color: #d9563b;
@@ -88,27 +105,31 @@
         background: transparent;
         color: #aaa;
         cursor: pointer;
+        transition: color .2s ease, background .2s ease;
       }
       #passwordVisibility:hover {
         color: #fff;
+        background: rgba(217,86,59,.12);
       }
       #passwordVisibility .material-symbols-rounded { font-size: 21px; }
       #passwordSubmit {
         width: 100%;
-        height: 46px;
+        height: 47px;
         margin-top: 14px;
-        border: 0;
-        border-radius: 9px;
-        background: #d9563b;
+        border: 1px solid rgba(221, 91, 62, .65);
+        border-radius: 8px;
+        background: linear-gradient(180deg, #c94e35, #a93625);
         color: #fff;
         font-size: 15px;
-        font-weight: 700;
+        font-weight: 800;
         cursor: pointer;
-        transition: filter .2s ease, transform .2s ease, background .3s ease;
+        box-shadow: 0 4px 15px rgba(158, 49, 31, .2);
+        transition: filter .2s ease, transform .2s ease, background .3s ease, box-shadow .3s ease;
       }
       #passwordSubmit:hover {
         filter: brightness(1.12);
         transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(190, 59, 37, .3);
       }
       #passwordSubmit:disabled { cursor: default; }
       #passwordError {
@@ -119,14 +140,32 @@
       }
       #passwordGate.is-success .password-card {
         border-color: rgba(112,208,151,.75);
-        box-shadow: 0 0 35px rgba(112,208,151,.16), 0 18px 60px rgba(0,0,0,.45);
+        box-shadow: 0 0 0 1px rgba(112,208,151,.12), 0 0 45px rgba(112,208,151,.2), 0 15px 45px rgba(0,0,0,.5);
+        animation: gateSuccessPulse .55s ease;
       }
       #passwordGate.is-success #passwordSubmit {
+        border-color: rgba(112,208,151,.65);
         background: #31865a;
+        box-shadow: 0 0 25px rgba(70,190,125,.3);
       }
       #passwordGate.is-exiting {
         opacity: 0;
         pointer-events: none;
+      }
+      #passwordGate.is-exiting .password-card {
+        animation: gateExit .65s cubic-bezier(.2,.8,.2,1) forwards;
+      }
+      @keyframes gateSuccessPulse {
+        0% { transform: scale(1); }
+        45% { transform: scale(1.035); }
+        100% { transform: scale(1); }
+      }
+      @keyframes gateExit {
+        to { transform: translateY(-18px) scale(.88); opacity: 0; filter: blur(8px); }
+      }
+      @media (max-width: 480px) {
+        #passwordGate .password-card { padding: 32px 22px 24px; }
+        #passwordGate h1 { font-size: 25px; }
       }
       @media (prefers-reduced-motion: reduce) {
         #passwordGate, #passwordGate * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
