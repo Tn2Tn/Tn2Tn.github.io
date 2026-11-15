@@ -21,7 +21,7 @@
   <main>
     <h1>Owner Admin</h1>
     <p id="status" role="status" aria-live="polite">Checking owner access…</p>
-    <button id="signout" type="button">Sign out</button>
+    <button id="signout" type="button" hidden>Sign out</button>
     <p><a href="/">Back to homepage</a></p>
   </main>
   <script>
@@ -29,8 +29,7 @@
     const status = document.getElementById("status");
     const signout = document.getElementById("signout");
 
-    // Capture the OAuth response, then remove the sensitive fragment immediately,
-    // before loading or initializing the Supabase client.
+    // Save the OAuth response and immediately remove credentials from the address bar.
     const callbackParams = new URLSearchParams(window.location.hash.slice(1));
     const callbackAccessToken = callbackParams.get("access_token");
     const callbackRefreshToken = callbackParams.get("refresh_token");
@@ -38,67 +37,83 @@
       window.history.replaceState(null, "", window.location.pathname + window.location.search);
     }
 
-    const supabase = window.supabase.createClient(
-      "https://lnjeyqwteautkvwrkgbe.supabase.co",
-      "sb_publishable_T0lmc-JHGB-h9MXAVFEukQ_-oJ3NEpE",
-      {
-        auth: {
-          flowType: "implicit",
-          detectSessionInUrl: false,
-          persistSession: true,
-          autoRefreshToken: true
-        }
-      }
-    );
-
-    signout.addEventListener("click", async () => {
-      signout.disabled = true;
-      status.textContent = "Signing out…";
-      try {
-        const { error } = await supabase.auth.signOut();
-        if (error) throw error;
-        window.location.replace("/");
-      } catch (error) {
-        status.textContent = "Could not sign out: " + (error.message || "Please try again.");
-        signout.disabled = false;
-      }
-    });
+    function withTimeout(promise, label, milliseconds = 15000) {
+      let timer;
+      return Promise.race([
+        promise,
+        new Promise((_, reject) => {
+          timer = window.setTimeout(() => reject(new Error(label + " timed out. Please reload and try again.")), milliseconds);
+        })
+      ]).finally(() => window.clearTimeout(timer));
+    }
 
     async function checkOwner() {
       try {
-        if (!window.supabase) throw new Error("The sign-in service did not load. Please reload this page.");
+        if (!window.supabase || typeof window.supabase.createClient !== "function") {
+          throw new Error("The sign-in service did not load. Check your connection and reload this page.");
+        }
+
+        const client = window.supabase.createClient(
+          "https://lnjeyqwteautkvwrkgbe.supabase.co",
+          "sb_publishable_T0lmc-JHGB-h9MXAVFEukQ_-oJ3NEpE",
+          {
+            auth: {
+              flowType: "implicit",
+              detectSessionInUrl: false,
+              persistSession: true,
+              autoRefreshToken: true
+            }
+          }
+        );
+
+        signout.hidden = false;
+        signout.addEventListener("click", async () => {
+          signout.disabled = true;
+          status.textContent = "Signing out…";
+          try {
+            const { error } = await withTimeout(client.auth.signOut(), "Sign out");
+            if (error) throw error;
+            window.location.replace("/");
+          } catch (error) {
+            status.textContent = "Could not sign out: " + (error.message || "Please try again.");
+            signout.disabled = false;
+          }
+        });
 
         if (callbackAccessToken && callbackRefreshToken) {
-          const { error } = await supabase.auth.setSession({
-            access_token: callbackAccessToken,
-            refresh_token: callbackRefreshToken
-          });
+          status.textContent = "Finishing Google sign-in…";
+          const { error } = await withTimeout(
+            client.auth.setSession({
+              access_token: callbackAccessToken,
+              refresh_token: callbackRefreshToken
+            }),
+            "Google sign-in"
+          );
           if (error) throw error;
         }
 
-        const sessionResult = await Promise.race([
-          supabase.auth.getSession(),
-          new Promise((_, reject) => setTimeout(() => reject(new Error("The login check timed out. Please reload the page.")), 12000))
-        ]);
-
+        status.textContent = "Verifying owner account…";
+        const sessionResult = await withTimeout(client.auth.getSession(), "Session check");
         if (sessionResult.error) throw sessionResult.error;
+
         if (!sessionResult.data.session) {
-          status.textContent = "No active sign-in found. Return to the homepage and type admin to sign in.";
+          status.textContent = "No active sign-in found. Return to the homepage, type admin, and sign in again.";
           return;
         }
 
-        const { data, error } = await supabase.auth.getUser();
-        if (error) throw error;
-        const user = data.user;
+        const userResult = await withTimeout(client.auth.getUser(), "Owner verification");
+        if (userResult.error) throw userResult.error;
+
+        const user = userResult.data.user;
         if (!user || (user.email || "").toLowerCase() !== OWNER_EMAIL) {
-          await supabase.auth.signOut();
+          await withTimeout(client.auth.signOut(), "Sign out");
           status.textContent = "Access denied. This Google account is not authorised.";
           return;
         }
 
         status.textContent = "Signed in as " + user.email + ". Owner access verified.";
       } catch (error) {
-        status.textContent = "Could not verify owner access: " + (error.message || "Please reload and try again.");
+        status.textContent = "Could not verify owner access: " + (error.message || "Unknown error. Please reload and try again.");
       }
     }
 
