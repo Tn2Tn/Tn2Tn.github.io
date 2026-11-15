@@ -2,6 +2,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Player Controls
 
+// Block every playback request while the Original Podcast password gate is active.
+// This also catches playback started by browser/lock-screen media controls.
+if (typeof audioSource !== "undefined" && audioSource) {
+  audioSource.addEventListener("play", () => {
+    if (document.documentElement.classList.contains("password-locked")) {
+      audioSource.pause();
+    }
+  });
+}
+
 const playBtn = document.querySelector('[data-play-btn]');
 
 const playerSeekRange = document.querySelector('[data-seek]');
