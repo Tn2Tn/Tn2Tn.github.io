@@ -524,5 +524,73 @@ createVideoGallery();
 
     <script src="qoutes.js"></script>
     <script src="signup.js"></script>
+  
+    <style>
+      #ownerLoginOverlay { display:none; position:fixed; inset:0; z-index:3000; background:rgba(0,0,0,.82); align-items:center; justify-content:center; padding:20px; }
+      #ownerLoginBox { width:min(390px,100%); padding:28px; border:1px solid #596574; border-radius:16px; background:#31343c; color:#fff; text-align:center; box-shadow:0 12px 40px #0008; font-family:Arial,sans-serif; }
+      #ownerLoginBox h2 { margin:0 0 12px; color:#9fc5e8; }
+      #ownerLoginBox p { color:#d5dbe0; line-height:1.5; }
+      #ownerLoginBox button { margin:8px 5px 0; padding:11px 17px; border:0; border-radius:8px; cursor:pointer; font-size:14px; }
+      #ownerGoogleSignIn { background:#234970; color:white; }
+      #ownerLoginClose { background:#555b63; color:white; }
+      #ownerLoginStatus { min-height:20px; font-size:13px; }
+    </style>
+    <div id="ownerLoginOverlay" role="dialog" aria-modal="true" aria-labelledby="ownerLoginTitle">
+      <div id="ownerLoginBox">
+        <h2 id="ownerLoginTitle">Owner sign-in</h2>
+        <p>Sign in with the authorised Google account to continue.</p>
+        <p id="ownerLoginStatus" aria-live="polite"></p>
+        <button id="ownerGoogleSignIn">Continue with Google</button>
+        <button id="ownerLoginClose">Cancel</button>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      (() => {
+        const supabase = window.supabase.createClient(
+          "https://lnjeyqwteautkvwrkgbe.supabase.co",
+          "sb_publishable_T0lmc-JHGB-h9MXAVFEukQ_-oJ3NEpE"
+        );
+        const overlay = document.getElementById("ownerLoginOverlay");
+        const status = document.getElementById("ownerLoginStatus");
+        let typed = "";
+        let lastKeyTime = 0;
+
+        document.addEventListener("keydown", (event) => {
+          if (event.ctrlKey || event.altKey || event.metaKey) return;
+          if (event.target && (event.target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName))) return;
+          const now = Date.now();
+          if (now - lastKeyTime > 1800) typed = "";
+          lastKeyTime = now;
+          if (event.key.length === 1) {
+            typed = (typed + event.key.toLowerCase()).slice(-5);
+            if (typed === "admin") {
+              overlay.style.display = "flex";
+              status.textContent = "";
+              typed = "";
+            }
+          } else if (event.key === "Escape") {
+            overlay.style.display = "none";
+            typed = "";
+          }
+        });
+
+        document.getElementById("ownerLoginClose").addEventListener("click", () => {
+          overlay.style.display = "none";
+        });
+        overlay.addEventListener("click", (event) => {
+          if (event.target === overlay) overlay.style.display = "none";
+        });
+        document.getElementById("ownerGoogleSignIn").addEventListener("click", async () => {
+          status.textContent = "Opening Google sign-in…";
+          const { error } = await supabase.auth.signInWithOAuth({
+            provider: "google",
+            options: { redirectTo: window.location.origin + "/admin.html" }
+          });
+          if (error) status.textContent = "Sign-in could not start. Please try again.";
+        });
+      })();
+    </script>
+
   </body>
 </html> 
