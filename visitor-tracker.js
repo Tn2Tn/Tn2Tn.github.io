@@ -20,11 +20,21 @@
     }
 
     const heartbeat = () => {
-      db.rpc("record_site_visit", {
-        p_session_id: sessionId,
-        p_page_path: window.location.pathname
-      }).then(({ error }) => {
-        if (error) console.warn("Visitor heartbeat failed:", error.message);
+      fetch(`${SUPABASE_URL}/functions/v1/record-visitor`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_KEY
+        },
+        body: JSON.stringify({
+          session_id: sessionId,
+          page_path: window.location.pathname
+        })
+      }).then(async response => {
+        if (!response.ok) {
+          const detail = await response.text();
+          throw new Error(detail || `HTTP ${response.status}`);
+        }
       }).catch(error => console.warn("Visitor heartbeat failed:", error));
     };
 
