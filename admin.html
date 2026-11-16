@@ -76,12 +76,12 @@ a:hover{color:#ffad7e;text-shadow:0 0 10px rgba(194,64,4,.3)}
 @media(max-width:720px){.stats{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.wide{grid-column:auto}.wrap{padding:16px 12px 38px}.top{padding:17px}.brand h1{font-size:25px}.stat,.panel{padding:16px}}
 
 /* Custom black-and-red glowing mouse cursor */
-#admin-custom-cursor{display:none;position:fixed;left:0;top:0;width:19px;height:19px;border:2px solid #ff315b;border-radius:50%;background:rgba(5,5,7,.96);box-shadow:0 0 7px #ff174d,0 0 17px rgba(255,23,77,.85),0 0 30px rgba(255,23,77,.42);pointer-events:none;z-index:2147483647;transform:translate(-50%,-50%);transition:width .16s ease,height .16s ease,border-color .16s ease,box-shadow .16s ease;animation:adminCursorGlow 2s ease-in-out infinite}
-#admin-custom-cursor:after{content:"";position:absolute;inset:4px;border-radius:50%;background:#090709;box-shadow:0 0 5px rgba(255,49,91,.8)}
-@keyframes adminCursorGlow{0%,100%{box-shadow:0 0 7px #ff174d,0 0 17px rgba(255,23,77,.75),0 0 28px rgba(255,23,77,.35)}50%{box-shadow:0 0 10px #ff315b,0 0 23px rgba(255,23,77,.95),0 0 38px rgba(255,23,77,.55)}}
-#admin-custom-cursor.cursor-hover{width:27px;height:27px;border-color:#ff7892;box-shadow:0 0 10px #ff174d,0 0 25px rgba(255,23,77,.95),0 0 42px rgba(255,23,77,.55)}
+#admin-custom-cursor{display:none;position:fixed;left:0;top:0;width:19px;height:19px;border:2px solid #ff315b;border-radius:50%;background:#050507;box-shadow:0 0 8px rgba(255,23,77,.55);pointer-events:none;z-index:2147483647;transform:translate3d(-50%,-50%,0);will-change:left,top;width,height;contain:layout style;transition:width .12s ease,height .12s ease,border-color .12s ease}
+
+
+#admin-custom-cursor.cursor-hover{width:25px;height:25px;border-color:#ff7892;box-shadow:0 0 9px rgba(255,23,77,.65)}
 @media (hover:hover) and (pointer:fine){body,body *{cursor:none!important}#admin-custom-cursor{display:block}}
-@media (prefers-reduced-motion:reduce){#admin-custom-cursor{animation:none;transition:none}}
+@media (prefers-reduced-motion:reduce){#admin-custom-cursor{transition:none}}
 </style>
 </head>
 <body>
