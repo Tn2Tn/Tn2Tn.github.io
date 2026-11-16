@@ -402,7 +402,7 @@ speedInput.style.fontSize = isMobile ? "0.85rem" : "1rem";
 
 // Download Button
 
-downloadBtn.addEventListener("click", function () {
+if (downloadBtn) downloadBtn.addEventListener("click", function () {
 
 // Get the current podcast's audio file URL
 

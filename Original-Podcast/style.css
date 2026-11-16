@@ -1216,3 +1216,22 @@ button {
 }
 #speed-input { transition: background-color 180ms ease, box-shadow 180ms ease; }
 .podcast-banner { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+
+/* Keep the Original Podcast player controls in a clean, standard row. */
+.player-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 16px;
+  width: 100%;
+}
+.player-control > .btn-icon,
+.player-control > .speed-container { flex: 0 0 auto; }
+.player-control .btn-icon { width: 48px; height: 48px; }
+.player-control .btn-icon.play { width: 64px; height: 64px; }
+@media (max-width: 900px) {
+  .player-control { gap: 12px; }
+  .player-control .btn-icon { width: 40px; height: 40px; }
+  .player-control .btn-icon.play { width: 56px; height: 56px; }
+}
