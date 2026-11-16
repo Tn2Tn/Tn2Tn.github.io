@@ -471,15 +471,43 @@ border: 1px solid #0000;
       const videos = [
         {
           id: 1,
+          sectionKey: "page_podcast",
           title: "Podcast",
           date: "October 22nd 2026",
           org: "Tn² Podcast",
           thumbnail: "Tn 2 Tn.png",
           videoUrl: "/podcast"
         },
-
         {
           id: 2,
+          sectionKey: "page_90_seconds",
+          title: "90 Seconds To תורה",
+          date: "November 22nd 2024",
+          org: "Tn 2 Tn Podcast",
+          thumbnail: "90s.png",
+          videoUrl: "/90_Seconds"
+        },
+        {
+          id: 3,
+          sectionKey: "page_videos",
+          title: "Videos",
+          date: "January 1st 2025",
+          org: "Tn 2 Tn Podcast",
+          thumbnail: "Tn 2 Tn Videos.png",
+          videoUrl: "/videos"
+        },
+        {
+          id: 4,
+          sectionKey: "page_ll",
+          title: "Hashkafa & Halocho",
+          date: "Comming soon",
+          org: "לשמור ולעשות ",
+          thumbnail: "LL/2L.png",
+          videoUrl: "/LL"
+        },
+        {
+          id: 5,
+          sectionKey: "page_original_podcast",
           title: "Original Podcast",
           date: "A looong time ago",
           org: "Tn 2 Tn Podcast",
@@ -498,7 +526,7 @@ function createVideoGallery() {
       : `https://via.placeholder.com/150/000000/FFFFFF?text=${encodeURIComponent(video.title)}`;
 
     gallery.innerHTML += `
-      <a href="${video.videoUrl}" class="video-item">
+      <a href="${video.videoUrl}" class="video-item" data-page-panel data-page-key="${video.sectionKey}">
         <div class="video-overlay">
           <span class="video-date">Latest : ${video.date}</span>
           <h3 class="video-title">${video.title}</h3>

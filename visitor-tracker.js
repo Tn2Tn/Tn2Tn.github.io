@@ -51,30 +51,41 @@
       if (sectionsError) console.warn("Could not load section settings:", sectionsError.message);
       if (!sectionsError && sections) {
         const settings = Object.fromEntries(sections.map(row => [row.section_key, row.enabled]));
-        const pageControls = [{key:"page_homepage",path:"/" ,label:"Homepage"},{key:"page_podcast",path:"/podcast/",label:"Podcast"},{key:"page_original_podcast",path:"/Original-Podcast/",label:"Original Podcast"},{key:"page_ll",path:"/LL/",label:"LL"},{key:"page_videos",path:"/videos/",label:"Videos"},{key:"page_90_seconds",path:"/90_Seconds/",label:"90 Seconds"}];
-        const cleanPath = path => (path.length > 1 && path.endsWith("/") ? path.slice(0,-1) : path);
-        // Page switches control the visibility of navigation panels and cards only.
-        // They never block access to a page opened directly by URL.
+        const pageControls = [
+          {key:"page_homepage",path:"/",label:"Homepage"},
+          {key:"page_podcast",path:"/podcast/",label:"Podcast"},
+          {key:"page_original_podcast",path:"/Original-Podcast/",label:"Original Podcast"},
+          {key:"page_ll",path:"/LL/",label:"LL"},
+          {key:"page_videos",path:"/videos/",label:"Videos"},
+          {key:"page_90_seconds",path:"/90_Seconds/",label:"90 Seconds"}
+        ];
+        const cleanPath = path => path.length > 1 && path.endsWith("/") ? path.slice(0,-1) : path;
+        // Explicit page panels use their own switch key. Direct page URLs remain accessible.
+        const setPanelVisibility = (panel, key) => {
+          if (!panel || !key || !Object.prototype.hasOwnProperty.call(settings, key)) return;
+          if (!panel.hasAttribute("data-page-control-original-hidden")) {
+            panel.setAttribute("data-page-control-original-hidden", panel.hidden ? "1" : "0");
+          }
+          const shouldHide = settings[key] === false ||
+            panel.getAttribute("data-page-control-original-hidden") === "1";
+          panel.hidden = shouldHide;
+          if (shouldHide) panel.setAttribute("aria-hidden", "true");
+          else panel.removeAttribute("aria-hidden");
+        };
         const applyPageVisibility = () => {
+          document.querySelectorAll("[data-page-panel][data-page-key]").forEach(panel => {
+            setPanelVisibility(panel, panel.getAttribute("data-page-key"));
+          });
           document.querySelectorAll("a[href]").forEach(link => {
+            if (link.closest("[data-page-panel][data-page-key]")) return;
             let target;
-            try {
-              target = new URL(link.href, window.location.origin);
-            } catch (_) {
-              return;
-            }
+            try { target = new URL(link.href, window.location.origin); }
+            catch (_) { return; }
             if (target.origin !== window.location.origin) return;
             const page = pageControls.find(item => cleanPath(item.path) === cleanPath(target.pathname));
             if (!page) return;
-
             const panel = link.closest(".video-item, .pag, .page-panel, [data-page-panel]") || link;
-            if (!panel.hasAttribute("data-page-control-original-hidden")) {
-              panel.setAttribute("data-page-control-original-hidden", panel.hidden ? "1" : "0");
-            }
-            const shouldHide = settings[page.key] === false;
-            panel.hidden = shouldHide || panel.getAttribute("data-page-control-original-hidden") === "1";
-            if (panel.hidden) panel.setAttribute("aria-hidden", "true");
-            else panel.removeAttribute("aria-hidden");
+            setPanelVisibility(panel, page.key);
           });
         };
 
