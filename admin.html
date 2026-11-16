@@ -33,9 +33,9 @@ button:disabled{opacity:.55;cursor:wait}
 .status.error{border-color:#a13a52;color:#ffc0cc;box-shadow:0 0 18px rgba(170,35,65,.12)}
 .status.ok{border-color:#70404e;color:#efc0cb}
 .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:19px}
-.stat,.panel{position:relative;overflow:hidden;background:linear-gradient(145deg,rgba(31,18,25,.98),rgba(17,13,17,.98));border:1px solid var(--line-soft);border-radius:16px;padding:19px;box-shadow:0 9px 28px rgba(0,0,0,.25);transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;animation:adminEnter .6s ease both}
+.stat,.panel{position:relative;overflow:auto;background:rgba(48,10,24,.38);border:1px solid rgba(130,38,64,.38);border-radius:15px;padding:19px;box-shadow:inset 0 0 12px rgba(0,0,0,.82),0 9px 28px rgba(0,0,0,.25);transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease,background .3s ease;animation:adminEnter 1s ease-out both}
 .stat:before,.panel:before{content:"";position:absolute;inset:0 18% auto;height:1px;background:linear-gradient(90deg,transparent,rgba(255,137,164,.55),transparent);pointer-events:none}
-.stat:hover,.panel:hover{transform:translateY(-3px);border-color:#773348;box-shadow:0 13px 34px rgba(0,0,0,.32),0 0 22px rgba(151,30,65,.12)}
+.stat:hover,.panel:hover{transform:translateY(-3px);border-color:#9a3654;background:rgba(62,12,29,.48);box-shadow:inset 0 0 15px rgba(0,0,0,.9),0 13px 34px rgba(0,0,0,.32),0 0 22px rgba(151,30,65,.18)}
 .stat:nth-child(2){animation-delay:.07s}.stat:nth-child(3){animation-delay:.14s}
 .stat small{color:var(--muted);letter-spacing:.025em}
 .stat strong{display:block;font-size:34px;margin-top:5px;color:#ffe2e9;text-shadow:0 0 18px rgba(221,67,108,.22);font-variant-numeric:tabular-nums}
