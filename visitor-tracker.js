@@ -52,18 +52,17 @@
       if (!sectionsError && sections) {
         const settings = Object.fromEntries(sections.map(row => [row.section_key, row.enabled]));
 
-        if (settings.quote_overlay === false) {
-          const quoteButton = [...document.querySelectorAll("button")]
-            .find(button => button.textContent.trim().toLowerCase().includes("show today's quote"));
-          if (quoteButton) quoteButton.hidden = true;
-          const quoteOverlay = document.getElementById("quoteOverlay");
-          if (quoteOverlay) quoteOverlay.hidden = true;
-        }
+        // Apply both ON and OFF states on every page that includes this tracker.
+        const quotesEnabled = settings.quote_overlay !== false;
+        const quoteButtons = [...document.querySelectorAll("button")]
+          .filter(button => button.textContent.trim().toLowerCase().includes("show today's quote"));
+        quoteButtons.forEach(button => { button.hidden = !quotesEnabled; });
+        const quoteOverlay = document.getElementById("quoteOverlay");
+        if (quoteOverlay && !quotesEnabled) quoteOverlay.hidden = true;
 
-        if (settings.podcast_gallery === false) {
-          const gallery = document.querySelector(".gallery-container");
-          if (gallery) gallery.hidden = true;
-        }
+        const galleryEnabled = settings.podcast_gallery !== false;
+        document.querySelectorAll(".gallery-container, #galleryContainer")
+          .forEach(gallery => { gallery.hidden = !galleryEnabled; });
       }
 
       if (siteError) {
