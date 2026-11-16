@@ -51,6 +51,18 @@
       if (sectionsError) console.warn("Could not load section settings:", sectionsError.message);
       if (!sectionsError && sections) {
         const settings = Object.fromEntries(sections.map(row => [row.section_key, row.enabled]));
+        const pageControls = [{key:"page_homepage",path:"/" ,label:"Homepage"},{key:"page_podcast",path:"/podcast/",label:"Podcast"},{key:"page_original_podcast",path:"/Original-Podcast/",label:"Original Podcast"},{key:"page_ll",path:"/LL/",label:"LL"},{key:"page_videos",path:"/videos/",label:"Videos"},{key:"page_90_seconds",path:"/90_Seconds/",label:"90 Seconds"}];
+        const cleanPath = path => path.replace(/\\/+$/, "") || "/";
+        const currentPage = pageControls.find(page => cleanPath(page.path) === cleanPath(window.location.pathname));
+        if (currentPage && settings[currentPage.key] === false) {
+          const cover=document.createElement("div"); cover.id="site-page-disabled"; cover.setAttribute("role","status"); cover.style.cssText="position:fixed;inset:0;z-index:100000;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at 50% 35%,#260914,#080709 70%);color:#fff;font-family:Arial,sans-serif;text-align:center";
+          const card=document.createElement("div"); card.style.cssText="width:min(520px,100%);padding:38px 28px;border-radius:18px;background:#10090d;box-shadow:inset 0 0 28px rgba(181,18,54,.35),0 18px 55px #0009";
+          const title=document.createElement("h1"); title.textContent=currentPage.label; title.style.color="#ff315b";
+          const message=document.createElement("p"); message.textContent="This page is temporarily unavailable.";
+          const back=document.createElement("a"); back.href="/"; back.textContent="Return to the homepage"; back.style.cssText="display:inline-block;margin-top:22px;color:#ff315b";
+          card.append(title,message,back); cover.appendChild(card); document.body.appendChild(cover);
+        }
+        pageControls.forEach(page=>{if(settings[page.key]!==false)return;document.querySelectorAll("a[href]").forEach(link=>{try{const target=new URL(link.href,location.origin);if(target.origin===location.origin&&cleanPath(target.pathname)===cleanPath(page.path)){link.hidden=true;link.setAttribute("aria-hidden","true");}}catch(_){}});});
 
         // Apply both ON and OFF states on every page that includes this tracker.
         const quotesEnabled = settings.quote_overlay !== false;
