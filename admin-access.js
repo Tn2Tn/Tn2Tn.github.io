@@ -12,14 +12,23 @@
 
     const style = document.createElement("style");
     style.textContent = `
-      #ownerLoginOverlay{display:none;position:fixed;inset:0;z-index:100001;background:rgba(0,0,0,.84);align-items:center;justify-content:center;padding:20px;font-family:Arial,sans-serif}
-      #ownerLoginBox{width:min(390px,100%);padding:28px;border:1px solid #596574;border-radius:16px;background:#242126;color:#fff;text-align:center;box-shadow:0 12px 40px #0008}
-      #ownerLoginBox h2{margin:0 0 12px;color:#d7a0a8}
-      #ownerLoginBox p{color:#d5dbe0;line-height:1.5}
-      #ownerLoginBox button{margin:8px 5px 0;padding:11px 17px;border:0;border-radius:8px;cursor:pointer;font-size:14px}
-      #ownerGoogleSignIn{background:#741f30;color:white}
-      #ownerLoginClose{background:#555b63;color:white}
-      #ownerLoginStatus{min-height:20px;font-size:13px}
+      #ownerLoginOverlay{display:none;position:fixed;inset:0;z-index:100001;background:radial-gradient(ellipse at center,rgba(116,31,48,.25),transparent 62%),rgba(0,0,0,.88);align-items:center;justify-content:center;padding:20px;font-family:Arial,sans-serif;animation:ownerOverlayIn .28s ease both}
+      #ownerLoginBox{position:relative;overflow:hidden;width:min(410px,100%);padding:34px 30px;border:1px solid rgba(230,75,105,.72);border-radius:20px;background:linear-gradient(145deg,#241018 0%,#111015 58%,#260d17 100%);color:#fff;text-align:center;box-shadow:0 0 0 1px rgba(255,90,120,.12) inset,0 0 22px rgba(180,25,60,.32),0 18px 65px #000b;animation:ownerBoxIn .48s cubic-bezier(.2,.8,.2,1) both,ownerGlow 3.4s ease-in-out .5s infinite}
+      #ownerLoginBox:before{content:"";position:absolute;inset:0 15% auto;height:1px;background:linear-gradient(90deg,transparent,rgba(255,120,145,.9),transparent);box-shadow:0 0 18px rgba(255,75,110,.8)}
+      #ownerLoginBox h2{margin:0 0 12px;color:#ffb1c0;font-size:25px;letter-spacing:.04em;text-shadow:0 0 10px rgba(255,75,110,.55)}
+      #ownerLoginBox p{color:#e4d9de;line-height:1.55}
+      #ownerLoginBox button{margin:10px 5px 0;padding:12px 18px;border:1px solid transparent;border-radius:10px;cursor:pointer;font-size:14px;font-weight:700;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+      #ownerLoginBox button:hover{transform:translateY(-2px)}
+      #ownerLoginBox button:focus-visible{outline:2px solid #ffc1ce;outline-offset:3px}
+      #ownerGoogleSignIn{background:linear-gradient(135deg,#a72c49,#67172e);color:white;border-color:rgba(255,150,170,.35);box-shadow:0 0 15px rgba(190,35,75,.28)}
+      #ownerGoogleSignIn:hover{box-shadow:0 0 22px rgba(255,55,105,.58);background:linear-gradient(135deg,#c23859,#7a1b37)}
+      #ownerLoginClose{background:#29252d;color:#e8dce1;border-color:#51404a}
+      #ownerLoginClose:hover{background:#39303a;box-shadow:0 0 14px rgba(255,255,255,.12)}
+      #ownerLoginStatus{min-height:20px;font-size:13px;color:#ffc0cd}
+      @keyframes ownerOverlayIn{from{opacity:0}to{opacity:1}}
+      @keyframes ownerBoxIn{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+      @keyframes ownerGlow{0%,100%{box-shadow:0 0 0 1px rgba(255,90,120,.12) inset,0 0 22px rgba(180,25,60,.28),0 18px 65px #000b}50%{box-shadow:0 0 0 1px rgba(255,90,120,.2) inset,0 0 34px rgba(220,35,80,.48),0 18px 65px #000b}}
+      @media(prefers-reduced-motion:reduce){#ownerLoginOverlay,#ownerLoginBox{animation:none}#ownerLoginBox button{transition:none}}
     `;
     document.head.appendChild(style);
 
