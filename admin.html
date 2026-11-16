@@ -15,7 +15,7 @@
 :root{color-scheme:dark;--bg:#080709;--panel:#10090d;--panel2:#180b11;--line:rgba(255,49,91,.2);--line-soft:rgba(255,255,255,.06);--blue:#f3f5f7;--accent:#b51236;--accent-bright:#ff315b;--muted:#a9a1a6;--glow:rgba(255,23,77,.18)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;min-height:100vh;background-color:var(--bg);background-image:linear-gradient(135deg,rgba(255,23,77,.075),transparent 42%,rgba(255,23,77,.035)),repeating-linear-gradient(125deg,rgba(255,255,255,.012) 0,rgba(255,255,255,.012) 1px,transparent 1px,transparent 5px),repeating-linear-gradient(35deg,rgba(0,0,0,.025) 0,rgba(0,0,0,.025) 1px,transparent 1px,transparent 6px);background-attachment:fixed;color:#fff;font:15px/1.55 Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+body{margin:0;min-height:100vh;background-color:var(--bg);background-image:linear-gradient(135deg,rgba(255,23,77,.075),transparent 42%,rgba(255,23,77,.035)),repeating-linear-gradient(125deg,rgba(255,255,255,.012) 0,rgba(255,255,255,.012) 1px,transparent 1px,transparent 5px),repeating-linear-gradient(35deg,rgba(0,0,0,.025) 0,rgba(0,0,0,.025) 1px,transparent 1px,transparent 6px);color:#fff;font:15px/1.55 Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 button,input,textarea{font:inherit}
 button{border:1px solid rgba(194,64,4,.3);border-radius:10px;padding:10px 16px;background:linear-gradient(145deg,#383c43,#25292f);color:#fff;cursor:pointer;box-shadow:0 5px 18px rgba(0,0,0,.22);transition:transform .2s ease,box-shadow .2s ease,filter .2s ease,border-color .2s ease}
 button:hover:not(:disabled){transform:translateY(-2px);filter:brightness(1.12);border-color:rgba(194,64,4,.72);box-shadow:0 7px 23px rgba(0,0,0,.32),0 0 16px rgba(194,64,4,.16)}
@@ -26,15 +26,15 @@ button:disabled{opacity:.55;cursor:wait}
 .danger:hover:not(:disabled){border-color:#d85a3d;box-shadow:0 7px 23px rgba(0,0,0,.32),0 0 16px rgba(216,90,61,.2)}
 .secondary{background:linear-gradient(145deg,#383c43,#25292f);border-color:rgba(255,255,255,.08)}
 .wrap{width:min(1160px,100%);margin:auto;padding:30px 20px 60px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:25px;padding:20px 22px;border:none;border-radius:15px;background:rgba(13,9,13,.94);box-shadow:0 5px 20px rgba(0,0,0,.34);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);animation:adminEnter .75s ease-out both}
+.top{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:25px;padding:20px 22px;border:none;border-radius:15px;background:rgba(13,9,13,.94);box-shadow:0 5px 20px rgba(0,0,0,.34);animation:adminEnter .75s ease-out both}
 .brand h1{margin:0;color:#fff;font-size:30px;letter-spacing:.025em;text-shadow:0 2px 12px rgba(0,0,0,.3)}
 .brand p{margin:3px 0;color:var(--muted)}
 .actions{display:flex;gap:9px;flex-wrap:wrap}
-.status{padding:13px 16px;border:none;border-radius:12px;background:rgba(16,9,13,.94);margin:0 0 19px;color:var(--muted);box-shadow:0 8px 24px rgba(0,0,0,.2);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:border-color .25s,box-shadow .25s}
+.status{padding:13px 16px;border:none;border-radius:12px;background:rgba(16,9,13,.94);margin:0 0 19px;color:var(--muted);box-shadow:0 8px 24px rgba(0,0,0,.2);transition:border-color .25s,box-shadow .25s}
 .status.error{color:#ffc2c9;box-shadow:0 0 18px rgba(170,20,55,.16)}
 .status.ok{color:#ff8ba2}
 .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:19px}
-.stat,.panel{position:relative;overflow:auto;background:rgba(12,8,12,.92);border:none;border-radius:15px;padding:19px;box-shadow:inset 0 0 12px rgba(0,0,0,.42),0 9px 28px rgba(0,0,0,.28);transition:transform .3s ease,box-shadow .3s ease,background .3s ease;animation:adminEnter .8s ease-out both;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.stat,.panel{position:relative;overflow:auto;background:rgba(12,8,12,.92);border:none;border-radius:15px;padding:19px;box-shadow:inset 0 0 12px rgba(0,0,0,.42),0 9px 28px rgba(0,0,0,.28);transition:transform .3s ease,box-shadow .3s ease,background .3s ease;animation:adminEnter .8s ease-out both}
 .stat:before,.panel:before{display:none}
 .stat:hover,.panel:hover{transform:translateY(-3px);background:rgba(22,8,14,.96);box-shadow:inset 0 0 15px rgba(0,0,0,.48),0 13px 34px rgba(0,0,0,.34),0 0 20px rgba(194,64,4,.1)}
 .stat:nth-child(2){animation-delay:.07s}.stat:nth-child(3){animation-delay:.14s}
@@ -76,12 +76,13 @@ a:hover{color:#ffad7e;text-shadow:0 0 10px rgba(194,64,4,.3)}
 @media(max-width:720px){.stats{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.wide{grid-column:auto}.wrap{padding:16px 12px 38px}.top{padding:17px}.brand h1{font-size:25px}.stat,.panel{padding:16px}}
 
 /* Custom black-and-red glowing mouse cursor */
-#admin-custom-cursor{display:none;position:fixed;left:0;top:0;width:19px;height:19px;border:2px solid #ff315b;border-radius:50%;background:#050507;box-shadow:0 0 8px rgba(255,23,77,.55);pointer-events:none;z-index:2147483647;transform:translate3d(-50%,-50%,0);will-change:left,top;width,height;contain:layout style;transition:width .12s ease,height .12s ease,border-color .12s ease}
-
-
-#admin-custom-cursor.cursor-hover{width:25px;height:25px;border-color:#ff7892;box-shadow:0 0 9px rgba(255,23,77,.65)}
+#admin-custom-cursor{display:none;position:fixed;left:0;top:0;width:19px;height:19px;border:2px solid #ff315b;border-radius:50%;background:rgba(5,5,7,.96);box-shadow:0 0 7px #ff174d,0 0 17px rgba(255,23,77,.85),0 0 30px rgba(255,23,77,.42);pointer-events:none;z-index:2147483647;transform:translate(-50%,-50%);transition:width .16s ease,height .16s ease,border-color .16s ease,box-shadow .16s ease;animation:adminCursorGlow 2s ease-in-out infinite}
+#admin-custom-cursor:after{content:"";position:absolute;inset:4px;border-radius:50%;background:#090709;box-shadow:0 0 5px rgba(255,49,91,.8)}
+@keyframes adminCursorGlow{0%,100%{box-shadow:0 0 7px #ff174d,0 0 17px rgba(255,23,77,.75),0 0 28px rgba(255,23,77,.35)}50%{box-shadow:0 0 10px #ff315b,0 0 23px rgba(255,23,77,.95),0 0 38px rgba(255,23,77,.55)}}
+#admin-custom-cursor.cursor-hover{width:27px;height:27px;border-color:#ff7892;box-shadow:0 0 10px #ff174d,0 0 25px rgba(255,23,77,.95),0 0 42px rgba(255,23,77,.55)}
 @media (hover:hover) and (pointer:fine){body,body *{cursor:none!important}#admin-custom-cursor{display:block}}
-@media (prefers-reduced-motion:reduce){#admin-custom-cursor{transition:none}}
+@media (prefers-reduced-motion:reduce){#admin-custom-cursor{animation:none;transition:none}}
+
 </style>
 </head>
 <body>
