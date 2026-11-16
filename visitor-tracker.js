@@ -58,7 +58,7 @@
           .filter(button => button.textContent.trim().toLowerCase().includes("show today's quote"));
         quoteButtons.forEach(button => { button.hidden = !quotesEnabled; });
         const quoteOverlay = document.getElementById("quoteOverlay");
-        if (quoteOverlay && !quotesEnabled) quoteOverlay.hidden = true;
+        if (quoteOverlay) quoteOverlay.hidden = !quotesEnabled;
 
         const galleryEnabled = settings.podcast_gallery !== false;
         document.querySelectorAll(".gallery-container, #galleryContainer")
