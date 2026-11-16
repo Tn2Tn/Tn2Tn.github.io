@@ -74,6 +74,15 @@ a:hover{color:#fff;text-shadow:0 0 10px rgba(255,120,155,.4)}
 @keyframes adminEnter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 @media(max-width:720px){.stats{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.wide{grid-column:auto}.wrap{padding:16px 12px 38px}.top{padding:17px}.brand h1{font-size:25px}.stat,.panel{padding:16px}}
+
+/* Custom black-and-red glowing mouse cursor */
+#admin-custom-cursor{display:none;position:fixed;left:0;top:0;width:19px;height:19px;border:2px solid #ff315b;border-radius:50%;background:rgba(5,5,7,.96);box-shadow:0 0 7px #ff174d,0 0 17px rgba(255,23,77,.85),0 0 30px rgba(255,23,77,.42);pointer-events:none;z-index:2147483647;transform:translate(-50%,-50%);transition:width .16s ease,height .16s ease,border-color .16s ease,box-shadow .16s ease;animation:adminCursorGlow 2s ease-in-out infinite}
+#admin-custom-cursor:after{content:"";position:absolute;inset:4px;border-radius:50%;background:#090709;box-shadow:0 0 5px rgba(255,49,91,.8)}
+@keyframes adminCursorGlow{0%,100%{box-shadow:0 0 7px #ff174d,0 0 17px rgba(255,23,77,.75),0 0 28px rgba(255,23,77,.35)}50%{box-shadow:0 0 10px #ff315b,0 0 23px rgba(255,23,77,.95),0 0 38px rgba(255,23,77,.55)}}
+#admin-custom-cursor.cursor-hover{width:27px;height:27px;border-color:#ff7892;box-shadow:0 0 10px #ff174d,0 0 25px rgba(255,23,77,.95),0 0 42px rgba(255,23,77,.55)}
+@media (hover:hover) and (pointer:fine){body,body *{cursor:none!important}#admin-custom-cursor{display:block}}
+@media (prefers-reduced-motion:reduce){#admin-custom-cursor{animation:none;transition:none}}
+
 </style>
 </head>
 <body>
@@ -121,5 +130,25 @@ async function start(){try{await timeout(loadSupabase(),"Supabase library load",
 start();
 })();
 </script>
+
+<script>
+(function(){
+  if(!window.matchMedia("(hover: hover) and (pointer: fine)").matches)return;
+  const cursor=document.createElement("div");
+  cursor.id="admin-custom-cursor";
+  cursor.setAttribute("aria-hidden","true");
+  document.body.appendChild(cursor);
+  document.addEventListener("pointermove",function(event){
+    cursor.style.left=event.clientX+"px";
+    cursor.style.top=event.clientY+"px";
+  },{passive:true});
+  document.addEventListener("pointerover",function(event){
+    cursor.classList.toggle("cursor-hover",!!event.target.closest("a,button,input,textarea,select,label,[role='button']"));
+  },{passive:true});
+  document.addEventListener("pointerdown",function(){cursor.classList.add("cursor-hover")},{passive:true});
+  document.addEventListener("pointerup",function(){cursor.classList.remove("cursor-hover")},{passive:true});
+})();
+</script>
+
 </body>
 </html>
