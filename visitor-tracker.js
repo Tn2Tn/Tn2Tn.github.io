@@ -52,7 +52,7 @@
       if (!sectionsError && sections) {
         const settings = Object.fromEntries(sections.map(row => [row.section_key, row.enabled]));
         const pageControls = [{key:"page_homepage",path:"/" ,label:"Homepage"},{key:"page_podcast",path:"/podcast/",label:"Podcast"},{key:"page_original_podcast",path:"/Original-Podcast/",label:"Original Podcast"},{key:"page_ll",path:"/LL/",label:"LL"},{key:"page_videos",path:"/videos/",label:"Videos"},{key:"page_90_seconds",path:"/90_Seconds/",label:"90 Seconds"}];
-        const cleanPath = path => path.replace(/\\/+$/, "") || "/";
+        const cleanPath = path => (path.length > 1 && path.endsWith("/") ? path.slice(0,-1) : path);
         const currentPage = pageControls.find(page => cleanPath(page.path) === cleanPath(window.location.pathname));
         if (currentPage && settings[currentPage.key] === false) {
           const cover=document.createElement("div"); cover.id="site-page-disabled"; cover.setAttribute("role","status"); cover.style.cssText="position:fixed;inset:0;z-index:100000;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at 50% 35%,#260914,#080709 70%);color:#fff;font-family:Arial,sans-serif;text-align:center";
