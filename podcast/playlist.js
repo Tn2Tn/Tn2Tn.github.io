@@ -137,11 +137,8 @@ async function loadPodcastLikeCounts() {
     const { data, error } = await client.from("podcast_likes").select("podcast_path,likes");
     if (error) throw error;
     (data || []).forEach(row => updatePodcastLikeCount(row.podcast_path, row.likes));
-    document.querySelectorAll(".podcast-like-button").forEach(button => {
-      const item = button.closest("[data-playlist-item]");
-      const podcast = item && podcastData[Number(item.dataset.playlistItem)];
-      if (podcast) updatePodcastLikeButton(button, podcast.podcastPath);
-    });
+    const button = document.querySelector(".player-like-button");
+    if (button) updatePodcastLikeButton(button, podcastData[currentMusic].podcastPath);
   } catch (error) {
     console.error("Could not load podcast likes:", error);
   }
@@ -166,7 +163,7 @@ function createVideoGallery() {
     videoItem.innerHTML = `
       <img class="thumbnail" src="${thumbnail}" alt="${podcast.title}">
       <div class="video-overlay">
-        <div class="podcast-like-row"><h3 class="video-title">${podcast.title}</h3><button class="podcast-like-button" type="button" aria-label="Like ${podcast.title}"><span class="podcast-heart" aria-hidden="true">♥</span><span class="podcast-like-count" data-like-count="${encodeURIComponent(podcast.podcastPath)}">0</span></button></div>
+        <h3 class="video-title">${podcast.title}</h3>
         <span class="video-org">${podcast.guest}</span>
         <span class="video-date">${podcast.date}</span>
         <div class="play-icon-container">
@@ -200,36 +197,6 @@ function createVideoGallery() {
           selectPodcast();
         }
       });
-      const likeButton = videoItem.querySelector(".podcast-like-button");
-      updatePodcastLikeButton(likeButton, podcast.podcastPath);
-      likeButton.addEventListener("click", async function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        if (!window.supabase?.createClient) return;
-        if (localStorage.getItem(podcastLikeStorageKey(podcast.podcastPath)) === "1") return;
-        likeButton.disabled = true;
-        try {
-          const client = window.__tn2tnLikesClient || (window.__tn2tnLikesClient = window.supabase.createClient(
-            "https://lnjeyqwteautkvwrkgbe.supabase.co",
-            "sb_publishable_T0lmc-JHGB-h9MXAVFEukQ_-oJ3NEpE"
-          ));
-          const result = await client.rpc("add_podcast_like", {
-            p_podcast_path: podcast.podcastPath,
-            p_podcast_title: podcast.title,
-            p_voter_id: getPodcastVoterId()
-          });
-          if (result.error) throw result.error;
-          localStorage.setItem(podcastLikeStorageKey(podcast.podcastPath), "1");
-          updatePodcastLikeCount(podcast.podcastPath, result.data);
-          updatePodcastLikeButton(likeButton, podcast.podcastPath);
-        } catch (error) {
-          console.error("Could not record podcast like:", error);
-          likeButton.title = "Could not save like. Please try again.";
-        } finally {
-          likeButton.disabled = false;
-        }
-      });
-  
       gallery.appendChild(videoItem);
     });
   }
@@ -251,6 +218,32 @@ function createVideoGallery() {
   function changePlayerInfo() {
     const playerBanner = document.querySelector('[data-player-banner]');
     const playerTitle = document.querySelector('[data-title]');
+    const playerLikeButton = document.createElement("button");
+    playerLikeButton.type = "button";
+    playerLikeButton.className = "btn-icon podcast-like-button player-like-button";
+    playerLikeButton.setAttribute("aria-label", "Like this podcast");
+    playerLikeButton.innerHTML = '<span class="podcast-heart" aria-hidden="true">♥</span><span class="podcast-like-count" data-like-count="' + encodeURIComponent(podcastData[currentMusic].podcastPath) + '">0</span>';
+    playerTitle.parentElement.appendChild(playerLikeButton);
+    updatePodcastLikeButton(playerLikeButton, podcastData[currentMusic].podcastPath);
+    playerLikeButton.addEventListener("click", async function(event) {
+      event.preventDefault();
+      const podcast = podcastData[currentMusic];
+      if (!window.supabase?.createClient || localStorage.getItem(podcastLikeStorageKey(podcast.podcastPath)) === "1") return;
+      playerLikeButton.disabled = true;
+      try {
+        const client = window.__tn2tnLikesClient || (window.__tn2tnLikesClient = window.supabase.createClient("https://lnjeyqwteautkvwrkgbe.supabase.co", "sb_publishable_T0lmc-JHGB-h9MXAVFEukQ_-oJ3NEpE"));
+        const result = await client.rpc("add_podcast_like", {p_podcast_path:podcast.podcastPath,p_podcast_title:podcast.title,p_voter_id:getPodcastVoterId()});
+        if (result.error) throw result.error;
+        localStorage.setItem(podcastLikeStorageKey(podcast.podcastPath), "1");
+        updatePodcastLikeCount(podcast.podcastPath, result.data);
+        updatePodcastLikeButton(playerLikeButton, podcast.podcastPath);
+      } catch(error) {
+        console.error("Could not record podcast like:", error);
+        playerLikeButton.title = "Could not save like. Please try again.";
+      } finally { playerLikeButton.disabled = false; }
+    });
+    loadPodcastLikeCounts();
+
     const playerAlbum = document.querySelector('[data-guest]');
     const playerArtist = document.querySelector('[data-summary]');
     const images = document.querySelector('[data-image-list]');
@@ -261,6 +254,8 @@ function createVideoGallery() {
     playerBanner.src = currentPodcast.posterUrl;
     playerBanner.setAttribute('alt', `${currentPodcast.title} Album Poster`);
     playerTitle.textContent = currentPodcast.title;
+    const likeButton = document.querySelector(".player-like-button");
+    if (likeButton) { likeButton.querySelector("[data-like-count]").dataset.likeCount = encodeURIComponent(currentPodcast.podcastPath); updatePodcastLikeButton(likeButton, currentPodcast.podcastPath); }
     playerAlbum.textContent = currentPodcast.guest;
     playerArtist.textContent = currentPodcast.summary;
   
@@ -344,12 +339,11 @@ function createVideoGallery() {
   // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize audio source
-    audioSource = new Audio(podcastData[currentMusic].podcastPath);\n    audioSource.addEventListener('play', recordPodcastView);
+    audioSource = new Audio(podcastData[currentMusic].podcastPath);
+    audioSource.addEventListener('play', recordPodcastView);
 
     // Create video gallery and load shared like totals.
     createVideoGallery();
-    loadPodcastLikeCounts();
-
     // Initial player info setup
     const playerBanner = document.querySelector('[data-player-banner]');
     const playerTitle = document.querySelector('[data-title]');
