@@ -262,6 +262,13 @@ function createVideoGallery() {
     const playerAlbum = document.querySelector('[data-guest]');
     const playerArtist = document.querySelector('[data-summary]');
     const images = document.querySelector('[data-image-list]');
+
+    // Refresh the visible player details for the newly selected episode.
+    playerBanner.src = currentPodcast.posterUrl;
+    playerBanner.setAttribute('alt', `${currentPodcast.title} Album Poster`);
+    playerTitle.textContent = currentPodcast.title;
+    playerAlbum.textContent = currentPodcast.guest;
+    playerArtist.textContent = currentPodcast.summary;
   
     // Update audio source
     audioSource.src = currentPodcast.podcastPath;
