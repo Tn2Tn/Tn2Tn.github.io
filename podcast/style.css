@@ -1220,11 +1220,42 @@ button {
 
 /* Like button beside the currently selected podcast title. */
 .player-title-row{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
-.player-like-button{display:inline-flex;align-items:center;justify-content:center;gap:5px;width:auto;min-width:42px;height:38px;padding:5px 10px;margin:0;border:1px solid rgba(0,177,136,.35);border-radius:20px;color:#fff;background:rgba(0,177,136,.12);font-size:12px;line-height:1;cursor:pointer;transition:background .2s ease,transform .2s ease,border-color .2s ease}
-.player-like-button:hover:not(:disabled){background:rgba(0,177,136,.28);border-color:#00b188;transform:scale(1.06)}
+
+/* Match the player's other circular icon buttons. */
+.player-like-button{
+  display:inline-flex;
+  flex:0 0 48px;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  width:48px;
+  min-width:48px;
+  height:48px;
+  padding:0;
+  margin:0;
+  border:0;
+  border-radius:50%;
+  color:#fff;
+  background:rgba(255,255,255,.05);
+  font-size:12px;
+  line-height:1;
+  transition:all .15s cubic-bezier(.4,0,.2,1);
+}
+.player-like-button:hover:not(:disabled){
+  background:rgba(255,255,255,.1);
+  box-shadow:0 4px 14px rgba(0,177,136,.16);
+  transform:translateY(-2px);
+}
+.player-like-button:active:not(:disabled){
+  transform:scale(.95);
+  background:rgba(255,255,255,.15);
+}
 .player-like-button:disabled{opacity:.6;cursor:wait}
-.podcast-heart{color:#00b188;font-size:15px}
+.podcast-heart{color:#fff;font-size:15px}
 .podcast-like-count{font-variant-numeric:tabular-nums}
-.player-like-button.is-liked{background:rgba(0,177,136,.32);border-color:#00b188}
+.player-like-button.is-liked{background:rgba(0,177,136,.18);color:#fff}
 .player-like-button.is-liked .podcast-heart{color:#ff6580}
+@media (max-width:900px){
+  .player-like-button{flex-basis:40px;width:40px;min-width:40px;height:40px}
+}
 .video-item:focus-visible{outline:2px solid #00b188;outline-offset:3px}
