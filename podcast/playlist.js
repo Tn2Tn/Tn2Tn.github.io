@@ -102,6 +102,51 @@ function updatePlaylistProgressFromCookies() {
 }
 
 
+// A browser gets a stable anonymous voter ID so it can like each episode once.
+function getPodcastVoterId() {
+  const key = "tn2tn_podcast_voter_id";
+  let id = localStorage.getItem(key);
+  if (!id) {
+    id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() :
+      "voter-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
+    localStorage.setItem(key, id);
+  }
+  return id;
+}
+function podcastLikeStorageKey(path) { return "tn2tn_liked_" + path; }
+function updatePodcastLikeButton(button, path) {
+  const liked = localStorage.getItem(podcastLikeStorageKey(path)) === "1";
+  button.classList.toggle("is-liked", liked);
+  button.setAttribute("aria-pressed", String(liked));
+  button.title = liked ? "You have already liked this podcast" : "Like this podcast";
+}
+function updatePodcastLikeCount(podcastPath, count) {
+  document.querySelectorAll("[data-like-count]").forEach(el => {
+    if (decodeURIComponent(el.dataset.likeCount) === podcastPath) {
+      el.textContent = Number(count || 0).toLocaleString();
+    }
+  });
+}
+async function loadPodcastLikeCounts() {
+  if (!window.supabase?.createClient) return;
+  try {
+    const client = window.__tn2tnLikesClient || (window.__tn2tnLikesClient = window.supabase.createClient(
+      "https://lnjeyqwteautkvwrkgbe.supabase.co",
+      "sb_publishable_T0lmc-JHGB-h9MXAVFEukQ_-oJ3NEpE"
+    ));
+    const { data, error } = await client.from("podcast_likes").select("podcast_path,likes");
+    if (error) throw error;
+    (data || []).forEach(row => updatePodcastLikeCount(row.podcast_path, row.likes));
+    document.querySelectorAll(".podcast-like-button").forEach(button => {
+      const item = button.closest("[data-playlist-item]");
+      const podcast = item && podcastData[Number(item.dataset.playlistItem)];
+      if (podcast) updatePodcastLikeButton(button, podcast.podcastPath);
+    });
+  } catch (error) {
+    console.error("Could not load podcast likes:", error);
+  }
+}
+
 // Modify the existing createVideoGallery function to ensure the complete bar exists
 function createVideoGallery() {
   const gallery = document.getElementById("videoGallery");
@@ -112,14 +157,16 @@ function createVideoGallery() {
       ? podcast.posterUrl 
       : `https://via.placeholder.com/150/000000/FFFFFF?text=${encodeURIComponent(podcast.title)}`;
 
-    const videoItem = document.createElement("button");
+    const videoItem = document.createElement("div");
     videoItem.className = "video-item";
+    videoItem.setAttribute("role", "button");
+    videoItem.setAttribute("tabindex", "0");
     videoItem.setAttribute('data-playlist-item', index);
 
     videoItem.innerHTML = `
       <img class="thumbnail" src="${thumbnail}" alt="${podcast.title}">
       <div class="video-overlay">
-        <h3 class="video-title">${podcast.title}</h3>
+        <div class="podcast-like-row"><h3 class="video-title">${podcast.title}</h3><button class="podcast-like-button" type="button" aria-label="Like ${podcast.title}"><span class="podcast-heart" aria-hidden="true">♥</span><span class="podcast-like-count" data-like-count="${encodeURIComponent(podcast.podcastPath)}">0</span></button></div>
         <span class="video-org">${podcast.guest}</span>
         <span class="video-date">${podcast.date}</span>
         <div class="play-icon-container">
@@ -136,14 +183,51 @@ function createVideoGallery() {
       </div>
     `;
   
-      // Add click event to change current podcast
-      videoItem.addEventListener("click", function() {
+      // Play the selected podcast; the like control has its own click handler.
+      const selectPodcast = function() {
         lastPlayedMusic = currentMusic;
         currentMusic = index;
-        
-        // Change player info and playlist item
         changePlayerInfo();
         updatePlaylistItem();
+      };
+      videoItem.addEventListener("click", function(event) {
+        if (event.target.closest(".podcast-like-button")) return;
+        selectPodcast();
+      });
+      videoItem.addEventListener("keydown", function(event) {
+        if ((event.key === "Enter" || event.key === " ") && event.target === videoItem) {
+          event.preventDefault();
+          selectPodcast();
+        }
+      });
+      const likeButton = videoItem.querySelector(".podcast-like-button");
+      updatePodcastLikeButton(likeButton, podcast.podcastPath);
+      likeButton.addEventListener("click", async function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (!window.supabase?.createClient) return;
+        if (localStorage.getItem(podcastLikeStorageKey(podcast.podcastPath)) === "1") return;
+        likeButton.disabled = true;
+        try {
+          const client = window.__tn2tnLikesClient || (window.__tn2tnLikesClient = window.supabase.createClient(
+            "https://lnjeyqwteautkvwrkgbe.supabase.co",
+            "sb_publishable_T0lmc-JHGB-h9MXAVFEukQ_-oJ3NEpE"
+          ));
+          const result = await client.rpc("add_podcast_like", {
+            p_podcast_path: podcast.podcastPath,
+            p_podcast_title: podcast.title,
+            p_voter_id: getPodcastVoterId()
+          });
+          if (result.error) throw result.error;
+          localStorage.setItem(podcastLikeStorageKey(podcast.podcastPath), "1");
+          updatePodcastLikeCount(podcast.podcastPath, result.data);
+          updatePodcastLikeButton(likeButton, podcast.podcastPath);
+        } catch (error) {
+          console.error("Could not record podcast like:", error);
+          likeButton.title = "Could not save like. Please try again.";
+        } finally {
+          likeButton.disabled = false;
+        }
       });
   
       gallery.appendChild(videoItem);
@@ -240,8 +324,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize audio source
     audioSource = new Audio(podcastData[currentMusic].podcastPath);
 
-    // Create video gallery
+    // Create video gallery and load shared like totals.
     createVideoGallery();
+    loadPodcastLikeCounts();
 
     // Initial player info setup
     const playerBanner = document.querySelector('[data-player-banner]');

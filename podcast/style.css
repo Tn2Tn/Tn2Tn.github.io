@@ -1216,3 +1216,48 @@ button {
 }
 #speed-input { transition: background-color 180ms ease, box-shadow 180ms ease; }
 .podcast-banner { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+
+
+/* Podcast likes beside each playlist title */
+.podcast-like-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+  max-width:100%;
+}
+.podcast-like-row .video-title{
+  flex:1;
+  min-width:0;
+  margin:10px 0 0;
+}
+.podcast-like-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  flex:none;
+  min-width:42px;
+  padding:5px 8px;
+  margin:8px 8px 0 0;
+  border:1px solid rgba(0,177,136,.35);
+  border-radius:18px;
+  color:#fff;
+  background:rgba(0,177,136,.12);
+  font-size:12px;
+  line-height:1;
+  cursor:pointer;
+  transition:background .2s ease,transform .2s ease,border-color .2s ease;
+}
+.podcast-like-button:hover:not(:disabled){
+  background:rgba(0,177,136,.28);
+  border-color:#00b188;
+  transform:scale(1.06);
+}
+.podcast-like-button:disabled{opacity:.6;cursor:wait}
+.podcast-heart{color:#00b188;font-size:15px}
+.podcast-like-count{font-variant-numeric:tabular-nums}
+.video-item:focus-visible{outline:2px solid #00b188;outline-offset:3px}
+
+.podcast-like-button.is-liked{background:rgba(0,177,136,.32);border-color:#00b188}
+.podcast-like-button.is-liked .podcast-heart{color:#ff6580}
