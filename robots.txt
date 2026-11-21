@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tn2tn.github.io/sitemap.xml
