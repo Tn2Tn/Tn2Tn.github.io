@@ -1259,3 +1259,23 @@ button {
   .player-like-button{flex-basis:40px;width:40px;min-width:40px;height:40px}
 }
 .video-item:focus-visible{outline:2px solid #00b188;outline-offset:3px}
+
+
+/* Keep the like button's heart and count visible inside the gradient title heading,
+   including while the button is hovered or focused. */
+.player-title-row .player-like-button,
+.player-title-row .player-like-button:hover,
+.player-title-row .player-like-button:focus,
+.player-title-row .player-like-button:focus-visible {
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+}
+.player-title-row .player-like-button .podcast-heart,
+.player-title-row .player-like-button .podcast-like-count {
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+}
+.player-title-row .player-like-button.is-liked .podcast-heart {
+  color: #ff6580;
+  -webkit-text-fill-color: #ff6580;
+}

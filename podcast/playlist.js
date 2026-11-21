@@ -218,46 +218,50 @@ function createVideoGallery() {
   function changePlayerInfo() {
     const playerBanner = document.querySelector('[data-player-banner]');
     const playerTitle = document.querySelector('[data-title]');
-    const playerLikeButton = document.createElement("button");
-    playerLikeButton.type = "button";
-    playerLikeButton.className = "btn-icon podcast-like-button player-like-button";
-    playerLikeButton.setAttribute("aria-label", "Like this podcast");
-    playerLikeButton.innerHTML = '<span class="podcast-heart" aria-hidden="true">♥</span><span class="podcast-like-count" data-like-count="' + encodeURIComponent(podcastData[currentMusic].podcastPath) + '">0</span>';
-    playerTitle.parentElement.appendChild(playerLikeButton);
-    updatePodcastLikeButton(playerLikeButton, podcastData[currentMusic].podcastPath);
-    playerLikeButton.addEventListener("click", async function(event) {
-      event.preventDefault();
-      const podcast = podcastData[currentMusic];
-      if (!window.supabase?.createClient || localStorage.getItem(podcastLikeStorageKey(podcast.podcastPath)) === "1") return;
-      playerLikeButton.disabled = true;
-      try {
-        const client = window.__tn2tnLikesClient || (window.__tn2tnLikesClient = window.supabase.createClient("https://lnjeyqwteautkvwrkgbe.supabase.co", "sb_publishable_T0lmc-JHGB-h9MXAVFEukQ_-oJ3NEpE"));
-        const result = await client.rpc("add_podcast_like", {p_podcast_path:podcast.podcastPath,p_podcast_title:podcast.title,p_voter_id:getPodcastVoterId()});
-        if (result.error) throw result.error;
-        localStorage.setItem(podcastLikeStorageKey(podcast.podcastPath), "1");
-        updatePodcastLikeCount(podcast.podcastPath, result.data);
-        updatePodcastLikeButton(playerLikeButton, podcast.podcastPath);
-      } catch(error) {
-        console.error("Could not record podcast like:", error);
-        playerLikeButton.title = "Could not save like. Please try again.";
-      } finally { playerLikeButton.disabled = false; }
-    });
+    const currentPodcast = podcastData[currentMusic];
+    let playerLikeButton = playerTitle.parentElement.querySelector(".player-like-button");
+
+    // Create the like button once, then reuse it as the selected episode changes.
+    if (!playerLikeButton) {
+      playerLikeButton = document.createElement("button");
+      playerLikeButton.type = "button";
+      playerLikeButton.className = "btn-icon podcast-like-button player-like-button";
+      playerLikeButton.setAttribute("aria-label", "Like this podcast");
+      playerLikeButton.innerHTML = '<span class="podcast-heart" aria-hidden="true">♥</span><span class="podcast-like-count" data-like-count="">0</span>';
+      playerTitle.parentElement.appendChild(playerLikeButton);
+
+      playerLikeButton.addEventListener("click", async function(event) {
+        event.preventDefault();
+        const podcast = podcastData[currentMusic];
+        if (!window.supabase?.createClient || localStorage.getItem(podcastLikeStorageKey(podcast.podcastPath)) === "1") return;
+        playerLikeButton.disabled = true;
+        try {
+          const client = window.__tn2tnLikesClient || (window.__tn2tnLikesClient = window.supabase.createClient("https://lnjeyqwteautkvwrkgbe.supabase.co", "sb_publishable_T0lmc-JHGB-h9MXAVFEukQ_-oJ3NEpE"));
+          const result = await client.rpc("add_podcast_like", {p_podcast_path:podcast.podcastPath,p_podcast_title:podcast.title,p_voter_id:getPodcastVoterId()});
+          if (result.error) throw result.error;
+          localStorage.setItem(podcastLikeStorageKey(podcast.podcastPath), "1");
+          updatePodcastLikeCount(podcast.podcastPath, result.data);
+          if (podcastData[currentMusic].podcastPath === podcast.podcastPath) {
+            updatePodcastLikeButton(playerLikeButton, podcast.podcastPath);
+          }
+        } catch(error) {
+          console.error("Could not record podcast like:", error);
+          playerLikeButton.title = "Could not save like. Please try again.";
+        } finally {
+          playerLikeButton.disabled = false;
+          updatePodcastLikeButton(playerLikeButton, podcastData[currentMusic].podcastPath);
+        }
+      });
+    }
+
+    const likeCount = playerLikeButton.querySelector("[data-like-count]");
+    likeCount.dataset.likeCount = encodeURIComponent(currentPodcast.podcastPath);
+    updatePodcastLikeButton(playerLikeButton, currentPodcast.podcastPath);
     loadPodcastLikeCounts();
 
     const playerAlbum = document.querySelector('[data-guest]');
     const playerArtist = document.querySelector('[data-summary]');
     const images = document.querySelector('[data-image-list]');
-  
-    const currentPodcast = podcastData[currentMusic];
-  
-    // Update player information
-    playerBanner.src = currentPodcast.posterUrl;
-    playerBanner.setAttribute('alt', `${currentPodcast.title} Album Poster`);
-    playerTitle.textContent = currentPodcast.title;
-    const likeButton = document.querySelector(".player-like-button");
-    if (likeButton) { likeButton.querySelector("[data-like-count]").dataset.likeCount = encodeURIComponent(currentPodcast.podcastPath); updatePodcastLikeButton(likeButton, currentPodcast.podcastPath); }
-    playerAlbum.textContent = currentPodcast.guest;
-    playerArtist.textContent = currentPodcast.summary;
   
     // Update audio source
     audioSource.src = currentPodcast.podcastPath;
