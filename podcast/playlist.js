@@ -319,10 +319,32 @@ function createVideoGallery() {
   
 
   
+  // Record one view per podcast per browser tab session, when playback actually starts.
+  async function recordPodcastView() {
+    const podcast = podcastData[currentMusic];
+    if (!podcast || !window.supabase?.createClient) return;
+    const key = "tn2tn_podcast_viewed_" + podcast.podcastPath;
+    if (sessionStorage.getItem(key) === "1") return;
+    try {
+      const client = window.__tn2tnLikesClient || (window.__tn2tnLikesClient = window.supabase.createClient(
+        "https://lnjeyqwteautkvwrkgbe.supabase.co",
+        "sb_publishable_T0lmc-JHGB-h9MXAVFEukQ_-oJ3NEpE"
+      ));
+      const result = await client.rpc("record_podcast_view", {
+        p_podcast_path: podcast.podcastPath,
+        p_podcast_title: podcast.title
+      });
+      if (result.error) throw result.error;
+      sessionStorage.setItem(key, "1");
+    } catch (error) {
+      console.error("Could not record podcast view:", error);
+    }
+  }
+
   // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize audio source
-    audioSource = new Audio(podcastData[currentMusic].podcastPath);
+    audioSource = new Audio(podcastData[currentMusic].podcastPath);\n    audioSource.addEventListener('play', recordPodcastView);
 
     // Create video gallery and load shared like totals.
     createVideoGallery();
