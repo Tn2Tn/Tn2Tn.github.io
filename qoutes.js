@@ -80,10 +80,6 @@ const quotes = [
         highlight: "Tns clearly got lucky"
     },
     {
-        text: "Some people are good company. Others are Tn company",
-        highlight: "Tn company"
-    },
-    {
         text: "Behind every great excuse is a Tn who saw it coming",
         highlight: "a Tn who saw it coming"
     },
